@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload and Display Multiple PDFs</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    .pdf-viewer {
+        border: 1px solid #ccc;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 800px;
+        height: 600px;
+        margin-bottom: 10px; /* Space between PDF viewers */
+    }
+</style>
+</head>
+<body>
+    <h1>Upload and Display Multiple PDFs</h1>
+    <input type="file" id="fileInput" multiple>
+    <div id="pdf-viewers-container"></div>
+
+    <!-- Include PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+    <script>
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+
+        const fileInput = document.getElementById('fileInput');
+        const pdfViewersContainer = document.getElementById('pdf-viewers-container');
+
+        fileInput.addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) {
+                return;
+            }
+
+            // Loop through selected files
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileReader = new FileReader();
+
+                fileReader.onload = function() {
+                    const typedarray = new Uint8Array(this.result);
+                    displayPdf(typedarray);
+                };
+                fileReader.readAsArrayBuffer(file);
+            }
+        });
+
+        function displayPdf(pdfData) {
+            pdfjsLib.getDocument({ data: pdfData }).promise.then(pdfDoc => {
+                pdfDoc.getPage(1).then(page => {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale });
+
+                    // Prepare canvas using PDF.js
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render PDF page into canvas context
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+
+                    // Create a new PDF viewer container
+                    const pdfViewer = document.createElement('div');
+                    pdfViewer.classList.add('pdf-viewer');
+                    pdfViewer.appendChild(canvas);
+
+                    // Append the new PDF viewer to the container
+                    pdfViewersContainer.appendChild(pdfViewer);
+                });
+            }).catch(error => {
+                console.error('Error occurred while loading PDF:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f000; /* Light background color for better contrast */
+  }
+  
+  .loader {
+    border: 16px solid transparent; /* Transparent border to show animation */
+    border-top: 16px solid #3498db; /* Blue */
+    border-right: 16px solid #9b59b6; /* Purple */
+    border-bottom: 16px solid #e74c3c; /* Red */
+    border-left: 16px solid #f1c40f00; /* Yellow */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite, glow 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px #3498db, 0 0 40px #9b59b6, 0 0 60px #e74c3c, 0 0 80px #f1c40f; }
+    50% { box-shadow: 0 0 10px #3498db, 0 0 20px #9b59b6, 0 0 30px #e74c3c, 0 0 40px #f1c40f; }
+  }
+  
