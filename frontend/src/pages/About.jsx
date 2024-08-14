@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import axios from "/config/axiosConfig";
 
-const Category = () => {
+const About = () => {
   const { slug } = useParams();
   // Example SEO data; replace with dynamic data as needed
   const seoData = {
@@ -58,4 +58,4 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
   );
 };
 
-export default Category;
+export default About;

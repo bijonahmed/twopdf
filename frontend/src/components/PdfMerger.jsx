@@ -173,8 +173,7 @@ const PdfMerger = () => {
             </div>
             <div className="modal-body">
               <p>
-                Sorry, your daily limit for PDF merges has been reached. Please
-                buy a package to continue.
+              <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
               </p>
             </div>
             <div className="modal-footer">

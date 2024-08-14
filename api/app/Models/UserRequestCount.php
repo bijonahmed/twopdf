@@ -14,6 +14,7 @@ class UserRequestCount extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     public $table = "userrequestcount";
     protected $fillable = [
+        'pdf_type',
         'name',
         'ip',
     ];

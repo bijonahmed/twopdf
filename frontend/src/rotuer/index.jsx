@@ -24,6 +24,7 @@ import MyCertificate from "../pages/users/Certificate.jsx";
 import Referral from "../pages/users/Referral.jsx";
 import Bookmarks from "../pages/users/Bookmarks.jsx";
 import Margepdf from "../pages/pdf/margepdf.jsx";
+import Spiltpdf from "../pages/pdf/splitpdf.jsx";
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
 import TermsAndConditions from "../pages/TermsAndConditions.jsx";
@@ -60,6 +61,7 @@ const AppRouter = () => {
       <Route path="/faq" element={<Faq />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/pdf/margepdf" element={<Margepdf />} />
+      <Route path="/pdf/splitpdf" element={<Spiltpdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

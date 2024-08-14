@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2024 at 07:53 AM
+-- Generation Time: Aug 14, 2024 at 02:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -1991,6 +1991,7 @@ INSERT INTO `service` (`id`, `name`, `price`, `status`, `created_at`, `updated_a
 CREATE TABLE `setting` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `pdf_daily_limit` int(10) DEFAULT NULL,
   `deposit_service_charge` int(11) DEFAULT NULL COMMENT '%',
   `convert_php_amt` float DEFAULT NULL,
   `withdraw_service_charge` int(11) DEFAULT NULL COMMENT '%',
@@ -2058,8 +2059,8 @@ CREATE TABLE `setting` (
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`id`, `name`, `deposit_service_charge`, `convert_php_amt`, `withdraw_service_charge`, `withdraw_minimum_amount`, `withdraw_maximum_amount`, `minimum_trade_amount`, `minimum_deposit_amount`, `trade_fee`, `tel`, `email`, `address`, `whatsApp`, `emergency`, `photo`, `description`, `copyright`, `status`, `admin_photo`, `admin_name`, `admin_email`, `admin_phone`, `meta_keywords`, `meta_description`, `pphoto`, `bg_color`, `currency`, `openinig_balance_date`, `reffer_bonus`, `maximum_supply`, `total_supply`, `openinig_balance_comments`, `fblink`, `twitterlink`, `linkdinlink`, `instragramlink`, `store_policy`, `crypto_wallet_address`, `master_pass_acc_no`, `website`, `telegram`, `register_bonus`, `mininmum_deposit_amount`, `maximum_deposit_amount`, `minimum_withdrawal`, `maximum_withdrawal`, `level_1_bonus`, `level_2_bonus`, `level_3_bonus`, `daily_max_withdraw_request`, `withdrawal_free_amount`, `withdrawal_free_on_percentage`, `mimumun_transfer_amount_to_other_user`, `maximum_transfer_amount_to_other_user`, `transfer_fee_fixed_amount`, `traansfer_fee_on_percentage`, `liquidity_total_supply`, `beganing_price`, `circlation`, `update_by`, `created_at`, `updated_at`) VALUES
-(1, 'UIC', 5, 64, 5, 20, 4000, 5, 10, 6, '+44245454545', 'uic@abcd.com', 'Addres', '00000055555', '+000000', 'pic/2tAjiUpJ0X8GziIrKJJJ.png', 'Business Description', 'Copyright © 2024 uic . All Rights Reserved', 1, 'pic/ZOdc8nsWAMY1YELkp9zH.jpg', 'admin', 'info@admin.com', '+44245454545', NULL, NULL, '', '#ffffff', '$', '2020-05-13', 5, '214748364722333', '2147483647343433', NULL, 'https://www.fiverr.com', 'https://www.facebook.com', 'https://web.whatsapp.com/', '#', '', 'TPpMvdKfhENfJqYZsDJQLgEopMRBy15jeU', '225588996633', 'http://winup360.com', '116898999999', 5, 55.00, 5.00, 5.00, 5.00, 3, 2, 1, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 50.00, NULL, NULL, NULL, 2993, '2024-05-12 05:32:50', '2024-05-12 03:42:05');
+INSERT INTO `setting` (`id`, `name`, `pdf_daily_limit`, `deposit_service_charge`, `convert_php_amt`, `withdraw_service_charge`, `withdraw_minimum_amount`, `withdraw_maximum_amount`, `minimum_trade_amount`, `minimum_deposit_amount`, `trade_fee`, `tel`, `email`, `address`, `whatsApp`, `emergency`, `photo`, `description`, `copyright`, `status`, `admin_photo`, `admin_name`, `admin_email`, `admin_phone`, `meta_keywords`, `meta_description`, `pphoto`, `bg_color`, `currency`, `openinig_balance_date`, `reffer_bonus`, `maximum_supply`, `total_supply`, `openinig_balance_comments`, `fblink`, `twitterlink`, `linkdinlink`, `instragramlink`, `store_policy`, `crypto_wallet_address`, `master_pass_acc_no`, `website`, `telegram`, `register_bonus`, `mininmum_deposit_amount`, `maximum_deposit_amount`, `minimum_withdrawal`, `maximum_withdrawal`, `level_1_bonus`, `level_2_bonus`, `level_3_bonus`, `daily_max_withdraw_request`, `withdrawal_free_amount`, `withdrawal_free_on_percentage`, `mimumun_transfer_amount_to_other_user`, `maximum_transfer_amount_to_other_user`, `transfer_fee_fixed_amount`, `traansfer_fee_on_percentage`, `liquidity_total_supply`, `beganing_price`, `circlation`, `update_by`, `created_at`, `updated_at`) VALUES
+(1, 'UIC', 10, 5, 64, 5, 20, 4000, 5, 10, 6, '+44245454545', 'uic@abcd.com', 'Addres', '00000055555', '+000000', 'pic/2tAjiUpJ0X8GziIrKJJJ.png', 'Business Description', 'Copyright © 2024 uic . All Rights Reserved', 1, 'pic/ZOdc8nsWAMY1YELkp9zH.jpg', 'admin', 'info@admin.com', '+44245454545', NULL, NULL, '', '#ffffff', '$', '2020-05-13', 5, '214748364722333', '2147483647343433', NULL, 'https://www.fiverr.com', 'https://www.facebook.com', 'https://web.whatsapp.com/', '#', '', 'TPpMvdKfhENfJqYZsDJQLgEopMRBy15jeU', '225588996633', 'http://winup360.com', '116898999999', 5, 55.00, 5.00, 5.00, 5.00, 3, 2, 1, 5.00, 5.00, 5.00, 5.00, 5.00, 5.00, 50.00, NULL, NULL, NULL, 2993, '2024-05-12 05:32:50', '2024-05-12 03:42:05');
 
 -- --------------------------------------------------------
 
@@ -2146,6 +2147,7 @@ CREATE TABLE `transfer` (
 
 CREATE TABLE `userrequestcount` (
   `id` int(11) NOT NULL,
+  `pdf_type` varchar(255) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
@@ -2156,26 +2158,29 @@ CREATE TABLE `userrequestcount` (
 -- Dumping data for table `userrequestcount`
 --
 
-INSERT INTO `userrequestcount` (`id`, `ip`, `name`, `created_at`, `updated_at`) VALUES
-(1, '127.0.0.1', 'anonymous', '2024-08-06 19:59:52', '2024-08-06 19:59:52'),
-(2, '127.0.0.1', 'anonymous', '2024-08-06 19:59:56', '2024-08-06 19:59:56'),
-(3, '127.0.0.1', 'anonymous', '2024-08-06 20:00:09', '2024-08-06 20:00:09'),
-(4, '127.0.0.1', 'anonymous', '2024-08-06 20:00:14', '2024-08-06 20:00:14'),
-(5, '127.0.0.1', 'anonymous', '2024-08-06 20:03:59', '2024-08-06 20:03:59'),
-(6, '127.0.0.1', 'anonymous', '2024-08-06 20:04:14', '2024-08-06 20:04:14'),
-(7, '127.0.0.1', 'anonymous', '2024-08-06 20:04:28', '2024-08-06 20:04:28'),
-(8, '127.0.0.1', 'anonymous', '2024-08-06 20:05:03', '2024-08-06 20:05:03'),
-(9, '127.0.0.1', 'anonymous', '2024-08-06 20:05:16', '2024-08-06 20:05:16'),
-(10, '127.0.0.1', 'anonymous', '2024-08-06 20:05:30', '2024-08-06 20:05:30'),
-(11, '127.0.0.1', 'anonymous', '2024-08-07 01:19:52', '2024-08-07 01:19:52'),
-(12, '127.0.0.1', 'anonymous', '2024-08-07 01:19:55', '2024-08-07 01:19:55'),
-(13, '127.0.0.1', 'anonymous', '2024-08-07 01:20:02', '2024-08-07 01:20:02'),
-(14, '127.0.0.1', 'anonymous', '2024-08-07 01:44:22', '2024-08-07 01:44:22'),
-(15, '127.0.0.1', 'anonymous', '2024-08-07 01:44:25', '2024-08-07 01:44:25'),
-(16, '127.0.0.1', 'anonymous', '2024-08-07 03:40:22', '2024-08-07 03:40:22'),
-(17, '127.0.0.1', 'anonymous', '2024-08-07 04:07:13', '2024-08-07 04:07:13'),
-(18, '127.0.0.1', 'anonymous', '2024-08-07 04:09:00', '2024-08-07 04:09:00'),
-(19, '127.0.0.1', 'anonymous', '2024-08-07 04:09:05', '2024-08-07 04:09:05');
+INSERT INTO `userrequestcount` (`id`, `pdf_type`, `ip`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:34:29', '2024-08-14 17:34:29'),
+(2, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:34:47', '2024-08-14 17:34:47'),
+(3, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:35:01', '2024-08-14 17:35:01'),
+(4, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:35:15', '2024-08-14 17:35:15'),
+(6, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
+(7, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:25', '2024-08-14 18:09:25'),
+(8, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(9, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(10, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(11, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(12, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(13, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(14, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:09:32', '2024-08-14 18:09:32'),
+(18, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:11:58', '2024-08-14 18:11:58'),
+(19, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:12:01', '2024-08-14 18:12:01'),
+(20, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:12:01', '2024-08-14 18:12:01'),
+(21, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-14 18:12:01', '2024-08-14 18:12:01'),
+(22, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 18:17:46', '2024-08-14 18:17:46'),
+(23, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
+(24, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
+(25, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
+(26, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21');
 
 -- --------------------------------------------------------
 
@@ -2814,7 +2819,7 @@ ALTER TABLE `transfer`
 -- AUTO_INCREMENT for table `userrequestcount`
 --
 ALTER TABLE `userrequestcount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -59,15 +59,10 @@ Route::group([
     'prefix' => 'public'
 ], function () {
     Route::get('/generate-pdf/{slug}', [UnauthenticatedController::class, 'generatePDF']);
-
-    Route::get('getTorrentTutorial', [UnauthenticatedController::class, 'getTorrentTutorial']);
-    Route::get('getTechnology', [UnauthenticatedController::class, 'getTechnology']);
-    Route::get('getAllChildCaegorys', [UnauthenticatedController::class, 'getAllChildCaegorys']);
-    Route::get('allCategorys', [UnauthenticatedController::class, 'allCategory']);
-    Route::get('parentChildCategory', [UnauthenticatedController::class, 'parentChildCategory']);
-    Route::get('childCategory', [UnauthenticatedController::class, 'childCategory']);
     Route::get('getChildDataParentWise/{slug}', [UnauthenticatedController::class, 'getChildDataParentWise']);
     Route::get('countPerDayValidation', [UnauthenticatedController::class, 'countPerDayValidation']);
+    Route::get('countPerDayValidationSplit', [UnauthenticatedController::class, 'countPerDayValidationSplit']);
+    Route::post('insertSplitData', [UnauthenticatedController::class, 'insertSplitData']);
 });
 
 Route::middleware(['auth:api', CheckUserStatus::class])->group(function () {

@@ -105,7 +105,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div className="content_box">
-                    <a href="#">
+                  <Link to="/pdf/splitpdf">
                       <div className="box_top">
                         <div className="top_icon">
                           <svg
@@ -133,7 +133,7 @@ const Index = () => {
                           into independent PDF files.
                         </p>
                       </div>
-                    </a>
+                      </Link>
                   </div>
                   <div className="content_box d-none">
                     <a href="#">
