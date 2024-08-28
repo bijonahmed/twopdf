@@ -22,9 +22,10 @@ Route::get('/clear-cache', function () {
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Route::get('/success', [PaymentController::class, 'success'])->withoutMiddleware('auth');
 
-Route::get('success', 'App\Http\Controllers\PaypalController@success')->name('success');
-Route::get('cancel', 'App\Http\Controllers\PaypalController@cancel')->name('cancel');
+Route::get('/success', 'App\Http\Controllers\Payment\PaypalController@success')->name('success')->withoutMiddleware('auth:api');
+Route::get('/cancel', 'App\Http\Controllers\Payment\PaypalController@cancel')->name('cancel')->withoutMiddleware('auth:api');
 
 
 Route::get('/auth/google', 'Auth\LoginController@redirectToGoogle');

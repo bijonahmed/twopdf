@@ -155,19 +155,16 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
                       <p>Billed as one payment of ${yearlyPrice}</p>
                     </div>
 
-                    <div className="pricing_body">
-                      {/* <button type="button" className="btn-primary btn">
-                       <Link to="/packages/premimum" style={{ color: 'white' }}> Go Premium</Link>
-                      </button> */}
 
-                      {token ? (
+                  
+                    <div className="pricing_body">
+
+
+                   
+
+                    {token ? (
                         <button type="button" className="btn-primary btn">
-                          <Link
-                            to="/packages/premium"
-                            style={{ color: "white" }}
-                          >
-                            Go Premium
-                          </Link>
+                          <Link to="/premimum-packages" style={{ color: "white" }} > Go Premium </Link>
                         </button>
                       ) : (
                         <button type="button" className="btn-primary btn">

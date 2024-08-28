@@ -32,7 +32,7 @@ Route::post('messages', [ChatController::class, 'message']);
 Route::get('/messages/{community_slug}', [ChatController::class, 'getMessages']);
 Route::get('/long-poll/{communitySlug}', [ChatController::class, 'longPoll']);
 Route::get('settingrowClient', [UnauthenticatedController::class, 'settingrowClient']);
-Route::post('payment/createOrder', [PaypalController::class, 'paypal']);
+
 Route::group([
     'middleware' => 'api',
     'prefix'     => 'auth'
@@ -52,6 +52,7 @@ Route::group([
     Route::post('changesPassword', [AuthController::class, 'changesPassword']);
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
     Route::get('showProfileData', [AuthController::class, 'showProfileData']);
+    Route::post('payment/createOrder', [PaypalController::class, 'paypal']);
     //Route::post('password/email', [ForgotPasswordController::class, 'sendPasswordResetEmail']);
     //Route::post('password/reset', [ResetPasswordController::class, 'updatePassword']);
 });

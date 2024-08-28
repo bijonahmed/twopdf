@@ -6,13 +6,14 @@ import { useParams,useNavigate } from "react-router-dom";
 import axios from "/config/axiosConfig";
 import "../../assets/Premimumcss.css"; // Ensure correct path for CSS
 
+import AuthUser from "../../components/AuthUser";
 
 
 const Premimum = () => {
+ const navigate = useNavigate();
   const { getToken, token, logout } = AuthUser();
-  const navigate = useNavigate();
-
-  const { slug } = useParams();
+  const [loading, setLoading] = useState(false);
+ 
   const [monthlyPrice] = useState(4);
   const [yearlyPrice] = useState(48);
   const [selectedPlan, setSelectedPlan] = useState("monthly");
@@ -34,22 +35,36 @@ const Premimum = () => {
 
   // Handle PayPal payment
   const handlePaypalPayment = async (amount) => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    
+    try {
+      // Show the loader
+      setLoading(true);
 
-        // Send request to Laravel backend to create a PayPal order
-        const response = await axios.post("/payment/createOrder", { amount }, {
-          headers: {
-            "Content-Type": "application/json", // Adjust if using multipart/form-data
-          },
-        });
+      // Send request to Laravel backend to create a PayPal order
+      const response = await axios.post("/auth/payment/createOrder", { amount }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Adjust if using multipart/form-data
+        },
+      });
 
+      // Redirect to PayPal after receiving the response
+      window.location.href = response.data.redirectUrl;
+      console.log("PayPal Price is:", amount);
 
-        window.location.href = response.data.redirectUrl;
-       
-        console.log("PayPal Price is:", amount);
-   
+      console.log("Return URL:", data.application_context.return_url);
+      console.log("Cancel URL:", data.application_context.cancel_url);
 
+      return false; 
+
+    } catch (error) {
+      console.error("Error creating PayPal order:", error);
+    } finally {
+      // Hide the loader
+      setLoading(false);
+    }
   };
-
   // Handle Stripe payment
   const handleStripePayment = (amount) => {
     console.log("Stripe Price:", amount);
@@ -65,6 +80,13 @@ const Premimum = () => {
   };
  
 
+ 
+  const seoData = {
+    title: `Packages Premium`,
+    description: `Our mission is to provide you with the most efficient and reliable PDF solutions...`,
+    keywords: `PDF Pricing`,
+  };
+
   useEffect(() => {
     if (!token) {
       navigate("/");
@@ -72,13 +94,6 @@ const Premimum = () => {
 
     console.log("Token changed or component mounted");
   }, [token]); // Only re-run effect if token changes
-
-
-  const seoData = {
-    title: `Packages Premium`,
-    description: `Our mission is to provide you with the most efficient and reliable PDF solutions...`,
-    keywords: `${slug}, courses, tutorials, My Awesome Website`,
-  };
 
   return (
     <>
@@ -89,7 +104,7 @@ const Premimum = () => {
       </Helmet>
 
       <GuestNavbar />
-
+      
       <section className="bsb-faq-3 py-3 py-md-5 py-xl-8">
         <div className="container">
           <div className="row justify-content-center">
@@ -98,6 +113,29 @@ const Premimum = () => {
             </div>
           </div>
         </div>
+        {loading && (
+        <div className="loader"></div>
+      )}
+      <style jsx>{`
+        .loader {
+  border: 16px solid #e0e0e0; /* Light grey */
+  border-top: 16px solid #ff6b6b; /* Red */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 1.5s linear infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+      `}</style>
         <div className="container mt-5">
           <ul className="nav nav-tabs" id="paymentTabs" role="tablist">
             <li className="nav-item" role="presentation">

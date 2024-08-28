@@ -16,7 +16,7 @@ import CategorySlug from "../pages/Category";
 import CategoryAll from "../pages/CategoryAll";
 
 
-import Premimum from "../pages/packages/premimum.jsx";
+import Premimum from "../pages/packages/premimum";
 import Whyw3programmer from "../pages/Whyw3programmer.jsx";
 import Signup from "../pages/Signup.jsx";
 import Pdfbooks from "../pages/PdfBooks.jsx";
@@ -58,7 +58,7 @@ const AppRouter = () => {
     
       
       {/* //add new */}
-      <Route path="/packages/premimum" element={<Premimum />} />
+      <Route path="/premimum-packages" element={<Premimum />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/about" element={<About />} />

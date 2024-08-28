@@ -28,7 +28,7 @@ const UserLogin = () => {
     try {
       const response = await http.post("/auth/userLogin", { email, password });
       setToken(response.data.user, response.data.access_token);
-      navigate("/packages/premium"); // Adjust the navigation path as needed
+      navigate("/premimum-packages"); // Adjust the navigation path as needed
     } catch (error) {
       if (error.response && error.response.data) {
         const { errors: fieldErrors } = error.response.data;
