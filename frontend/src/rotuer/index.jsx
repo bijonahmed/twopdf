@@ -10,11 +10,13 @@ import AddBrand from "../pages/brand/add-brand";
 import Editbrand from "../pages/brand/edit-brand";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import UserLogin from "../pages/UserLogin.jsx";
 import Dashboard from "../pages/Dashboard";
 import CategorySlug from "../pages/Category";
 import CategoryAll from "../pages/CategoryAll";
-import Study from "../pages/Study";
 
+
+import Premimum from "../pages/packages/premimum.jsx";
 import Whyw3programmer from "../pages/Whyw3programmer.jsx";
 import Signup from "../pages/Signup.jsx";
 import Pdfbooks from "../pages/PdfBooks.jsx";
@@ -44,10 +46,11 @@ const AppRouter = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+       <Route path="/user-login" element={<UserLogin />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/category/:slug" element={<CategorySlug />} />
       <Route path="/all-category" element={<CategoryAll />} />
-      <Route path="/study" element={<Study />} />
+      {/* <Route path="/study" element={<Study />} /> */}
 
       <Route path="/whyw3programmer" element={<Whyw3programmer />} />
       <Route path="/signup" element={<Signup />} />
@@ -55,6 +58,7 @@ const AppRouter = () => {
     
       
       {/* //add new */}
+      <Route path="/packages/premimum" element={<Premimum />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/about" element={<About />} />

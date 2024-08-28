@@ -5,6 +5,8 @@ use App\Http\Controllers\Public\PublicController;
 use App\Http\Controllers\Public\PublicOrderStatusUpdate;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Payment\PaypalController;
+
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
@@ -20,6 +22,9 @@ Route::get('/clear-cache', function () {
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('success', 'App\Http\Controllers\PaypalController@success')->name('success');
+Route::get('cancel', 'App\Http\Controllers\PaypalController@cancel')->name('cancel');
 
 
 Route::get('/auth/google', 'Auth\LoginController@redirectToGoogle');

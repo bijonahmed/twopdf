@@ -15,6 +15,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Chat\ChatController;
 use App\Http\Controllers\Mining\MiningController;
+use App\Http\Controllers\Payment\PaypalController;
 use App\Http\Middleware\CheckUserStatus;
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::post('messages', [ChatController::class, 'message']);
 Route::get('/messages/{community_slug}', [ChatController::class, 'getMessages']);
 Route::get('/long-poll/{communitySlug}', [ChatController::class, 'longPoll']);
 Route::get('settingrowClient', [UnauthenticatedController::class, 'settingrowClient']);
-
+Route::post('payment/createOrder', [PaypalController::class, 'paypal']);
 Route::group([
     'middleware' => 'api',
     'prefix'     => 'auth'
@@ -63,6 +64,7 @@ Route::group([
     Route::get('countPerDayValidation', [UnauthenticatedController::class, 'countPerDayValidation']);
     Route::get('countPerDayValidationSplit', [UnauthenticatedController::class, 'countPerDayValidationSplit']);
     Route::post('insertSplitData', [UnauthenticatedController::class, 'insertSplitData']);
+    
 });
 
 Route::middleware(['auth:api', CheckUserStatus::class])->group(function () {

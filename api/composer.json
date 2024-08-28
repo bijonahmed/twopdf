@@ -13,8 +13,10 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.15",
         "laravel/tinker": "^2.8",
+        "paypal/rest-api-sdk-php": "^1.6",
         "php-curl-class/php-curl-class": "^9.19",
         "pusher/pusher-php-server": "^7.2",
+        "srmklive/paypal": "~3.0",
         "torann/geoip": "^3.0",
         "tymon/jwt-auth": "^2.0",
         "yajra/laravel-datatables": "10.0"
