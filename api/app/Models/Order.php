@@ -17,6 +17,7 @@ class Order extends Model
         'amount', 
         'order_status',
         'payment_getway',
+        'selectedPlan',
         'created_at'
     ];
 }

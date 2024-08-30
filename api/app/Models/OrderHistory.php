@@ -11,7 +11,7 @@ class OrderHistory extends Model
     use HasFactory;
    
     public $table = "order_history";
-    protected $fillable = ['order_id', 'product_id', 'attribue_val_id', 'quantity','price','total'];
+    protected $fillable = ['order_id', 'product_id', 'quantity','price','total'];
     
 }
 

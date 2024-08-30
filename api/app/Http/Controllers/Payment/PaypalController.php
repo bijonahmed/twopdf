@@ -46,17 +46,21 @@ class PaypalController extends Controller
 
     public function paypal(Request $request)
     {
-        $uniqId = $this->generateUniqueRandomNumber();//$request->input('uniqueId');
-        // echo $uniqId;
-        //exit;
-        $provider = new PayPalClient;
+
+        
+        $uniqId       = $this->generateUniqueRandomNumber();//$request->input('uniqueId');
+        $selectedPlan = $request->selectedPlan;
+        $provider     = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
-        $response = $provider->createOrder([
+        $paypalToken  = $provider->getAccessToken();
+        $response     = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
                 //"return_url" => route('success'),
-                "return_url" => route('success', ['uniqId' => $uniqId]),
+                "return_url" => route('success', [
+                    'uniqId' => $uniqId,
+                    'selectedPlan' => $selectedPlan,
+                ]),
                 "cancel_url" => route('cancel')
             ],
             "purchase_units" => [
@@ -93,25 +97,24 @@ class PaypalController extends Controller
     public function success(Request $request)
     {
 
+
         $provider = new PayPalClient;// new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request->token);
         //dd($response);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            $uniqId = $this->generateUniqueRandomNumber() . "-" . date("y");;
+            $uniqId          = $this->generateUniqueRandomNumber() . "-" . date("y");;
             $sanitizedUniqId = preg_replace('/[^a-zA-Z0-9]/', '', $uniqId);
             //Insert order data
-            $randomNum   = $this->generateUniqueRandomNumber() . "-" . date("y");
-            $pre_setting = Setting::find(1);
-            $userrow = User::where('id',1)->first();
-
+            $randomNum       = $this->generateUniqueRandomNumber() . "-" . date("y");
+            $pre_setting     = Setting::find(1);
+            $userrow         = User::where('id',1)->first();
             //Add customer 
-            $email = $userrow->email;
- 
+            $email           = $userrow->email;
+            $phone_number    = $userrow->phone_number;
 
-
-            $existingCustomer = Customer::where('email', $email)->first();
+            $existingCustomer = Customer::where('phone', $phone_number)->first();
             if (empty($existingCustomer)) {
                 $data['name']    = $userrow->name;
                 $data['address'] = 'Unknown';
@@ -129,9 +132,12 @@ class PaypalController extends Controller
             $order->amount          = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
             //$order->shipping_fee    = !empty($pre_setting->shipping_fee) ? $pre_setting->shipping_fee : 0;
             $order->order_status    = 1; // Order Placed 
-          //  $order->log_id          = $sanitizedUniqId; //LogID
+            //  $order->log_id          = $sanitizedUniqId; //LogID
             $order->customer_id     = $lastInsertedCustomerId;
             $order->payment_getway  = 'Paypal';
+            $order->order_date      = date("Y-m-d");
+            $order->selectedPlan    = $request->selectedPlan;
+
             //Billing
             // $order->billing_first_name          = !empty($billingArray['first_name']) ? $billingArray['first_name'] : "";
             // $order->billing_last_name           = !empty($billingArray['last_name']) ? $billingArray['last_name'] : "";

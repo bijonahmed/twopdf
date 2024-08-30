@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2024 at 02:18 PM
+-- Generation Time: Aug 30, 2024 at 10:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -626,10 +626,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `addres`, `email`, `phone`, `entry_by`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Bijon Ahmed', 'Dhaka', 'mdbijon@gmail.com', '5989899', NULL, 1, '2024-02-12 07:15:21', '2024-02-12 07:15:21'),
-(4, 'Sumon Ahmed', 'Dhaka', 'sumon@gmail.com', '5748788', NULL, 1, '2024-02-12 07:20:35', '2024-02-12 07:20:35'),
-(5, 'Robiul Islam', NULL, 'robiul@gmail.com', '2365989899', NULL, 1, '2024-02-12 07:31:40', '2024-02-12 07:31:40'),
-(6, 'Mohammad Ibraheem', NULL, 'ibraheem@gmail.com', '5987999', NULL, 1, '2024-02-12 07:46:55', '2024-02-12 07:46:55');
+(1, 'Giash Uddin', NULL, NULL, '0555556989', NULL, 1, '2024-08-28 21:52:48', '2024-08-28 21:52:48');
 
 -- --------------------------------------------------------
 
@@ -946,37 +943,61 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `orderId` varchar(255) NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `transfer_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
-  `product_name` varchar(255) DEFAULT NULL,
-  `selling_price` double(10,2) DEFAULT NULL,
-  `profit` double(10,2) DEFAULT NULL,
-  `buying_price` double(10,2) DEFAULT NULL COMMENT 'cost price',
-  `user_balance` double(10,2) DEFAULT NULL,
-  `user_mul_balance` double(10,2) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `selectedPlan` varchar(255) DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
   `order_date` date DEFAULT NULL,
-  `product_qty` int(11) DEFAULT 1,
   `order_status` int(11) NOT NULL DEFAULT 1 COMMENT '1=To be paid\r\n                                                        2=To be confiremed\r\n                                                        3=Goods To be received\r\n                                                        4=Platform procced\r\n                                                        5=To be shipped\r\n                                                        6=Complete\r\n                                                        7=Canceled\r\n                                                        8=Returning\r\n                                                        9=Return complete\r\n                                                        10=Abnormal order',
   `status` int(11) DEFAULT 1,
-  `order_type` varchar(255) DEFAULT NULL,
-  `thumnail_img` varchar(255) DEFAULT NULL,
+  `payment_getway` varchar(255) DEFAULT NULL,
   `created_at` varchar(255) DEFAULT NULL,
-  `order_inactive_time` varchar(255) DEFAULT NULL,
-  `pay_confirm_time` timestamp NULL DEFAULT NULL COMMENT 'After click on payment button',
-  `goods_to_be_received_time` timestamp NULL DEFAULT NULL COMMENT '+30',
-  `platform_proceed_Time` timestamp NULL DEFAULT NULL COMMENT '+60',
-  `to_be_shipped_time` timestamp NULL DEFAULT NULL COMMENT '+90',
-  `complete_time` timestamp NULL DEFAULT NULL COMMENT '+120',
-  `cancel_time` timestamp NULL DEFAULT NULL,
-  `return_time` timestamp NULL DEFAULT NULL,
-  `return_complete_time` timestamp NULL DEFAULT NULL,
-  `updated_at` datetime DEFAULT current_timestamp(),
-  `abnormal_order_time` timestamp NULL DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL,
-  `update_by` int(11) DEFAULT NULL
+  `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `orderId`, `customer_id`, `selectedPlan`, `amount`, `order_date`, `order_status`, `status`, `payment_getway`, `created_at`, `updated_at`) VALUES
+(1, '2eb9a-24', 5, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-29 04:03:18', '2024-08-29 04:03:18'),
+(2, 'b4a0b-24', 6, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-29 04:05:09', '2024-08-29 04:05:09'),
+(3, '83ffc-24', 7, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:11:06', '2024-08-31 02:11:06'),
+(4, '73e25-24', 8, 'yearly', 48.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:12:46', '2024-08-31 02:12:46'),
+(5, '4bfcd-24', 9, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:23:21', '2024-08-31 02:23:21'),
+(6, 'a67c1-24', 10, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:41:25', '2024-08-31 02:41:25'),
+(7, '09577-24', 11, 'yearly', 48.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:42:31', '2024-08-31 02:42:31'),
+(8, 'fdac1-24', 1, 'monthly', 4.00, '2024-08-31', 1, 1, 'Paypal', '2024-08-31 02:45:40', '2024-08-31 02:45:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_history`
+--
+
+CREATE TABLE `order_history` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `total` double(10,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_history`
+--
+
+INSERT INTO `order_history` (`id`, `order_id`, `product_id`, `quantity`, `price`, `total`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 4, 4.00, '2024-08-29 04:03:18', '2024-08-28 22:03:18'),
+(2, 2, 1, 1, 4, 4.00, '2024-08-29 04:05:09', '2024-08-28 22:05:09'),
+(3, 3, 1, 1, 4, 4.00, '2024-08-31 02:11:06', '2024-08-30 20:11:06'),
+(4, 4, 1, 1, 48, 48.00, '2024-08-31 02:12:46', '2024-08-30 20:12:46'),
+(5, 5, 1, 1, 4, 4.00, '2024-08-31 02:23:21', '2024-08-30 20:23:21'),
+(6, 6, 1, 1, 4, 4.00, '2024-08-31 02:41:25', '2024-08-30 20:41:25'),
+(7, 7, 1, 1, 48, 48.00, '2024-08-31 02:42:31', '2024-08-30 20:42:31'),
+(8, 8, 1, 1, 4, 4.00, '2024-08-31 02:45:40', '2024-08-30 20:45:40');
 
 -- --------------------------------------------------------
 
@@ -1021,6 +1042,39 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `payment_id` varchar(255) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `amount` varchar(255) DEFAULT NULL,
+  `currency` varchar(255) DEFAULT NULL,
+  `payer_name` varchar(255) DEFAULT NULL,
+  `payer_email` varchar(255) DEFAULT NULL,
+  `payment_status` varchar(255) DEFAULT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `payment_id`, `orderId`, `amount`, `currency`, `payer_name`, `payer_email`, `payment_status`, `payment_method`, `created_at`, `updated_at`) VALUES
+(1, '60A94298Y6814890R', 2, '4.00', 'USD', 'John', 'sb-wmr43g32446778@business.example.com', 'COMPLETED', 'PayPal', '2024-08-28 22:05:09', '2024-08-28 22:05:09'),
+(2, '9CP829228X447405M', 3, '4.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:11:06', '2024-08-30 20:11:06'),
+(3, '2B3452119E0048049', 4, '48.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:12:46', '2024-08-30 20:12:46'),
+(4, '74939998B8656535P', 5, '4.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:23:21', '2024-08-30 20:23:21'),
+(5, '9UT35927J6367213K', 6, '4.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:41:25', '2024-08-30 20:41:25'),
+(6, '7T5839208F294893V', 7, '48.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:42:31', '2024-08-30 20:42:31'),
+(7, '82M59407JP140774D', 8, '4.00', 'USD', 'John', 'sb-47yfn932420086@business.example.com', 'COMPLETED', 'PayPal', '2024-08-30 20:45:40', '2024-08-30 20:45:40');
 
 -- --------------------------------------------------------
 
@@ -2180,7 +2234,13 @@ INSERT INTO `userrequestcount` (`id`, `pdf_type`, `ip`, `name`, `created_at`, `u
 (23, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
 (24, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
 (25, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
-(26, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21');
+(26, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-14 17:51:21', '2024-08-14 17:51:21'),
+(27, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-22 00:38:35', '2024-08-22 00:38:35'),
+(28, 'PDF_Split', '127.0.0.1', 'anonymous', '2024-08-22 00:39:03', '2024-08-22 00:39:03'),
+(29, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-28 20:50:50', '2024-08-28 20:50:50'),
+(30, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-28 20:50:55', '2024-08-28 20:50:55'),
+(31, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-28 20:56:13', '2024-08-28 20:56:13'),
+(32, 'PDF_Merge', '127.0.0.1', 'anonymous', '2024-08-28 20:56:18', '2024-08-28 20:56:18');
 
 -- --------------------------------------------------------
 
@@ -2482,6 +2542,12 @@ ALTER TABLE `orders`
   ADD UNIQUE KEY `orderId` (`orderId`);
 
 --
+-- Indexes for table `order_history`
+--
+ALTER TABLE `order_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `order_status`
 --
 ALTER TABLE `order_status`
@@ -2492,6 +2558,12 @@ ALTER TABLE `order_status`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pdfbook`
@@ -2657,7 +2729,7 @@ ALTER TABLE `currency_type`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customer_history`
@@ -2723,13 +2795,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `order_history`
+--
+ALTER TABLE `order_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pdfbook`
@@ -2819,7 +2903,7 @@ ALTER TABLE `transfer`
 -- AUTO_INCREMENT for table `userrequestcount`
 --
 ALTER TABLE `userrequestcount`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`

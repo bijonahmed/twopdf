@@ -40,9 +40,8 @@ const Premimum = () => {
     try {
       // Show the loader
       setLoading(true);
-
       // Send request to Laravel backend to create a PayPal order
-      const response = await axios.post("/auth/payment/createOrder", { amount }, {
+      const response = await axios.post("/auth/payment/createOrder", { amount,selectedPlan }, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json", // Adjust if using multipart/form-data
