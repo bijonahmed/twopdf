@@ -105,7 +105,7 @@ const PdfMerger = () => {
 
   return (
     <div>
-      <div className="tools container-1060">
+      <div className="tools container-1060" style={{minHeight: '100vh'}}>
         <div className="tools-top">
           <div className="tools-top__headlines">
             <h2 className="title">Merge PDF files</h2>

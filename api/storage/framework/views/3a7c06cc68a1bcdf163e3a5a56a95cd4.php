@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Success</title>
+    <title>Payment failed</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
@@ -15,20 +15,18 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div class="message-box _success">
-                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <h2> Your payment was successful </h2>
-                    <!-- <p> Thank you for your payment. we will <br>
-                        be in contact with more details shortly </p> -->
-                    <p class="card-text">Thank you for your payment. Your transaction was successful.</p>
-                    <p class="card-text"> ID: #{{ $payment_id }}</p>
-                    <p class="card-text">Amount: {{ $currency }} {{ $amount }}</p>
-                    {{-- <a href="{{ env('FRONTEND_URL') }}" class="btn btn-primary">Continue Shopping</a> --}}
+                <div class="message-box _success _failed">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    <h2> Your payment failed </h2>
+                    <p> Try again later </p>
+                    <a href="<?php echo e(env('FRONTEND_URL')); ?>" class="btn btn-primary">Continue Shopping</a>
                 </div>
             </div>
         </div>
 
     </div>
+
+
 
 </body>
 
@@ -70,4 +68,4 @@
             font-weight: 500;
         }
     }
-</style>
+</style><?php /**PATH D:\xampp\htdocs\apps\twopdf-main\api\resources\views/pay_failed.blade.php ENDPATH**/ ?>

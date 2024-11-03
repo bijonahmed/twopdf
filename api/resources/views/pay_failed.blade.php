@@ -18,8 +18,8 @@
                 <div class="message-box _success _failed">
                     <i class="fa fa-times-circle" aria-hidden="true"></i>
                     <h2> Your payment failed </h2>
-                    <p> Try again later </p>
-                    <a href="{{ env('FRONTEND_URL') }}" class="btn btn-primary">Continue Shopping</a>
+                    {{-- <p> Try again later </p>
+                    <a href="{{ env('FRONTEND_URL') }}" class="btn btn-primary">Continue Shopping</a> --}}
                 </div>
             </div>
         </div>

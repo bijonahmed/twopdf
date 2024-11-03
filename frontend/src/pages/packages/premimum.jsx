@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import GuestNavbar from "../../components/GuestNavbar";
 import Footer from "../../components/Footer";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "/config/axiosConfig";
 import "../../assets/Premimumcss.css"; // Ensure correct path for CSS
 
@@ -10,10 +10,11 @@ import AuthUser from "../../components/AuthUser";
 
 
 const Premimum = () => {
- const navigate = useNavigate();
+
+  const navigate = useNavigate();
   const { getToken, token, logout } = AuthUser();
   const [loading, setLoading] = useState(false);
- 
+
   const [monthlyPrice] = useState(4);
   const [yearlyPrice] = useState(48);
   const [selectedPlan, setSelectedPlan] = useState("monthly");
@@ -36,12 +37,23 @@ const Premimum = () => {
   // Handle PayPal payment
   const handlePaypalPayment = async (amount) => {
     const token = JSON.parse(sessionStorage.getItem("token"));
-    
+    const userString = sessionStorage.getItem('user');
+    let user = null;
+    if (userString) {
+        try {
+            user = JSON.parse(userString);
+        } catch (error) {
+            console.error('Failed to parse user from session storage:', error);
+        }
+    }
+    const customerId = user ? user.id : null; // Access the ID property
+  //  console.log("customerID:" + userId);
+
     try {
       // Show the loader
       setLoading(true);
       // Send request to Laravel backend to create a PayPal order
-      const response = await axios.post("/auth/payment/createOrder", { amount,selectedPlan }, {
+      const response = await axios.post("/auth/payment/createOrder", { customerId,amount, selectedPlan }, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json", // Adjust if using multipart/form-data
@@ -55,7 +67,7 @@ const Premimum = () => {
       console.log("Return URL:", data.application_context.return_url);
       console.log("Cancel URL:", data.application_context.cancel_url);
 
-      return false; 
+      return false;
 
     } catch (error) {
       console.error("Error creating PayPal order:", error);
@@ -64,12 +76,58 @@ const Premimum = () => {
       setLoading(false);
     }
   };
-  // Handle Stripe payment
-  const handleStripePayment = (amount) => {
-    console.log("Stripe Price:", amount);
-    // Add Stripe payment integration logic here
-    // Example: Redirect to Stripe Checkout or handle client-side Stripe logic
+
+  // Stripe 
+  const handleStripePayment = async (amount) => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    const userString = sessionStorage.getItem('user');
+    let user = null;
+    if (userString) {
+        try {
+            user = JSON.parse(userString);
+        } catch (error) {
+            console.error('Failed to parse user from session storage:', error);
+        }
+    }
+    const customerId = user ? user.id : null; // Access the ID property
+  //  console.log("customerID:" + userId);
+
+    try {
+      // Show the loader
+      setLoading(true);
+      // Send request to Laravel backend to create a PayPal order
+      const response = await axios.post("/auth/stripe/createOrderStripe", { customerId,amount, selectedPlan }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Adjust if using multipart/form-data
+        },
+      });
+
+
+      if (response.data.url) {
+        // Redirect to the return URL if needed
+        window.location.href = response.data.url;
+      } else {
+        console.log('No redirect URL provided.');
+      }
+
+
+    } catch (error) {
+      console.error("Error creating PayPal order:", error);
+    } finally {
+      // Hide the loader
+      setLoading(false);
+    }
   };
+
+
+
+
+
+
+
+
+
 
   // Handle tab selection
   const handleTabChange = (plan) => {
@@ -77,9 +135,9 @@ const Premimum = () => {
     const newPrice = plan === "monthly" ? monthlyPrice : yearlyPrice;
     setPrice(newPrice);
   };
- 
 
- 
+
+
   const seoData = {
     title: `Packages Premium`,
     description: `Our mission is to provide you with the most efficient and reliable PDF solutions...`,
@@ -103,7 +161,7 @@ const Premimum = () => {
       </Helmet>
 
       <GuestNavbar />
-      
+
       <section className="bsb-faq-3 py-3 py-md-5 py-xl-8">
         <div className="container">
           <div className="row justify-content-center">
@@ -113,9 +171,9 @@ const Premimum = () => {
           </div>
         </div>
         {loading && (
-        <div className="loader"></div>
-      )}
-      <style jsx>{`
+          <div className="loader"></div>
+        )}
+        <style jsx>{`
         .loader {
   border: 16px solid #e0e0e0; /* Light grey */
   border-top: 16px solid #ff6b6b; /* Red */

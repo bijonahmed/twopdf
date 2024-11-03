@@ -21,9 +21,9 @@
                     <!-- <p> Thank you for your payment. we will <br>
                         be in contact with more details shortly </p> -->
                     <p class="card-text">Thank you for your payment. Your transaction was successful.</p>
-                    <p class="card-text"> ID: #{{ $payment_id }}</p>
-                    <p class="card-text">Amount: {{ $currency }} {{ $amount }}</p>
-                    {{-- <a href="{{ env('FRONTEND_URL') }}" class="btn btn-primary">Continue Shopping</a> --}}
+                    <p class="card-text"> ID: #<?php echo e($payment_id); ?></p>
+                    <p class="card-text">Amount: <?php echo e($currency); ?> <?php echo e($amount); ?></p>
+                    
                 </div>
             </div>
         </div>
@@ -70,4 +70,4 @@
             font-weight: 500;
         }
     }
-</style>
+</style><?php /**PATH D:\xampp\htdocs\apps\twopdf-main\api\resources\views/pay_success.blade.php ENDPATH**/ ?>

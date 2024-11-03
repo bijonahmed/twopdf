@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Category\CategoryController;
@@ -53,6 +54,7 @@ Route::group([
     Route::post('updatePassword', [AuthController::class, 'updatePassword']);
     Route::get('showProfileData', [AuthController::class, 'showProfileData']);
     Route::post('payment/createOrder', [PaypalController::class, 'paypal']);
+    Route::post('stripe/createOrderStripe', [StripePaymentController::class, 'stripeCheckout']);
     //Route::post('password/email', [ForgotPasswordController::class, 'sendPasswordResetEmail']);
     //Route::post('password/reset', [ResetPasswordController::class, 'updatePassword']);
 });

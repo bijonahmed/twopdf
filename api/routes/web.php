@@ -6,7 +6,7 @@ use App\Http\Controllers\Public\PublicOrderStatusUpdate;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Payment\PaypalController;
-
+use App\Http\Controllers\StripePaymentController;
 
 Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('optimize:clear');
@@ -23,6 +23,12 @@ Route::get('/clear-cache', function () {
 |
 */
 //Route::get('/success', [PaymentController::class, 'success'])->withoutMiddleware('auth');
+
+
+
+Route::get('/payment/success', [StripePaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/payment/cancel', [StripePaymentController::class, 'paymentCancel'])->name('payment.cancel');
+
 
 Route::get('/success', 'App\Http\Controllers\Payment\PaypalController@success')->name('success')->withoutMiddleware('auth:api');
 Route::get('/cancel', 'App\Http\Controllers\Payment\PaypalController@cancel')->name('cancel')->withoutMiddleware('auth:api');

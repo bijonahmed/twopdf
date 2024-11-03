@@ -115,7 +115,7 @@ const PdfSplitter = () => {
 
   return (
     <div>
-      <div className="tools container-1060">
+      <div className="tools container-1060" style={{ minHeight: '100vh' }}>
         <div className="tools-top">
           <div className="tools-top__headlines">
             <h2 className="title">Split PDF File</h2>
@@ -154,7 +154,7 @@ const PdfSplitter = () => {
             </div>
             <div className="modal-body">
               {limitReached ? (
-             <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
+                <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
               ) : (
                 <p>Please upload a PDF file to proceed.</p>
               )}

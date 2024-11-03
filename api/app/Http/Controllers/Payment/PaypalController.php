@@ -24,6 +24,7 @@ use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Redirect;
 use PayPal\Api\Order as ApiOrder;
+use DateTime;
 
 class PaypalController extends Controller
 {
@@ -32,23 +33,12 @@ class PaypalController extends Controller
     protected $frontend_url;
 
 
-    protected $userid;
-   
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-        $id = auth('api')->user();
-        if (!empty($id)) {
-            $user = User::find($id->id);
-            $this->userid = $user->id;
-        }
-    }
-
     public function paypal(Request $request)
     {
 
-        
-        $uniqId       = $this->generateUniqueRandomNumber();//$request->input('uniqueId');
+        //dd($request->all());
+
+        $uniqId       = $this->generateUniqueRandomNumber(); //$request->input('uniqueId');
         $selectedPlan = $request->selectedPlan;
         $provider     = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -57,8 +47,9 @@ class PaypalController extends Controller
             "intent" => "CAPTURE",
             "application_context" => [
                 //"return_url" => route('success'),
-                "return_url" => route('success', [
-                    'uniqId' => $uniqId,
+                "return_url"     => route('success', [
+                    'customerId' => $request->customerId,
+                    'uniqId'     => $uniqId,
                     'selectedPlan' => $selectedPlan,
                 ]),
                 "cancel_url" => route('cancel')
@@ -98,10 +89,13 @@ class PaypalController extends Controller
     {
 
 
-        $provider = new PayPalClient;// new PayPalClient;
+
+        $provider = new PayPalClient; // new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
-        $response = $provider->capturePaymentOrder($request->token);
+        $response    = $provider->capturePaymentOrder($request->token);
+        $customerId  = $request->customerId;
+
         //dd($response);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             $uniqId          = $this->generateUniqueRandomNumber() . "-" . date("y");;
@@ -109,7 +103,7 @@ class PaypalController extends Controller
             //Insert order data
             $randomNum       = $this->generateUniqueRandomNumber() . "-" . date("y");
             $pre_setting     = Setting::find(1);
-            $userrow         = User::where('id',1)->first();
+            $userrow         = User::where('id', $customerId)->first();
             //Add customer 
             $email           = $userrow->email;
             $phone_number    = $userrow->phone_number;
@@ -126,7 +120,24 @@ class PaypalController extends Controller
                 $lastInsertedCustomerId = $existingCustomer->id;
             }
             //END 
-            //dd($cartData);
+
+            $currentDate  = new DateTime();
+            $selectedPlan = $request->selectedPlan;
+ 
+
+            if ($selectedPlan == 'monthly') {
+                $for_how_many_months = 1; //month
+                $convert_days        = 30; //Days
+                $futureDate          = $currentDate->modify('+30 days');
+            }
+
+            if ($selectedPlan == 'yearly') {
+                $for_how_many_months = 12; //month
+                $convert_days        = 365; //Days
+                $futureDate          = $currentDate->modify('+365 days');
+            }
+
+
             $order                  = new Order();
             $order->orderId         = $randomNum;
             $order->amount          = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'];
@@ -138,15 +149,11 @@ class PaypalController extends Controller
             $order->order_date      = date("Y-m-d");
             $order->selectedPlan    = $request->selectedPlan;
 
-            //Billing
-            // $order->billing_first_name          = !empty($billingArray['first_name']) ? $billingArray['first_name'] : "";
-            // $order->billing_last_name           = !empty($billingArray['last_name']) ? $billingArray['last_name'] : "";
-            // $order->billing_email               = !empty($billingArray['email']) ? $billingArray['email'] : "";
-            // $order->billing_phone               = !empty($billingArray['phone']) ? $billingArray['phone'] : "";
-            // $order->billing_street_address      = !empty($billingArray['street_address']) ? $billingArray['street_address'] : "";
-            // $order->billing_appar_suite_address = !empty($billingArray['appar_suite_address']) ? $billingArray['appar_suite_address'] : "";
-            // $order->billing_state               = !empty($billingArray['state']) ? $billingArray['state'] : "";
-            // $order->billing_post_code_zip       = !empty($billingArray['post_code_zip']) ? $billingArray['post_code_zip'] : "";
+            $order->for_how_many_months  = $for_how_many_months;
+            $order->convert_days         = $convert_days;
+            $order->plan_ending_date     = $futureDate;
+
+
             $order->save();
             $lastOrderId = $order->id;
 
@@ -169,21 +176,6 @@ class PaypalController extends Controller
 
             //END Email Confirmation
             */
-
-            //Shipping
-            // $order->shipper_first_name          = !empty($shippingArray['shipper_first_name']) ? $shippingArray['shipper_first_name'] : "";
-            // $order->shipper_last_name           = !empty($shippingArray['shipper_last_name']) ? $shippingArray['shipper_last_name'] : "";
-            // $order->shipper_email               = !empty($shippingArray['shipper_email']) ? $shippingArray['shipper_email'] : "";
-            // $order->shipper_phone_number        = !empty($shippingArray['shipper_phone_number']) ? $shippingArray['shipper_phone_number'] : "";
-            // $order->shipper_address             = !empty($shippingArray['shipper_address']) ? $shippingArray['shipper_address'] : "";
-            // $order->shipper_apprt_suite_addr    = !empty($shippingArray['shipper_apprt_suite_addr']) ? $shippingArray['shipper_apprt_suite_addr'] : "";
-            // $order->shipper_state               = !empty($shippingArray['shipper_state']) ? $shippingArray['shipper_state'] : "";
-            // $order->shipper_zip                 = !empty($shippingArray['shipper_zip']) ? $shippingArray['shipper_zip'] : "";
-            // $order->save();
-            // $lastOrderId = $order->id;
-            //END order
-
-
             //echo $uniqId;
             $order_history                  = new OrderHistory();
             $order_history->order_id        = $lastOrderId;
@@ -192,7 +184,7 @@ class PaypalController extends Controller
             $order_history->price           = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value']; //amount
             $order_history->total           = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value']; //amount
             $order_history->save();
-        
+
 
             // Insert data into database
             $payment = new Payment;
@@ -242,5 +234,4 @@ class PaypalController extends Controller
 
         return $randomString;
     }
-     
 }

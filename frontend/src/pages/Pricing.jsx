@@ -42,7 +42,7 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
     console.log("Paypal Price......" + price);
     // Your PayPal API integration logic here
   };
- 
+
 
   const [monthlyPrice] = useState(4);
   const [yearlyPrice] = useState(48);
@@ -68,8 +68,8 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
             </div>
           </div>
         </div>
-        {/* pricing section start here  */}
-        <section className="pricing">
+        {/* pricing section start here  <div className="tools container-1060" style={{ minHeight: '100vh' }}>  */}
+        <section className="pricing" style={{ minHeight: '100vh' }}>
           <div className="container">
             <div className="row">
               <div className="col-md-12">
@@ -103,7 +103,7 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
                     </div>
                     <div className="pricing_body">
                       <button type="button" className="btn-primary btn">
-                        Get started
+                        <Link to="/" style={{ color: "white" }} >    Get started </Link>
                       </button>
                       <h6>Free features include:</h6>
                       <ul className="feature_list">
@@ -156,13 +156,13 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
                     </div>
 
 
-                  
+
                     <div className="pricing_body">
 
 
-                   
 
-                    {token ? (
+
+                      {token ? (
                         <button type="button" className="btn-primary btn">
                           <Link to="/premimum-packages" style={{ color: "white" }} > Go Premium </Link>
                         </button>
