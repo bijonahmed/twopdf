@@ -83,8 +83,23 @@ const Navbar = () => {
                     </li>
 
                     <li className="nav-item">
+                      <Link className="nav-link active" aria-current="page" to="/pdf/pdftotxt">PDF to Txt</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link active" aria-current="page" to="/pdf/pdftoppt">PDF to PPT</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link className="nav-link active" aria-current="page" to="/pdf/pdfzip">PDF to ZIP</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link active" aria-current="page" to="/pdf/imgtopdf">Image to PDF</Link>
+                    </li>
+                    <li className="nav-item">
                       <Link className="nav-link active" aria-current="page" to="/about">About us</Link>
                     </li>
+
 
 
                     <li className="nav-item">

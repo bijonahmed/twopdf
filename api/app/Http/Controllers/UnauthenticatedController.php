@@ -28,10 +28,22 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Smalot\PdfParser\Parser;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 use Carbon\Carbon;
 use PDO;
-use PhpParser\Node\Stmt\TryCatch;
-use function Ramsey\Uuid\v1;
+use Spatie\PdfToImage\Pdf;
+use setasign\Fpdi\Tcpdf\Fpdi;
+use PhpOffice\PhpPresentation\PhpPresentation;
+use PhpOffice\PhpPresentation\Style\Alignment;
+use PhpOffice\PhpPresentation\Slide\Background\Image as BackgroundImage;
+use PhpOffice\PhpPresentation\Shape\TextBox;
+use PhpOffice\PhpPresentation\Shape\RichText;
+use PhpOffice\PhpPresentation\Style\Fill;
+use PhpOffice\PhpPresentation\Style\Color;
+use PhpOffice\PhpPresentation\Style\Font;
+use Illuminate\Support\Facades\Storage;
 
 class UnauthenticatedController extends Controller
 {
@@ -130,4 +142,107 @@ class UnauthenticatedController extends Controller
     }
 
     //============================================================== END Merge PDF and Insert ===============================================================
+
+    //Convert to word
+    public function convertToWord(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:50000', // Ensure it's a PDF and not larger than 5MB
+        ]);
+
+        $file = $request->file('file');
+        $pdfPath = $file->getPathname();
+        try {
+
+            $pdfParser = new Parser();
+            $pdf = $pdfParser->parseFile($pdfPath);
+            $pdfText = $pdf->getText();
+
+            if (empty($pdfText)) {
+                return response()->json(['error' => 'No text found in the PDF'], 500);
+            }
+            $txtPath = storage_path('app/public/converted_file.txt');
+            file_put_contents($txtPath, $pdfText);
+            if (!file_exists($txtPath)) {
+                return response()->json(['error' => 'Failed to create text file'], 500);
+            }
+            return response()->download($txtPath, 'converted_file.txt', [
+                'Content-Type' => 'text/plain'
+            ])->deleteFileAfterSend(true);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error during conversion. Please try again.'], 500);
+        }
+    }
+
+    public function convertToPowerPoint(Request $request)
+    {
+
+        // Validate the uploaded file (PDF)
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:50000',  // Max size 50 MB
+        ]);
+
+        // Get the uploaded PDF file
+        $file = $request->file('file');
+        $pdfPath = $file->getPathname();
+
+        try {
+            // Parse the PDF and extract text
+            $pdfParser = new Parser();
+            $pdf = $pdfParser->parseFile($pdfPath);
+            $pages = $pdf->getPages();
+
+            // Create a new PowerPoint presentation
+            $presentation = new PhpPresentation();
+
+            // Ensure that if the PDF contains no pages, we handle it gracefully
+            if (empty($pages)) {
+                return response()->json(['error' => 'PDF contains no pages'], 500);
+            }
+
+            // Loop through each page in the PDF and create a corresponding slide
+            foreach ($pages as $pageNumber => $page) {
+                $pageText = $page->getText();
+                $slide = $presentation->createSlide();
+
+                // Create a RichText shape to hold the text
+                $richText = $slide->createRichTextShape();
+                $richText->setWidth(600);
+                $richText->setHeight(400);
+
+                // If no text was extracted from the page, add a fallback message
+                if (empty($pageText)) {
+                    $pageText = "No content available for this slide.";
+                }
+
+                // Add text to the RichText shape
+                $textRun = $richText->createTextRun($pageText);
+                $textRun->getFont()->setSize(12);  // Set font size
+                $textRun->getFont()->setName('Arial');  // Set font name
+
+
+                // Optional: Add background color to the text box
+                $richText->getFill()->setFillType(Fill::FILL_SOLID);
+                $richText->getFill()->setStartColor(new \PhpOffice\PhpPresentation\Style\Color('FFFFFF')); // White background
+
+            }
+
+            // Remove the first slide if it exists
+            $slides = $presentation->getSlide();  // Get the slides collection
+            if ($slides) {
+                $presentation->removeSlideByIndex(0);  // Remove the first slide (index 0)
+            }
+
+            // Save the PPTX file
+            $pptxFilePath = storage_path('app/temp/converted_ppt.pptx');
+            $writer = \PhpOffice\PhpPresentation\IOFactory::createWriter($presentation, 'PowerPoint2007');
+            $writer->save($pptxFilePath);
+
+            // Return the PPTX file for download
+            return response()->download($pptxFilePath)->deleteFileAfterSend(true);
+        } catch (\Exception $e) {
+            // Handle errors
+            return response()->json(['error' => 'Error during conversion. Please try again.'], 500);
+        }
+    }
 }

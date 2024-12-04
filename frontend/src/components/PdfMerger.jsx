@@ -14,7 +14,7 @@ const PdfMerger = () => {
   const [limitReached, setLimitReached] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    //fetchData();
   }, []);
 
   const fetchData = async () => {
@@ -48,6 +48,7 @@ const PdfMerger = () => {
     const isValid = await validateLimit();
     if (!isValid) {
       setLimitReached(true);
+      //  setLimitReached(true);
       //alert("Daily limit reached. Please buy a package to continue.");
       return;
     }
@@ -164,17 +165,16 @@ const PdfMerger = () => {
 
       <div
         className={`modal ${limitReached ? "d-block" : "d-none"}`}
-        role="dialog"
-      >
+        role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Daily Limit Reached</h5>
             </div>
             <div className="modal-body">
-              <p>
+               
               <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
-              </p>
+              
             </div>
             <div className="modal-footer">
               <button

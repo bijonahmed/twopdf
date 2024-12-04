@@ -67,7 +67,8 @@ Route::group([
     Route::get('countPerDayValidation', [UnauthenticatedController::class, 'countPerDayValidation']);
     Route::get('countPerDayValidationSplit', [UnauthenticatedController::class, 'countPerDayValidationSplit']);
     Route::post('insertSplitData', [UnauthenticatedController::class, 'insertSplitData']);
-    
+    Route::post('convert-pdf-to-txt', [UnauthenticatedController::class, 'converttoword']);
+    Route::post('convert-pdf-to-ppt', [UnauthenticatedController::class, 'convertToPowerPoint']);
 });
 
 Route::middleware(['auth:api', CheckUserStatus::class])->group(function () {

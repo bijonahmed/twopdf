@@ -11,7 +11,7 @@ import PdfMerger from "../components/PdfMerger";
 import PdfSplitter from "../components/PdfSplitter";
 import PdfCompressor from "../components/PdfCompressor";
 import PDFZipUpload from "../components/PDFZipUpload";
-import PdfToWordConverter from "../components/PdfToWordConverter";
+import PdfToWordConverter from "../components/PdfToTxtConverter";
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
@@ -19,7 +19,7 @@ const Index = () => {
     setLoading(false);
   }, 1500);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <div>
@@ -45,28 +45,10 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {/* content section start here  */}
 
-        {/* <h2>Images to PDF</h2>
-        <ImageToPDF />
-        <hr />
-        <h2>PDF Merger</h2>
-        <PdfMerger />
-        <hr />
-        <h2>PDF Splitter</h2>
-        <PdfSplitter />
-        <hr />
+        {/* <ImageToPDF /> */}
 
-        <h2>PDF ZipUpload</h2>
-        <PDFZipUpload />
-        <hr />
 
-        <h2>PDF TO Word</h2>
-        <PdfToWordConverter />
-        <hr /> */}
-
-        {/* <h2>PDF Compressor</h2><PdfCompressor/>
-        <hr/> */}
 
         <section className="content">
           <div className="container">
@@ -105,7 +87,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div className="content_box">
-                  <Link to="/pdf/splitpdf">
+                    <Link to="/pdf/splitpdf">
                       <div className="box_top">
                         <div className="top_icon">
                           <svg
@@ -133,10 +115,10 @@ const Index = () => {
                           into independent PDF files.
                         </p>
                       </div>
-                      </Link>
+                    </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div className="content_box">
+                    <Link to="/pdf/pdfzip">
                       <div className="box_top">
                         <div className="top_icon">
                           <svg
@@ -156,16 +138,16 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Compress PDF</h1>
+                        <h1>ZIP PDF</h1>
                         <p>
                           Reduce file size while optimizing for maximal PDF
                           quality.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div className="content_box">
+                    <Link to="/pdf/pdftotxt">
                       <div className="box_top">
                         <div className="top_icon">
                           <svg
@@ -194,17 +176,16 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>PDF to Word</h1>
+                        <h1>PDF to Text</h1>
                         <p>
-                          Easily convert your PDF files into easy to edit DOC
-                          and DOCX documents. The converted WORD document is
+                          Easily convert your PDF files into easy to edit txt. The converted txt document is
                           almost 100% accurate.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div className="content_box">
+                    <Link to="/pdf/pdftoppt">
                       <div className="box_top">
                         <div className="top_icon">
                           <svg
@@ -240,46 +221,20 @@ const Index = () => {
                           slideshows.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div className="content_box">
+                    <Link to="/pdf/imgtopdf">
                       <div className="box_top">
                         <div className="top_icon">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={48}
-                            height={48}
-                            viewBox="0 0 50 50"
-                          >
-                            <path
-                              d="M32.324 15.656h-9.55c-2.477 0-3.375.258-4.28.742a5.06 5.06 0 0 0-2.098 2.102c-.484.902-.742 1.8-.742 4.277v9.55H5.18c-1.8 0-2.453-.187-3.113-.54a3.69 3.69 0 0 1-1.527-1.527C.188 29.598 0 28.945 0 27.145V5.18c0-1.8.188-2.453.54-3.113A3.69 3.69 0 0 1 2.066.539C2.727.188 3.38 0 5.18 0h21.965c1.8 0 2.453.188 3.113.54a3.69 3.69 0 0 1 1.527 1.527c.352.66.54 1.313.54 3.113zm0 0"
-                              fillRule="evenodd"
-                              fill="rgb(76.078431%,89.803922%,76.470588%)"
-                            />
-                            <path
-                              d="M14.477 7.52c0-.477-.395-.863-.883-.863s-.883.387-.883.863v3.844L7.566 6.316a.89.89 0 0 0-1.246 0c-.168.16-.258.38-.258.61s.1.453.258.613l5.145 5.05H7.55c-.488 0-.883.387-.883.867s.395.863.883.863h6.047a.85.85 0 0 0 .34-.066c.215-.086.387-.254.477-.47.05-.102.066-.215.066-.328l.004-5.934zm0 0"
-                              fill="rgb(18.039216%,44.705882%,21.568627%)"
-                            />
-                            <g fillRule="evenodd">
-                              <path
-                                d="M22.855 17.676H44.82c1.8 0 2.453.188 3.113.543.648.344 1.184.875 1.527 1.527.352.656.54 1.31.54 3.11V44.82c0 1.8-.187 2.453-.54 3.113a3.69 3.69 0 0 1-1.527 1.527c-.66.352-1.312.54-3.113.54H22.855c-1.8 0-2.453-.187-3.113-.54-.648-.344-1.18-.88-1.527-1.527-.352-.66-.54-1.312-.54-3.113V22.855c0-1.8.188-2.453.54-3.113.348-.648.88-1.18 1.527-1.527.66-.352 1.313-.54 3.113-.54zm0 0"
-                                fill="rgb(36.862745%,63.137255%,38.431373%)"
-                              />
-                              <path
-                                d="M36.61 41l-2.508-4.72c-.102-.176-.195-.5-.3-.973h-.04c-.047.223-.16.56-.336 1.012L30.9 41H27l4.64-7.25-4.246-7.25h3.992l2.082 4.348c.164.344.313.754.438 1.227h.04c.082-.285.234-.703.457-1.266l2.316-4.31h3.66l-4.37 7.19L40.5 41zm0 0"
-                                fill="rgb(100%,100%,100%)"
-                              />
-                            </g>
-                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 50 50"><path d="M17.676 34.344h9.55c2.477 0 3.375-.258 4.28-.742a5.04 5.04 0 0 0 2.098-2.102c.484-.902.742-1.8.742-4.277v-9.547H44.82c1.8 0 2.453.188 3.113.54s1.176.87 1.527 1.527.54 1.31.54 3.113V44.82c0 1.8-.187 2.453-.54 3.113a3.69 3.69 0 0 1-1.527 1.527c-.66.352-1.312.54-3.113.54H22.855c-1.8 0-2.453-.187-3.113-.54s-1.172-.87-1.527-1.527-.54-1.312-.54-3.113zm0 0" fill-rule="evenodd" fill="rgb(98.431373%,93.72549%,65.882353%)"></path><path d="M43.94 37.137c0-.477-.395-.863-.883-.863s-.883.387-.883.863v3.844l-5.145-5.047c-.348-.34-.902-.34-1.25 0a.85.85 0 0 0-.258.609.86.86 0 0 0 .258.613l5.145 5.05h-3.914c-.488 0-.883.387-.883.867s.395.867.883.867h6.05c.113-.004.227-.023.336-.07a.87.87 0 0 0 .477-.465c.05-.105.066-.22.066-.332l.004-5.934zm0 0" fill="rgb(71.764706%,62.745098%,0.392157%)"></path><g fill-rule="evenodd"><path d="M5.184 0h21.988c1.8 0 2.453.188 3.113.54.652.344 1.184.88 1.527 1.53.352.656.54 1.313.54 3.113v21.984c0 1.805-.187 2.457-.54 3.117-.344.648-.875 1.184-1.527 1.527-.66.352-1.312.54-3.113.54H5.184c-1.8 0-2.457-.187-3.113-.54-.652-.344-1.184-.88-1.527-1.527C.188 29.625 0 28.973 0 27.168V5.184c0-1.8.188-2.457.54-3.113.344-.652.88-1.184 1.53-1.53S3.383 0 5.184 0zm0 0" fill="rgb(83.921569%,74.901961%,17.647059%)"></path><path d="M10.28 12.945v4.688c0 1.66-.926 2.66-2.707 2.66C5.406 20.293 5 18.852 5 18.07c0-.668.31-1.098.86-1.098.648 0 .813.504.813 1.05 0 .516.242.89.88.89.594 0 .926-.44.926-1.3V12.95c0-.54.352-.898.902-.898s.902.36.902.898zm1.672 6.402v-6.102c0-.8.418-1.055 1.055-1.055h2.762c1.516 0 2.738.75 2.738 2.508 0 1.44-1 2.508-2.75 2.508h-2v2.152c0 .54-.355.902-.902.902s-.902-.363-.902-.902zm1.805-5.773v2.242h1.68c.727 0 1.266-.437 1.266-1.12 0-.793-.56-1.12-1.45-1.12zm13.285 3.1v2.984c0 .332-.254.602-.613.602-.52 0-.66-.32-.773-1.023-.516.648-1.23 1.066-2.352 1.066-2.793 0-3.863-1.926-3.863-4.145 0-2.676 1.672-4.148 4.125-4.148 2.004 0 3.07 1.2 3.07 1.902 0 .63-.46.793-.848.793-.89 0-.56-1.242-2.32-1.242-1.242 0-2.223.813-2.223 2.816 0 1.56.77 2.637 2.246 2.637.957 0 1.793-.648 1.88-1.617H24.2c-.383 0-.812-.14-.812-.69 0-.44.254-.69.703-.69h2.223c.527 0 .738.262.738.758zm0 0" fill="rgb(100%,100%,100%)"></path></g></svg>
                         </div>
-                        <h1>PDF to Excel</h1>
+                        <h1>Image to PDF</h1>
                         <p>
-                          Pull data straight from PDFs into Excel spreadsheets
-                          in a few short seconds.{" "}
+                          Pull data straight from Images to PDF making within seconds.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                   <div className="content_box d-none">
                     <a href="#">

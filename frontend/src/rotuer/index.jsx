@@ -27,6 +27,11 @@ import Referral from "../pages/users/Referral.jsx";
 import Bookmarks from "../pages/users/Bookmarks.jsx";
 import Margepdf from "../pages/pdf/margepdf.jsx";
 import Spiltpdf from "../pages/pdf/splitpdf.jsx";
+import Pdftotxt from "../pages/pdf/pdftotxt.jsx";
+import Pdftoppt from "../pages/pdf/pdftoppt.jsx";
+import Pdfzip from "../pages/pdf/pdfzip.jsx";
+import ImagetoPDF from "../pages/pdf/imgtopdf.jsx";
+
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
 import TermsAndConditions from "../pages/TermsAndConditions.jsx";
@@ -66,6 +71,10 @@ const AppRouter = () => {
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/pdf/margepdf" element={<Margepdf />} />
       <Route path="/pdf/splitpdf" element={<Spiltpdf />} />
+      <Route path="/pdf/pdftotxt" element={<Pdftotxt />} />
+      <Route path="/pdf/pdftoppt" element={<Pdftoppt />} />
+      <Route path="/pdf/pdfzip" element={<Pdfzip />} />
+      <Route path="/pdf/imgtopdf" element={<ImagetoPDF />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />
