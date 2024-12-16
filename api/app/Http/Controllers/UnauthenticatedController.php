@@ -79,6 +79,7 @@ class UnauthenticatedController extends Controller
     //============================================================== Check Split PDF and Insert ===============================================================
     public function countPerDayValidationSplit(Request $request)
     {
+        /*
         $limit        = Setting::where('id', 1)->first();
         $dailyLimit   = !empty($limit->pdf_daily_limit) ? $limit->pdf_daily_limit : 0;
         $ip           = $request->ip();
@@ -92,6 +93,7 @@ class UnauthenticatedController extends Controller
                 'responseStatus'  => 0
             ]);
         }
+        */
     }
     public function insertSplitData(Request $request)
     {
@@ -119,6 +121,7 @@ class UnauthenticatedController extends Controller
     //============================================================== Check Merge PDF and Insert ===============================================================
     public function countPerDayValidation(Request $request)
     {
+        /*
         $limit        = Setting::where('id', 1)->first();
         $dailyLimit   = !empty($limit->pdf_daily_limit) ? $limit->pdf_daily_limit : 0;
         $ip    = $request->ip();
@@ -139,6 +142,7 @@ class UnauthenticatedController extends Controller
                 'responseStatus'  => 0
             ]);
         }
+        */
     }
 
     //============================================================== END Merge PDF and Insert ===============================================================
