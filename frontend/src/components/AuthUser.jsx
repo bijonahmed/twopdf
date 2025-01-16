@@ -1,56 +1,58 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function AuthUser(){
-    const navigate = useNavigate();
+export default function AuthUser() {
+  const navigate = useNavigate();
 
-    const getToken = () =>{
-        const tokenString = sessionStorage.getItem('token');
-        const userToken = JSON.parse(tokenString);
-        return userToken;
-    }
+  const getToken = () => {
+    const tokenString = sessionStorage.getItem("token");
+    const userToken = JSON.parse(tokenString);
+    return userToken;
+  };
 
-    const getUser = () =>{
-        const userString = sessionStorage.getItem('user');
-        const user_detail =  JSON.parse(userString); //userString;
-        return user_detail;
-    }
+  const getUser = () => {
+    const userString = sessionStorage.getItem("user");
+    const user_detail = JSON.parse(userString); //userString;
+    return user_detail;
+  };
 
-    const [token,setToken] = useState(getToken());
-    const [user,setUser] = useState(getUser());
+  const [token, setToken] = useState(getToken());
+  const [user, setUser] = useState(getUser());
 
-    const saveToken = (user,token) =>{
+  const saveToken = (user, token) => {
+    sessionStorage.setItem("token", JSON.stringify(token));
+    sessionStorage.setItem("user", JSON.stringify(user));
 
-        sessionStorage.setItem('token',JSON.stringify(token));
-        sessionStorage.setItem('user',JSON.stringify(user));
+    setToken(token);
+    setUser(user);
+    navigate("/dashboard");
+  };
 
-        
+  const logout = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
 
-        setToken(token);
-        setUser(user);
-        navigate('/dashboard');
-    }
+  const http = axios.create({
+    //baseURL:"http://localhost:8000/api",
+    //   baseURL:"https://api.funflixhd.com/api",
 
-    const logout = () => {
-        sessionStorage.clear();
-        navigate('/login');
-    }
-
-    const http = axios.create({
-        baseURL:"http://localhost:8000/api",
-     //   baseURL:"https://api.funflixhd.com/api",
-        headers:{
-            "Content-type" : "application/json",
-            "Authorization" : `Bearer ${token}`
-        }
-    });
-    return {
-        setToken:saveToken,
-        token,
-        user,
-        getToken,
-        http,
-        logout
-    }
+    baseURL:
+      process.env.NODE_ENV === "production"
+        ? "https://api.twopdf.com/api/"
+        : "http://127.0.0.1:8000/api/",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return {
+    setToken: saveToken,
+    token,
+    user,
+    getToken,
+    http,
+    logout,
+  };
 }

@@ -30,7 +30,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img class="profile-user-img img-fluid img-circle" src="/dist/img/avatar5.png"
+                                    <img class="profile-user-img img-fluid img-circle" src="#"
                                         alt="User profile picture">
                                 </div>
                                 <h3 class="profile-username text-center">{{ insertdata.name }}</h3>
@@ -59,8 +59,8 @@
 
                                     <div class="active tab-pane" id="settings">
 
-                                        <form @submit.prevent="updateprofile()" id="userSubmitFrm" class="form-horizontal"
-                                            enctype="multipart/form-data">
+                                        <form @submit.prevent="updateprofile()" id="userSubmitFrm"
+                                            class="form-horizontal" enctype="multipart/form-data">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="row mb-3">
@@ -70,8 +70,9 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input type="text" class="form-control"
                                                                 v-model="insertdata.name" />
-                                                            <span class="text-danger" v-if="errors.name">{{ errors.name[0]
-                                                            }}</span>
+                                                            <span class="text-danger" v-if="errors.name">{{
+                                                                errors.name[0]
+                                                                }}</span>
 
                                                         </div>
                                                     </div>
@@ -82,8 +83,9 @@
                                                         <div class="col-sm-9 text-secondary">
                                                             <input type="text" class="form-control"
                                                                 v-model="insertdata.email" />
-                                                            <span class="text-danger" v-if="errors.email">{{ errors.email[0]
-                                                            }}</span>
+                                                            <span class="text-danger" v-if="errors.email">{{
+                                                                errors.email[0]
+                                                                }}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -191,19 +193,22 @@
                                                     class="col-sm-3 col-form-label">Password</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" class="form-control password"
-                                                        v-model="passdata.password" id="password" placeholder="Password">
-                                                    <span class="text-danger" v-if="errors.password">{{ errors.password[0]
-                                                    }}</span>
+                                                        v-model="passdata.password" id="password"
+                                                        placeholder="Password">
+                                                    <span class="text-danger" v-if="errors.password">{{
+                                                        errors.password[0]
+                                                        }}</span>
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="inputConfirmPassword2" class="col-sm-3 col-form-label">Confirm
+                                                <label for="inputConfirmPassword2"
+                                                    class="col-sm-3 col-form-label">Confirm
                                                     Password</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" class="form-control password_confirmation"
-                                                        v-model="passdata.password_confirmation" id="password_confirmation"
-                                                        placeholder="Confirm Password">
+                                                        v-model="passdata.password_confirmation"
+                                                        id="password_confirmation" placeholder="Confirm Password">
                                                     <span class="text-danger" v-if="errors.password_confirmation">{{
                                                         errors.password_confirmation[0] }}</span>
                                                 </div>
@@ -371,4 +376,3 @@ onMounted(async () => {
 });
 
 </script>
-  

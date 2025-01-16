@@ -1125,7 +1125,7 @@ const Index = () => {
         </section>
       </div>
 
-      {/* <Footer /> */}
+     <Footer />  
     </div>
   );
 };
