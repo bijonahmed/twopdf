@@ -36,6 +36,8 @@ import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
 import TermsAndConditions from "../pages/TermsAndConditions.jsx";
 
+import NotFound from '../pages/NotFound';
+
 
 //import ProtectedRoute from "../components/ProtectedRoute";
 //<Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
@@ -80,6 +82,7 @@ const AppRouter = () => {
       <Route path="/users/my-certificate" element={<MyCertificate />} />
       <Route path="/users/referral" element={<Referral />} />
       <Route path="/users/my-bookmarks" element={<Bookmarks />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

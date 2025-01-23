@@ -78,7 +78,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Merge PDF</h1>
+                        <h2>Merge PDF</h2>
                         <p>
                           Combine PDFs in the order you want with the easiest
                           PDF merger available.
@@ -109,7 +109,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Split PDF</h1>
+                        <h2>Split PDF</h2>
                         <p>
                           Separate one page or a whole set for easy conversion
                           into independent PDF files.
@@ -138,7 +138,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>ZIP PDF</h1>
+                        <h2>ZIP PDF</h2>
                         <p>
                           Reduce file size while optimizing for maximal PDF
                           quality.
@@ -176,7 +176,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>PDF to Text</h1>
+                        <h2>PDF to Text</h2>
                         <p>
                           Easily convert your PDF files into easy to edit txt. The converted txt document is
                           almost 100% accurate.
@@ -215,7 +215,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>PDF to PowerPoint</h1>
+                        <h2>PDF to PowerPoint</h2>
                         <p>
                           Turn your PDF files into easy to edit PPT and PPTX
                           slideshows.
@@ -227,9 +227,9 @@ const Index = () => {
                     <Link to="/pdf/imgtopdf">
                       <div className="box_top">
                         <div className="top_icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 50 50"><path d="M17.676 34.344h9.55c2.477 0 3.375-.258 4.28-.742a5.04 5.04 0 0 0 2.098-2.102c.484-.902.742-1.8.742-4.277v-9.547H44.82c1.8 0 2.453.188 3.113.54s1.176.87 1.527 1.527.54 1.31.54 3.113V44.82c0 1.8-.187 2.453-.54 3.113a3.69 3.69 0 0 1-1.527 1.527c-.66.352-1.312.54-3.113.54H22.855c-1.8 0-2.453-.187-3.113-.54s-1.172-.87-1.527-1.527-.54-1.312-.54-3.113zm0 0" fill-rule="evenodd" fill="rgb(98.431373%,93.72549%,65.882353%)"></path><path d="M43.94 37.137c0-.477-.395-.863-.883-.863s-.883.387-.883.863v3.844l-5.145-5.047c-.348-.34-.902-.34-1.25 0a.85.85 0 0 0-.258.609.86.86 0 0 0 .258.613l5.145 5.05h-3.914c-.488 0-.883.387-.883.867s.395.867.883.867h6.05c.113-.004.227-.023.336-.07a.87.87 0 0 0 .477-.465c.05-.105.066-.22.066-.332l.004-5.934zm0 0" fill="rgb(71.764706%,62.745098%,0.392157%)"></path><g fill-rule="evenodd"><path d="M5.184 0h21.988c1.8 0 2.453.188 3.113.54.652.344 1.184.88 1.527 1.53.352.656.54 1.313.54 3.113v21.984c0 1.805-.187 2.457-.54 3.117-.344.648-.875 1.184-1.527 1.527-.66.352-1.312.54-3.113.54H5.184c-1.8 0-2.457-.187-3.113-.54-.652-.344-1.184-.88-1.527-1.527C.188 29.625 0 28.973 0 27.168V5.184c0-1.8.188-2.457.54-3.113.344-.652.88-1.184 1.53-1.53S3.383 0 5.184 0zm0 0" fill="rgb(83.921569%,74.901961%,17.647059%)"></path><path d="M10.28 12.945v4.688c0 1.66-.926 2.66-2.707 2.66C5.406 20.293 5 18.852 5 18.07c0-.668.31-1.098.86-1.098.648 0 .813.504.813 1.05 0 .516.242.89.88.89.594 0 .926-.44.926-1.3V12.95c0-.54.352-.898.902-.898s.902.36.902.898zm1.672 6.402v-6.102c0-.8.418-1.055 1.055-1.055h2.762c1.516 0 2.738.75 2.738 2.508 0 1.44-1 2.508-2.75 2.508h-2v2.152c0 .54-.355.902-.902.902s-.902-.363-.902-.902zm1.805-5.773v2.242h1.68c.727 0 1.266-.437 1.266-1.12 0-.793-.56-1.12-1.45-1.12zm13.285 3.1v2.984c0 .332-.254.602-.613.602-.52 0-.66-.32-.773-1.023-.516.648-1.23 1.066-2.352 1.066-2.793 0-3.863-1.926-3.863-4.145 0-2.676 1.672-4.148 4.125-4.148 2.004 0 3.07 1.2 3.07 1.902 0 .63-.46.793-.848.793-.89 0-.56-1.242-2.32-1.242-1.242 0-2.223.813-2.223 2.816 0 1.56.77 2.637 2.246 2.637.957 0 1.793-.648 1.88-1.617H24.2c-.383 0-.812-.14-.812-.69 0-.44.254-.69.703-.69h2.223c.527 0 .738.262.738.758zm0 0" fill="rgb(100%,100%,100%)"></path></g></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 50 50"><path d="M17.676 34.344h9.55c2.477 0 3.375-.258 4.28-.742a5.04 5.04 0 0 0 2.098-2.102c.484-.902.742-1.8.742-4.277v-9.547H44.82c1.8 0 2.453.188 3.113.54s1.176.87 1.527 1.527.54 1.31.54 3.113V44.82c0 1.8-.187 2.453-.54 3.113a3.69 3.69 0 0 1-1.527 1.527c-.66.352-1.312.54-3.113.54H22.855c-1.8 0-2.453-.187-3.113-.54s-1.172-.87-1.527-1.527-.54-1.312-.54-3.113zm0 0"  fill="rgb(98.431373%,93.72549%,65.882353%)"></path><path d="M43.94 37.137c0-.477-.395-.863-.883-.863s-.883.387-.883.863v3.844l-5.145-5.047c-.348-.34-.902-.34-1.25 0a.85.85 0 0 0-.258.609.86.86 0 0 0 .258.613l5.145 5.05h-3.914c-.488 0-.883.387-.883.867s.395.867.883.867h6.05c.113-.004.227-.023.336-.07a.87.87 0 0 0 .477-.465c.05-.105.066-.22.066-.332l.004-5.934zm0 0" fill="rgb(71.764706%,62.745098%,0.392157%)"></path><g ><path d="M5.184 0h21.988c1.8 0 2.453.188 3.113.54.652.344 1.184.88 1.527 1.53.352.656.54 1.313.54 3.113v21.984c0 1.805-.187 2.457-.54 3.117-.344.648-.875 1.184-1.527 1.527-.66.352-1.312.54-3.113.54H5.184c-1.8 0-2.457-.187-3.113-.54-.652-.344-1.184-.88-1.527-1.527C.188 29.625 0 28.973 0 27.168V5.184c0-1.8.188-2.457.54-3.113.344-.652.88-1.184 1.53-1.53S3.383 0 5.184 0zm0 0" fill="rgb(83.921569%,74.901961%,17.647059%)"></path><path d="M10.28 12.945v4.688c0 1.66-.926 2.66-2.707 2.66C5.406 20.293 5 18.852 5 18.07c0-.668.31-1.098.86-1.098.648 0 .813.504.813 1.05 0 .516.242.89.88.89.594 0 .926-.44.926-1.3V12.95c0-.54.352-.898.902-.898s.902.36.902.898zm1.672 6.402v-6.102c0-.8.418-1.055 1.055-1.055h2.762c1.516 0 2.738.75 2.738 2.508 0 1.44-1 2.508-2.75 2.508h-2v2.152c0 .54-.355.902-.902.902s-.902-.363-.902-.902zm1.805-5.773v2.242h1.68c.727 0 1.266-.437 1.266-1.12 0-.793-.56-1.12-1.45-1.12zm13.285 3.1v2.984c0 .332-.254.602-.613.602-.52 0-.66-.32-.773-1.023-.516.648-1.23 1.066-2.352 1.066-2.793 0-3.863-1.926-3.863-4.145 0-2.676 1.672-4.148 4.125-4.148 2.004 0 3.07 1.2 3.07 1.902 0 .63-.46.793-.848.793-.89 0-.56-1.242-2.32-1.242-1.242 0-2.223.813-2.223 2.816 0 1.56.77 2.637 2.246 2.637.957 0 1.793-.648 1.88-1.617H24.2c-.383 0-.812-.14-.812-.69 0-.44.254-.69.703-.69h2.223c.527 0 .738.262.738.758zm0 0" fill="rgb(100%,100%,100%)"></path></g></svg>
                         </div>
-                        <h1>Image to PDF</h1>
+                        <h2>Image to PDF</h2>
                         <p>
                           Pull data straight from Images to PDF making within seconds.
                         </p>
@@ -266,7 +266,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Word to PDF</h1>
+                        <h2>Word to PDF</h2>
                         <p>
                           Make DOC and DOCX files easy to read by converting
                           them to PDF.
@@ -305,7 +305,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>PowerPoint to PDF</h1>
+                        <h2>PowerPoint to PDF</h2>
                         <p>
                           Make PPT and PPTX slideshows easy to view by
                           converting them to PDF.
@@ -344,7 +344,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Excel to PDF</h1>
+                        <h2>Excel to PDF</h2>
                         <p>
                           Make EXCEL spreadsheets easy to read by converting
                           them to PDF.
@@ -411,7 +411,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Edit PDF</h1>
+                        <h2>Edit PDF</h2>
                         <p>
                           Add text, images, shapes or freehand annotations to a
                           PDF document. Edit the size, font, and color of the
@@ -451,7 +451,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>PDF to JPG</h1>
+                        <h2>PDF to JPG</h2>
                         <p>
                           Convert each PDF page into a JPG or extract all images
                           contained in a PDF.
@@ -490,7 +490,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>PDF to JPG</h1>
+                        <h2>PDF to JPG</h2>
                         <p>
                           Convert each PDF page into a JPG or extract all images
                           contained in a PDF.
@@ -527,7 +527,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Sign PDF</h1>
+                        <h2>Sign PDF</h2>
                         <p>
                           Sign yourself or request electronic signatures from
                           others.
@@ -556,7 +556,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Watermark</h1>
+                        <h2>Watermark</h2>
                         <p>
                           Stamp an image or text over your PDF in seconds.
                           Choose the typography, transparency and position.
@@ -588,7 +588,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Rotate PDF</h1>
+                        <h2>Rotate PDF</h2>
                         <p>
                           Rotate your PDFs the way you need them. You can even
                           rotate multiple PDFs at once!
@@ -627,7 +627,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>HTML to PDF </h1>
+                        <h2>HTML to PDF </h2>
                         <p>
                           Convert webpages in HTML to PDF. Copy and paste the
                           URL of the page you want and convert it to PDF with a
@@ -658,7 +658,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Unlock PDF </h1>
+                        <h2>Unlock PDF </h2>
                         <p>
                           Remove PDF password security, giving you the freedom
                           to use your PDFs as you want.
@@ -689,7 +689,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Protect PDF </h1>
+                        <h2>Protect PDF </h2>
                         <p>
                           Protect PDF files with a password. Encrypt PDF
                           documents to prevent unauthorized access.
@@ -752,7 +752,7 @@ const Index = () => {
                             </g>
                           </svg>
                         </div>
-                        <h1>Organize PDF </h1>
+                        <h2>Organize PDF </h2>
                         <p>
                           Sort pages of your PDF file however you like. Delete
                           PDF pages or add PDF pages to your document at your
@@ -791,7 +791,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>PDF to PDF/A </h1>
+                        <h2>PDF to PDF/A </h2>
                         <p>
                           Transform your PDF to PDF/A, the ISO-standardized
                           version of PDF for long-term archiving. Your PDF will
@@ -821,7 +821,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Repair PDF </h1>
+                        <h2>Repair PDF </h2>
                         <p>
                           Repair a damaged PDF and recover data from corrupt
                           PDF. Fix PDF files with our Repair tool.
@@ -850,7 +850,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Page numbers</h1>
+                        <h2>Page numbers</h2>
                         <p>
                           Add page numbers into PDFs with ease. Choose your
                           positions, dimensions, typography.
@@ -917,7 +917,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Scan to PDF</h1>
+                        <h2>Scan to PDF</h2>
                         <p>
                           Capture document scans from your mobile device and
                           send them instantly to your browser.
@@ -978,7 +978,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>OCR PDF</h1>
+                        <h2>OCR PDF</h2>
                         <p>
                           Easily convert scanned PDF into searchable and
                           selectable documents.
@@ -1057,7 +1057,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Compare PDF</h1>
+                        <h2>Compare PDF</h2>
                         <p>
                           Show a side-by-side document comparison and easily
                           spot changes between different file versions.
@@ -1110,7 +1110,7 @@ const Index = () => {
                             />
                           </svg>
                         </div>
-                        <h1>Redact PDF</h1>
+                        <h2>Redact PDF</h2>
                         <p>
                           Redact text and graphics to permanently remove
                           sensitive information from a PDF.

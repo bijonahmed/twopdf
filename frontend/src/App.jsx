@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import { Link } from "react-router-dom";
+
 import AppRouter from "./rotuer";
 import Guest from '../components/GuestNavbar';
 import Auth from '../components/AuthNavbar';
@@ -13,6 +13,7 @@ function App() {
     <div>
       {/* {getToken() ? <Auth /> : <Guest />} */}
       <AppRouter />
+   
     </div>
   );
 }
