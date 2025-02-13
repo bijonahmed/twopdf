@@ -23,29 +23,30 @@ const Footer = () => {
               <h5>Modules</h5>
               <ul>
                 <li>
-                  <a href="#merge-pdf">Merge PDF</a>
+                  <Link to="/pdf/margepdf">Merge PDF</Link>
                 </li>
                 <li>
-                  <a href="#split-pdf">Split PDF</a>
+                  <Link to="/pdf/splitpdf">Split PDF</Link>
                 </li>
                 <li>
-                  <a href="#zip-pdf">ZIP PDF</a>
+                <Link to="/pdf/pdftotxt">PDF To Text</Link>
                 </li>
               </ul>
             </div>
 
             {/* Contact Section */}
             <div className="col-md-2">
-              <h5>Contact Us</h5>
+              <h5>Modules</h5>
               <ul>
+
                 <li>
-                  <a href="#pdf-to-text">PDF to Text</a>
+                  <Link to="/pdf/pdftoppt"> PDF to PPT</Link>
                 </li>
                 <li>
-                  <a href="#pdf-to-ppt">PDF to PowerPoint</a>
+                  <Link to="/pdf/pdfzip">PDF to ZIP</Link>
                 </li>
                 <li>
-                  <a href="#image-to-pdf">Image to PDF</a>
+                  <Link to="/pdf/imgtopdf"> Image to PDF</Link>
                 </li>
               </ul>
             </div>
@@ -53,7 +54,10 @@ const Footer = () => {
             <div className="col-md-3">
               <h5>Contact Us</h5>
               <p className="contact-info">
-                <i className="bi bi-envelope"></i> support@example.com
+                <i className="bi bi-envelope"></i>{" "}
+                <a href="mailto:support@twopdf.com" style={{ color: "white" }}>
+                  support@twopdf.com
+                </a>
               </p>
             </div>
           </div>

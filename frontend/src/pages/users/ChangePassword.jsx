@@ -83,61 +83,87 @@ const ChangePassword = () => {
       </Helmet>
 
       <GuestNavbar />
-      <AdminSidebar/>
-<div className="container">
+      <AdminSidebar />
 
-  <div className="row">
-    <div className="col-md-5 m-auto">
-      <div className="login_sec register_sec">
-        <h1>Change password</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group mb-2">
-            <label htmlFor="password">Password</label>
-            <div className="input_group">
-            <input
-                    type="password"
-                    className="form-control"
-                    onChange={handleOldPasswordChange}
-                  />
-                  {errors.old_password && ( <div className="error" style={{ color: "red" }}>{errors.old_password[0]} </div> )}
-              
-            </div>
-          </div>
-          <div className="form-group mb-2">
-            <label htmlFor="confirmPassword">New Password</label>
-            <div className="input_group">
-            <input
-                    type="password"
-                  
-                    className="form-control"
-                    onChange={handleNewPasswordChange}
-                  />
-                  {errors.new_password && ( <div className="error" style={{ color: "red" }}>{errors.new_password[0]} </div> )}
-              
-            </div>
-          </div>
+      <div className="dashboard_main_content">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="dashboar_conent">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-5 m-auto">
+                    <div className="login_sec register_sec">
+                      <h1>Change password</h1>
+                      <form onSubmit={handleSubmit}>
+                        <div className="form-group mb-2">
+                          <label htmlFor="password">Password</label>
+                          <div className="input_group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              onChange={handleOldPasswordChange}
+                            />
+                            {errors.old_password && (
+                              <div className="error" style={{ color: "red" }}>
+                                {errors.old_password[0]}{" "}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="form-group mb-2">
+                          <label htmlFor="confirmPassword">New Password</label>
+                          <div className="input_group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              onChange={handleNewPasswordChange}
+                            />
+                            {errors.new_password && (
+                              <div className="error" style={{ color: "red" }}>
+                                {errors.new_password[0]}{" "}
+                              </div>
+                            )}
+                          </div>
+                        </div>
 
-          <div className="form-group mb-2">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <div className="input_group">
-            <input
-                    type="password"
-                    className="form-control"
-                    onChange={handleConfirmPasswordChange}
-                  />
-                   {errors.new_password_confirmation && ( <div className="error" style={{ color: "red" }}>{errors.new_password_confirmation[0]} </div> )}
-              
+                        <div className="form-group mb-2">
+                          <label htmlFor="confirmPassword">
+                            Confirm Password
+                          </label>
+                          <div className="input_group">
+                            <input
+                              type="password"
+                              className="form-control"
+                              onChange={handleConfirmPasswordChange}
+                            />
+                            {errors.new_password_confirmation && (
+                              <div className="error" style={{ color: "red" }}>
+                                {errors.new_password_confirmation[0]}{" "}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <button
+                          type="submit"
+                          className="btn btn-primary btn-primary--login"
+                        >
+                          Update
+                        </button>
+                      </form>
+                      <div className="signup">
+                        <span>Allready have an account?</span>{" "}
+                        <a href="login.html" className="register-link">
+                          Log In
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary btn-primary--login">Update</button>
-        </form>
-        <div className="signup"><span>Allready have an account?</span> <a href="login.html" className="register-link">
-            Log In
-          </a></div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <Footer />
     </>

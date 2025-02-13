@@ -17,6 +17,7 @@ use App\Models\Post;
 use App\Models\VerifyEmail;
 use App\Models\Setting;
 use App\Models\ProductAdditionalImg;
+use App\Models\SeoData;
 use App\Models\TorrentsTutorial;
 use App\Models\UserRequestCount;
 use Illuminate\Support\Str;
@@ -248,5 +249,13 @@ class UnauthenticatedController extends Controller
             // Handle errors
             return response()->json(['error' => 'Error during conversion. Please try again.'], 500);
         }
+    }
+
+    public function checkSeoContent(Request $request)
+    {
+        // dd($request->all());
+        $slug            = !empty($request->slug) ? $request->slug : "";
+        $response['seo'] = SeoData::where('slug', $slug)->where('status',1)->first();
+        return response()->json($response, 200);
     }
 }

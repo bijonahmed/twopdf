@@ -62,6 +62,7 @@ Route::group([
 Route::group([
     'prefix' => 'public'
 ], function () {
+    Route::get('/checkSeoContent', [UnauthenticatedController::class, 'checkSeoContent']);
     Route::get('/generate-pdf/{slug}', [UnauthenticatedController::class, 'generatePDF']);
     Route::get('getChildDataParentWise/{slug}', [UnauthenticatedController::class, 'getChildDataParentWise']);
     Route::get('countPerDayValidation', [UnauthenticatedController::class, 'countPerDayValidation']);

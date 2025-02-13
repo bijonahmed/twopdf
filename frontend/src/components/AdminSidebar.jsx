@@ -72,10 +72,10 @@ const AdminSidebar = () => {
       <ul>
         <h4>Profile</h4>
         <li><Link to="/users/profile"><i className="fa-regular fa-user" /><span>Profile</span></Link></li>
-        <li className="active"><Link to="/users/change-password"><i className="fa-regular fa-lock" /><span>Change Password</span></Link></li>
-        <li className="active"><a href="#"><i className="fa fa-credit-card" /><span>Payment</span></a></li>
+        <li><Link to="/users/change-password"><i className="fa-regular fa-lock" /><span>Change Password</span></Link></li>
+        {/* <li><a href="#"><i className="fa fa-credit-card" /><span>Payment</span></a></li> */}
         {/* <li><a href="team.html"><i className="fa-light fa-circle-nodes" /><span>Team</span></a></li> */}
-        <li><a href="#" onClick={logoutUser}><i className="fa fa-sign-out" /><span>Logout</span></a></li>
+        <li><a href="#" onClick={logoutUser}><i className="fa-regular fa-sign-out" /><span>Logout</span></a></li>
       </ul>
     </aside>
   </div>

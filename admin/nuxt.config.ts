@@ -106,7 +106,7 @@ export default defineNuxtConfig({
         { src: "/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",type: "text/javascript" },
         // { src: "/dist/js/adminlte2167.js?v=3.2.0",type: "text/javascript" },
         { src: "/dist/js/adminlte.js",type: "text/javascript" },
-        { src: "/dist/js/pages/dashboard.js",type: "text/javascript" },
+       // { src: "/dist/js/pages/dashboard.js",type: "text/javascript" },
         { src: "/plugins/toastr/toastr.min.js",type: "text/javascript" },
         { src: "https://unpkg.com/sweetalert/dist/sweetalert.min.js",type: "text/javascript" },
         { src: "https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js",type: "text/javascript" },

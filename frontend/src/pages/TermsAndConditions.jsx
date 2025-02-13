@@ -56,7 +56,7 @@ const TermsAndConditions = () => {
           <p>TwoPDF reserves the right to modify these terms and conditions at any time. Your continued use of the site following any changes indicates your acceptance of the new terms and conditions.</p>
           
           <h6 className="mt-4">8. Contact Us</h6>
-          <p>If you have any questions about these Terms and Conditions, please contact us at <a href="mailto:support@twopdf.com">support@twopdf.com</a>.</p>
+          <p>If you have any questions about these Terms and Conditions, please contact us at <a href="mailto:support@twopdf.com">support@twopdf.com</a></p>
         </div>
       </div>
     </div>

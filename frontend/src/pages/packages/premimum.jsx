@@ -120,15 +120,6 @@ const Premimum = () => {
     }
   };
 
-
-
-
-
-
-
-
-
-
   // Handle tab selection
   const handleTabChange = (plan) => {
     setSelectedPlan(plan);
