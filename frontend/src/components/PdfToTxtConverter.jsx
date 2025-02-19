@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import axios from '/config/axiosConfig';
+import React, { useState, useEffect } from "react";
+import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif";
 
-function PdfToTxtConverter() {
+function PdfToTxtConverter({ description }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(5);
 
   // Handle file input change
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-    setErrorMessage('');
+    setErrorMessage("");
     setCountdown(5);
     setIsLoading(true);
   };
 
   // Validate the file to ensure it's a PDF
   const validateFile = (uploadedFile) => {
-    const fileExtension = uploadedFile.name.split('.').pop().toLowerCase();
-    if (fileExtension !== 'pdf') {
-      setErrorMessage('Please upload a valid PDF file.');
+    const fileExtension = uploadedFile.name.split(".").pop().toLowerCase();
+    if (fileExtension !== "pdf") {
+      setErrorMessage("Please upload a valid PDF file.");
       setIsLoading(false);
       return false;
     }
@@ -33,25 +33,29 @@ function PdfToTxtConverter() {
     if (!file || !validateFile(file)) return;
 
     setLoading(true);
-    setErrorMessage('');
+    setErrorMessage("");
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
       // Call Laravel API to convert PDF to TXT
-      const response = await axios.post('/public/convert-pdf-to-txt', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        responseType: 'blob',
-      });
+      const response = await axios.post(
+        "/public/convert-pdf-to-txt",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          responseType: "blob",
+        }
+      );
 
       // Create a downloadable link for the converted TXT file
       const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', 'converted_file.txt');
+      link.setAttribute("download", "converted_file.txt");
       document.body.appendChild(link);
       link.click();
 
@@ -59,7 +63,7 @@ function PdfToTxtConverter() {
       setIsLoading(false);
     } catch (error) {
       setLoading(false);
-      setErrorMessage('Error during conversion. Please try again.');
+      setErrorMessage("Error during conversion. Please try again.");
       setIsLoading(false);
     }
   };
@@ -84,7 +88,7 @@ function PdfToTxtConverter() {
 
   return (
     <div>
-      <div className="tools container-1060" style={{ minHeight: '100vh' }}>
+      <div className="tools container-1060" style={{ minHeight: "100vh" }}>
         <div className="tools-top">
           <div className="tools-top__headlines">
             <h2 className="title">PDF To Text</h2>
@@ -102,7 +106,7 @@ function PdfToTxtConverter() {
           )}
           <div className="upload_group">
             <form onSubmit={(e) => e.preventDefault()}>
-              <div className="btn_group">
+              <div className="btn_group text-center">
                 <label htmlFor="upload">Select PDF files</label>
                 <input
                   type="file"
@@ -110,8 +114,14 @@ function PdfToTxtConverter() {
                   accept="application/pdf"
                   onChange={handleFileChange}
                 />
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </div>
+
+              <br />
+              <div
+                className="text-justify"
+                dangerouslySetInnerHTML={{ __html: description }}
+              ></div>
             </form>
           </div>
         </div>

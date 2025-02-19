@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import loaderImage from "../assets/loadergif.gif";
 import jsPDF from 'jspdf';
 
-const ImageToPDF = () => {
+const ImageToPDF = ({ description }) => {
   const [image, setImage] = useState(null); // Store the selected image
   const [isLoading, setIsLoading] = useState(false); // To control the loading state
   const [countdown, setCountdown] = useState(5); // Countdown time
@@ -129,7 +129,7 @@ const ImageToPDF = () => {
       )}
 
       {/* Button to generate PDF */}
-      <button
+      <center><button
         onClick={handleGeneratePDF}
         disabled={isLoading || !image} // Disable button while loading or no image
         style={{
@@ -144,8 +144,19 @@ const ImageToPDF = () => {
         }}
       >
         {isLoading ? 'Generating PDF...' : 'Generate PDF'}
-      </button>
+      </button></center>
+
+
+
+
+
+      
     </div>
+    <br />
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
   </div>
 </div>
 

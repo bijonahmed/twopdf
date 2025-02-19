@@ -7,18 +7,19 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use AuthorizesRequests;
 use DB;
-class SeoData extends Authenticatable
+class SEO extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     public $table = "seo";
     protected $fillable = [
         'name',
         'slug',
-        'status',
         'keywords',
         'meta_title',
         'meta_description',
         'description_full',
         'status'
     ];
+
+     
 }

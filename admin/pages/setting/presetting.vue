@@ -40,13 +40,13 @@
                                                 WebSite Confirgration
                                             </button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
+                                        <!-- <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="profile-tab" data-toggle="tab"
                                                 data-target="#profile" type="button" role="tab" aria-controls="profile"
                                                 aria-selected="false">
                                                 Others Configration
                                             </button>
-                                        </li>
+                                        </li> -->
                                         <!-- <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
   </li> -->

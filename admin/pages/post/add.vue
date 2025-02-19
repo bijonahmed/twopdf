@@ -45,8 +45,24 @@
                       <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel"
                         aria-labelledby="custom-tabs-three-home-tab">
                         <!-- General  -->
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Post
+                            Categories</label>
+                          <div class="col-sm-10">
+                            <div>
+
+                              <select id="category" class="form-control" v-model="insertdata.slug">
+                                <option v-for="option in postCat" :value="option.slug" :key="option.id">{{ option.name
+                                  }}
+                                </option>
+                              </select>
+                              <span class="text-danger" v-if="errors.slug">{{ errors.slug[0] }}</span>
+
+                            </div>
+                          </div>
+                        </div>
                         <div class="row mb-3 required">
-                          <label for="input-name-1" class="col-sm-2 col-form-label required-label">Title</label>
+                          <label for="input-name-1" class="col-sm-2 col-form-label required-label">Name</label>
                           <div class="col-sm-10">
                             <input type="text" name="name" placeholder="Name" v-model="insertdata.name"
                               class="form-control" />
@@ -62,24 +78,46 @@
                           </div>
                         </div>
 
+                      
+
+
                         <div class="row mb-3">
-                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Post
-                            Categories</label>
+                          <label for="input-meta-description-1"
+                            class="col-sm-2 col-form-label required-label">Keywords</label>
                           <div class="col-sm-10">
                             <div>
-                              <!-- ======{{ postCat }}===== -->
+                              <textarea class="form-control" v-model="insertdata.keywords"> </textarea>
+                              <span class="text-danger" v-if="errors.keywords">{{ errors.keywords[0] }}</span>
+                            </div>
+                          </div>
+                        </div>
 
-                              <select id="category" class="form-control" v-model="insertdata.categoryId">
-                                <option v-for="option in postCat" :value="option.id" :key="option.id">{{ option.name }}
-                                </option>
-                              </select>
 
-                              <span class="text-danger" v-if="errors.categoryId">{{ errors.categoryId[0] }}</span>
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Meta
+                            Title</label>
+                          <div class="col-sm-10">
+                            <div>
+                              <textarea class="form-control"  v-model="insertdata.meta_title"> </textarea>
+                              <span class="text-danger" v-if="errors.meta_title">{{ errors.meta_title[0] }}</span>
 
                             </div>
                           </div>
                         </div>
 
+
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Meta
+                            Description</label>
+                          <div class="col-sm-10">
+                            <div>
+
+                              <textarea class="form-control"  v-model="insertdata.meta_description"> </textarea>
+                              <span class="text-danger" v-if="errors.meta_description">{{ errors.meta_description[0] }}</span>
+
+                            </div>
+                          </div>
+                        </div>
                         <div class="row mb-3">
                           <label for="input-description-1" class="col-sm-2 col-form-label">Full Description</label>
                           <div class="col-sm-10">
@@ -88,23 +126,6 @@
                         </div>
                         <hr />
 
-                        <div v-if="insertdata.categoryId === 3">
-                          <div class="row mb-3 required">
-                            <label for="input-meta-title-1" class="col-sm-4 col-form-label">Question</label>
-                            <div class="col-sm-8">
-                              <input type="text" placeholder="" v-model="insertdata.question" class="form-control" />
-                            </div>
-                          </div>
-                          <div class="row mb-3 required">
-                            <label for="input-meta-title-1" class="col-sm-4 col-form-label">Answer</label>
-                            <div class="col-sm-8">
-                              <input type="text" placeholder="" v-model="insertdata.answer" class="form-control" />
-
-                            </div>
-
-                          </div>
-                        </div>
-                        <hr />
 
                         <div class="alert alert-info" bis_skin_checked="1">
                           <i class="fas fa-info-circle"></i>Thumbnail
@@ -116,8 +137,8 @@
                             <input type="file" value class="form-control" id="fileInput" accept="image/png,image/jpeg"
                               ref="files" @change="onFileSelected" />
                             <span class="text-danger" v-if="errors.files">{{
-                errors.files[0]
-              }}</span>
+                              errors.files[0]
+                              }}</span>
                             <img v-if="previewUrl" :src="previewUrl" alt="Preview" class="img-fluids" />
                           </div>
                         </div>
@@ -141,7 +162,7 @@
                           </div>
                         </div>
                         <button type="submit" class="btn btn-success px-5 w-100">
-                          <i class="bx bx-check-circle mr-1"></i> Save & Next
+                          <i class="bx bx-check-circle mr-1"></i> Save
                         </button>
 
                       </div>
@@ -169,10 +190,10 @@ const router = useRouter()
 window.Swal = swal;
 const insertdata = reactive({
   name: '',
-  categoryId: '',
-  question: '',
-  answer: '',
-  images: '',
+  slug: '',
+  slug: '',
+  meta_title: '',
+  meta_description: '',
   status: 1,
 });
 // Define a ref to store the HTML content of the editor
@@ -182,7 +203,7 @@ const descriptionFull = ref('');
 const previewUrl = ref(null);
 const images = ref([]);
 const postCat = ref([]);
- 
+
 const file = ref(null);
 const files = ref(null);
 const errors = ref({});
@@ -266,11 +287,11 @@ const checkImageDimensionsThunbnail = (file) => {
     const img = new Image();
     img.src = e.target.result;
     img.onload = () => {
-     // if (img.width === 300 && img.height === 300) {
-     previewUrl.value = e.target.result;
-     //  } else {
-     //    alert('Image dimensions must be 300x300 pixels.');
-     // }
+      // if (img.width === 300 && img.height === 300) {
+      previewUrl.value = e.target.result;
+      //  } else {
+      //    alert('Image dimensions must be 300x300 pixels.');
+      // }
     };
   };
   reader.readAsDataURL(file);
@@ -306,11 +327,12 @@ const saveData = () => {
 
   formData.append('files', file.value);
   formData.append('name', insertdata.name);
-  formData.append('categoryId', insertdata.categoryId);
-  formData.append('description_short', descriptionShort.value);
+  formData.append('keywords', insertdata.keywords);
+  formData.append('meta_title', insertdata.meta_title);
+  formData.append('meta_description', insertdata.meta_description);
+  formData.append('slug', insertdata.slug);
   formData.append('description_full', descriptionFull.value);
-  formData.append('question', insertdata.question);
-  formData.append('answer', insertdata.answer);
+
   console.log(formData);
 
   axios.post('/post/save', formData, {
@@ -323,7 +345,7 @@ const saveData = () => {
     const product_id = res.data.product_id;
     // Redirect to product variant page
     router.push({
-      path: '/post/preview',
+      path: '/post/postlist',
       query: {
         parameter: product_id
       }

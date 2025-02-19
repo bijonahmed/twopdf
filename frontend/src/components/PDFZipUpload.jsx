@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import { PDFDocument } from 'pdf-lib';
 import loaderImage from "../assets/loadergif.gif";
 
-const PDFZipUpload = () => {
+const PDFZipUpload = ({ description }) => {
   const [files, setFiles] = useState([]); // Store multiple files
   const [isLoading, setIsLoading] = useState(false); // To control the loading state
   const [countdown, setCountdown] = useState(5); // Countdown time
@@ -85,7 +85,7 @@ const PDFZipUpload = () => {
         )}
         <div className="upload_group">
           <form onSubmit={(e) => e.preventDefault()}>
-            <div className="btn_group">
+            <div className="btn_group text-center">
               <label htmlFor="upload">Select PDF files</label>
               <input
                 type="file"
@@ -96,6 +96,16 @@ const PDFZipUpload = () => {
               />
 
             </div>
+            <br />
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
+
+
+
+
+
           </form>
         </div>
 

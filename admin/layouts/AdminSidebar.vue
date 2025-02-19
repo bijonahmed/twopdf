@@ -112,9 +112,9 @@ const menuItems = ref([
     open: false,
     route: null,
     children: [
-      { label: 'Torrent List', icon: 'fa-circle', route: '/post/torrentlist' },
-      { label: 'PDF List', icon: 'fa-circle', route: '/post/pdflist' },
       { label: 'Post List', icon: 'fa-circle', route: '/post/postlist' },
+      // { label: 'PDF List', icon: 'fa-circle', route: '/post/pdflist' },
+      // { label: 'Post List', icon: 'fa-circle', route: '/post/postlist' },
 
     ]
   },
@@ -134,21 +134,21 @@ const menuItems = ref([
         icon: "fa-circle",
         route: "/productmanagement/categorylist",
       },
-      {
-        label: "Mining Category",
-        icon: "fa-circle",
-        route: "/setting/mining-category-list",
-      },
-      {
-        label: "Mining Duration",
-        icon: "fa-circle",
-        route: "/setting/duration/mining-duration-list",
-      },
-      {
-        label: "Community List",
-        icon: "fa-circle",
-        route: "/setting/community/list",
-      },
+      // {
+      //   label: "Mining Category",
+      //   icon: "fa-circle",
+      //   route: "/setting/mining-category-list",
+      // },
+      // {
+      //   label: "Mining Duration",
+      //   icon: "fa-circle",
+      //   route: "/setting/duration/mining-duration-list",
+      // },
+      // {
+      //   label: "Community List",
+      //   icon: "fa-circle",
+      //   route: "/setting/community/list",
+      // },
       //{ label: "Sliders", icon: "fa-circle", route: "/slider/list" },
       //{ label: 'System Configaration', icon: 'fa-circle', route: '#' },
       //{ label: 'Store Information', icon: 'fa-circle', route: '#' }

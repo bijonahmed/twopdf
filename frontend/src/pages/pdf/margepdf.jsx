@@ -14,6 +14,7 @@ const Margepdf = () => {
     title: "",
     description: "",
     keywords: "",
+    description_full: "",
   });
 
   const slug = "merge_pdf";
@@ -24,7 +25,6 @@ const Margepdf = () => {
         const response = await axios.get("/public/checkSeoContent", {
           params: { slug },
         });
-
         // Assuming API response contains SEO meta data
         if (response.data.seo) {
           setSeoData({
@@ -32,6 +32,8 @@ const Margepdf = () => {
             description:
               response.data.seo.meta_description || "Default description",
             keywords: response.data.seo.keywords || "default, seo, keywords",
+            description_full:
+              response.data.seo.description_full || "description_full",
           });
         }
       } catch (error) {
@@ -60,7 +62,10 @@ const Margepdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfMerger />
+        <>
+          <PdfMerger description={seoData.description_full} />
+          {/* {seoData.description_full} */}
+        </>
       )}
 
       <Footer />

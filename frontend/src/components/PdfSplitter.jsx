@@ -4,7 +4,7 @@ import axios from '/config/axiosConfig';
 import loaderImage from '../assets/loadergif.gif'; // Ensure you have a loader gif available
 import { Route } from 'react-router-dom';
 import { Link } from "react-router-dom";
-const PdfSplitter = () => {
+const PdfSplitter = ({ description }) => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(5);
@@ -132,7 +132,7 @@ const PdfSplitter = () => {
             </div>
           )}
           <div className="upload_group">
-            <div className="btn_group">
+            <div className="btn_group text-center">
               <label htmlFor="upload">Select PDF file</label>
               <input
                 type="file"
@@ -142,6 +142,15 @@ const PdfSplitter = () => {
                 disabled={isLoading || limitReached}
               />
             </div>
+
+
+
+            
+            <br />
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ const Splitpdf = () => {
     title: "",
     description: "",
     keywords: "",
+    description_full:"",
   });
 
   const slug = "split_pdf";
@@ -24,7 +25,6 @@ const Splitpdf = () => {
         const response = await axios.get("/public/checkSeoContent", {
           params: { slug },
         });
-
         // Assuming API response contains SEO meta data
         if (response.data.seo) {
           setSeoData({
@@ -32,6 +32,7 @@ const Splitpdf = () => {
             description:
               response.data.seo.meta_description || "Default description",
             keywords: response.data.seo.keywords || "default, seo, keywords",
+            description_full: response.data.seo.description_full || "description_full",
           });
         }
       } catch (error) {
@@ -62,7 +63,7 @@ const Splitpdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfSplitter />
+        <PdfSplitter description={seoData.description_full} />
       )}
 
       <Footer />

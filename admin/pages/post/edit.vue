@@ -1,33 +1,33 @@
 <template>
   <title>Edit Product</title>
   <div>
-      <div class="content-wrapper">
-          <section class="content-header">
-              <div class="container-fluid">
-                  <div class="row mb-2">
-                      <div class="col-sm-6">
-                          <p>Edit Product</p>
-                      </div>
-                      <div class="col-sm-6">
-                          <ol class="breadcrumb float-sm-right">
-                              <li class="breadcrumb-item">
-                                  <LazyNuxtLink to="/admin/dashboard">Home</LazyNuxtLink>
-                              </li>
-                              <li class="breadcrumb-item active">
-                                  <LazyNuxtLink to="/post/list">Back to List</LazyNuxtLink>
-                              </li>
-                          </ol>
-                      </div>
-                  </div>
-              </div>
-          </section>
+    <div class="content-wrapper">
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <p>Edit Product</p>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                  <LazyNuxtLink to="/admin/dashboard">Home</LazyNuxtLink>
+                </li>
+                <li class="breadcrumb-item active">
+                  <LazyNuxtLink to="/post/postlist">Back to List</LazyNuxtLink>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <section class="content">
-              <div class="container-fluid">
-                  <!-- Start -->
-                  <div class="card border-top border-0 border-4 border-info">
-                      <div class="border p-4 rounded">
-                        <form @submit.prevent="saveData()" id="formrest" class="forms-sample" enctype="multipart/form-data">
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Start -->
+          <div class="card border-top border-0 border-4 border-info">
+            <div class="border p-4 rounded">
+              <form @submit.prevent="saveData()" id="formrest" class="forms-sample" enctype="multipart/form-data">
                 <div class="card card-primary card-outline card-tabs">
                   <div class="card-header p-0 pt-1 border-bottom-0">
                     <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
@@ -39,17 +39,33 @@
 
                     </ul>
                   </div>
+                  <!-- <center><button type="button" @click="productrow">Test</button></center> -->
                   <div class="card-body">
                     <div class="tab-content" id="custom-tabs-three-tabContent">
                       <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel"
                         aria-labelledby="custom-tabs-three-home-tab">
                         <!-- General  -->
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Post
+                            Categories</label>
+                          <div class="col-sm-10">
+                            <div>
+                              <select id="category" class="form-control" v-model="insertdata.slug">
+                                <option v-for="option in postCat" :value="option.slug" :key="option.id">{{ option.name
+                                  }}
+                                </option>
+                              </select>
+                              <span class="text-danger" v-if="errors.slug">{{ errors.slug[0] }}</span>
+
+                            </div>
+                          </div>
+                        </div>
                         <div class="row mb-3 required">
-                          <label for="input-name-1" class="col-sm-2 col-form-label required-label">Title</label>
+                          <label for="input-name-1" class="col-sm-2 col-form-label required-label">Name</label>
                           <div class="col-sm-10">
                             <input type="text" name="name" placeholder="Name" v-model="insertdata.name"
                               class="form-control" />
-                            <input type="hidden" v-model="insertdata.id" class="form-control" />
+                            <input type="hidden" name="id" id="id" class="form-control" />
                             <span class="text-danger" v-if="errors.name">{{ errors.name[0] }}</span>
                           </div>
                         </div>
@@ -61,24 +77,46 @@
                           </div>
                         </div>
 
+                      
+
+
                         <div class="row mb-3">
-                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Post
-                            Categories</label>
+                          <label for="input-meta-description-1"
+                            class="col-sm-2 col-form-label required-label">Keywords</label>
                           <div class="col-sm-10">
                             <div>
-                              <!-- ======{{ postCat }}===== -->
+                              <textarea class="form-control" v-model="insertdata.keywords"> </textarea>
+                              <span class="text-danger" v-if="errors.keywords">{{ errors.keywords[0] }}</span>
+                            </div>
+                          </div>
+                        </div>
 
-                              <select id="category" class="form-control" v-model="categoryId" @change="handleCategoryChange">
-                                <option v-for="option in postCat" :value="option.id" :key="option.id">{{ option.name }}
-                                </option>
-                              </select>
 
-                              <span class="text-danger" v-if="errors.category">{{ errors.category[0] }}</span>
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Meta
+                            Title</label>
+                          <div class="col-sm-10">
+                            <div>
+                              <textarea class="form-control"  v-model="insertdata.meta_title"> </textarea>
+                              <span class="text-danger" v-if="errors.meta_title">{{ errors.meta_title[0] }}</span>
 
                             </div>
                           </div>
                         </div>
 
+
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Meta
+                            Description</label>
+                          <div class="col-sm-10">
+                            <div>
+
+                              <textarea class="form-control"  v-model="insertdata.meta_description"> </textarea>
+                              <span class="text-danger" v-if="errors.meta_description">{{ errors.meta_description[0] }}</span>
+
+                            </div>
+                          </div>
+                        </div>
                         <div class="row mb-3">
                           <label for="input-description-1" class="col-sm-2 col-form-label">Full Description</label>
                           <div class="col-sm-10">
@@ -87,23 +125,21 @@
                         </div>
                         <hr />
 
-                        <div v-if="categoryId === 3">
-                          <div class="row mb-3 required">
-                            <label for="input-meta-title-1" class="col-sm-4 col-form-label">Question</label>
-                            <div class="col-sm-8">
-                              <input type="text" placeholder="" v-model="insertdata.question" class="form-control" />
-                            </div>
-                          </div>
-                          <div class="row mb-3 required">
-                            <label for="input-meta-title-1" class="col-sm-4 col-form-label">Answer</label>
-                            <div class="col-sm-8">
-                              <input type="text" placeholder="" v-model="insertdata.answer" class="form-control" />
+
+                        <div class="row mb-3">
+                          <label for="input-meta-description-1" class="col-sm-2 col-form-label required-label">Status</label>
+                          <div class="col-sm-10">
+                            <div>
+                              <select id="category" class="form-control" v-model="insertdata.status">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                              </select>
+                              <span class="text-danger" v-if="errors.status">{{ errors.status[0] }}</span>
 
                             </div>
-
                           </div>
                         </div>
-                        <hr />
+
 
                         <div class="alert alert-info" bis_skin_checked="1">
                           <i class="fas fa-info-circle"></i>Thumbnail
@@ -114,7 +150,9 @@
                           <div class="col-sm-10">
                             <input type="file" value class="form-control" id="fileInput" accept="image/png,image/jpeg"
                               ref="files" @change="onFileSelected" />
-                            <span class="text-danger" v-if="errors.files">{{ errors.files[0] }}</span>
+                            <span class="text-danger" v-if="errors.files">{{
+                              errors.files[0]
+                              }}</span>
                             <img v-if="previewUrl" :src="previewUrl" alt="Preview" class="img-fluids" />
                           </div>
                         </div>
@@ -138,7 +176,7 @@
                           </div>
                         </div>
                         <button type="submit" class="btn btn-success px-5 w-100">
-                          <i class="bx bx-check-circle mr-1"></i> Save & Next
+                          <i class="bx bx-check-circle mr-1"></i> Save
                         </button>
 
                       </div>
@@ -147,12 +185,12 @@
                   </div>
                 </div>
               </form>
-                      </div>
-                  </div>
-              </div>
-              <!-- END -->
-          </section>
-      </div>
+            </div>
+          </div>
+        </div>
+        <!-- END -->
+      </section>
+    </div>
   </div>
 </template>
 
@@ -176,13 +214,13 @@ definePageMeta({
 
 const summernoteEditor = ref(null);
 const insertdata = reactive({
-  id: '',
+  id:'',
   name: '',
-  categoryId: '',
-  question: '',
-  answer: '',
-  images: '',
-  status: 1,
+  slug: '',
+  slug: '',
+  meta_title: '',
+  meta_description: '',
+  status: '',
 });
 // Define a ref to store the HTML content of the editor
 
@@ -218,34 +256,34 @@ const allPostCategory = async () => {
     console.error(error);
   }
 };
- 
- 
+
+
 
 const checkImageDimensions = (file) => {
   const reader = new FileReader();
   reader.onload = (e) => {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = () => {
-          if (img.width === 300 && img.height === 300) {
-              const url = e.target.result;
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = () => {
+      if (img.width === 300 && img.height === 300) {
+        const url = e.target.result;
 
-              // Ensure images.value is initialized as an array
-              images.value = Array.isArray(images.value) ? images.value : [];
+        // Ensure images.value is initialized as an array
+        images.value = Array.isArray(images.value) ? images.value : [];
 
-              images.value.push({
-                  url,
-                  file
-              });
-          } else {
-              alert('Image dimensions must be 300x300 pixels.');
-              // Reset file input
-              const fileInput = document.getElementById('fileInput');
-              if (fileInput) {
-                  fileInput.value = '';
-              }
-          }
-      };
+        images.value.push({
+          url,
+          file
+        });
+      } else {
+        alert('Image dimensions must be 300x300 pixels.');
+        // Reset file input
+        const fileInput = document.getElementById('fileInput');
+        if (fileInput) {
+          fileInput.value = '';
+        }
+      }
+    };
   };
   reader.readAsDataURL(file);
 };
@@ -257,17 +295,17 @@ const removeImage = (index) => {
 const checkImageDimensionsThunbnail = (file) => {
   const reader = new FileReader();
   reader.onload = (e) => {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = () => {
-        previewUrl.value = e.target.result;
-      };
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = () => {
+      previewUrl.value = e.target.result;
+    };
   };
   reader.readAsDataURL(file);
   //resetInput();
 };
- 
- 
+
+
 
 const previewImage = (event) => {
   const file = event.target.files[0];
@@ -283,9 +321,9 @@ const onFileSelected = (event) => {
 const handleImageUpload = (event) => {
   const files = event.target.files;
   for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      //readImage(file);
-      checkImageDimensions(file);
+    const file = files[i];
+    //readImage(file);
+    checkImageDimensions(file);
   }
 };
 
@@ -293,112 +331,110 @@ const saveData = () => {
   const formData = new FormData();
 
   images.value.forEach((image, index) => {
-      formData.append('images[]', image.file);
+    formData.append('images[]', image.file);
   });
   formData.append('id', insertdata.id);
   formData.append('files', file.value);
   formData.append('name', insertdata.name);
-  formData.append('categoryId', categoryId.value);
-  formData.append('description_short', descriptionShort.value);
+  formData.append('keywords', insertdata.keywords);
+  formData.append('meta_title', insertdata.meta_title);
+  formData.append('meta_description', insertdata.meta_description);
+  formData.append('slug', insertdata.slug);
+  formData.append('status', insertdata.status);
   formData.append('description_full', descriptionFull.value);
-  formData.append('question', insertdata.question);
-  formData.append('answer', insertdata.answer);
-  
+
   axios.post('/post/update', formData, {
-      headers: {
-          'Content-Type': 'multipart/form-data'
-      }
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   }).then((res) => {
-      $('#formrest')[0].reset();
-      success_noti();
-      const product_id = res.data.product_id;
-      // Redirect to product variant page
-      router.push({
-          path: '/post/preview',
-          query: {
-              parameter: product_id
-          }
-      });
+    $('#formrest')[0].reset();
+    success_noti();
+    const product_id = res.data.product_id;
+    // Redirect to product variant page
+    router.push({
+      path: '/post/postlist'});
 
   }).catch(error => {
-      if (error.response && error.response.status === 422) {
-          errors.value = error.response.data.errors;
-      } else {
-          // Handle other types of errors here
-          console.error("An error occurred:", error);
-      }
+    if (error.response && error.response.status === 422) {
+      errors.value = error.response.data.errors;
+    } else {
+      // Handle other types of errors here
+      console.error("An error occurred:", error);
+    }
   });
 };
 
 const success_noti = () => {
   //alert("Your data has been successfully inserted.");
   const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 1000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-      }
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
   });
   Toast.fire({
-      icon: "success",
-      title: "Your data has been successfully inserted."
+    icon: "success",
+    title: "Your data has been successfully inserted."
   });
 };
- 
+
 
 const removeImages = (id) => {
 
   axios.get(`/dropshippingpro/additionaIMagesDelete`, {
-      params: {
-          images_id: id
-      }
+    params: {
+      images_id: id
+    }
   }).then(response => {
-      // Handle response if needed
-      // For example, you might want to show a message or update data
-      productrow();
+    // Handle response if needed
+    // For example, you might want to show a message or update data
+    productrow();
   }).catch(error => {
-      console.error('Error removing image:', error);
+    console.error('Error removing image:', error);
   });
 };
 //Find Product Row
 const productrow = () => {
+  
   const product_id = router.currentRoute.value.query.parameter;
+ 
   axios.get(`/post/postrow/${product_id}`).then(response => {
-      console.log("=====" + response.data.data.categoryId);
-      insertdata.id = response.data.data.id;
-      insertdata.categoryId = response.data.data.categoryId;
-      categoryId.value = response.data.data.categoryId;
-      insertdata.name = response.data.data.name;
-      insertdata.description_full = response.data.data.description_full
-      insertdata.description_short = response.data.data.description_short
-      insertdata.question = response.data.data.question
-      insertdata.answer = response.data.data.answer
-      previewUrl.value = response.data.images;
-      if (summernoteEditorShort.value) {
-          // Initialize Summernote
-          const editor = window.$(summernoteEditorShort.value);
-          editor.summernote({
-              callbacks: {
-                  onChange: handleEditorChange
-              }
-          });
-          editor.summernote('code', response.data.data.description_short);
-      }
+    insertdata.id = response.data.data.id;
+    insertdata.slug = response.data.data.slug;
+    insertdata.name = response.data.data.name;
+    insertdata.description_full = response.data.data.description_full
+    insertdata.keywords = response.data.data.keywords
+    insertdata.meta_title = response.data.data.meta_title
+    insertdata.status = response.data.data.status
+    insertdata.meta_description = response.data.data.meta_description
+    previewUrl.value = response.data.images;
+    if (summernoteEditorShort.value) {
+      // Initialize Summernote
+      const editor = window.$(summernoteEditorShort.value);
+      editor.summernote({
+        callbacks: {
+          onChange: handleEditorChange
+        }
+      });
+      editor.summernote('code', response.data.data.description_short);
+    }
 
-      if (summernoteEditorFull.value) {
-          // Initialize Summernote
-          const editor = window.$(summernoteEditorFull.value);
-          editor.summernote({
-              callbacks: {
-                  onChange: handleEditorChangeFull
-              }
-          });
-          editor.summernote('code', response.data.data.description_full);
-      }
+    if (summernoteEditorFull.value) {
+      // Initialize Summernote
+      const editor = window.$(summernoteEditorFull.value);
+      editor.summernote({
+        callbacks: {
+          onChange: handleEditorChangeFull
+        }
+      });
+      editor.summernote('code', response.data.data.description_full);
+    }
 
   });
 };
@@ -419,19 +455,19 @@ onMounted(async () => {
   allPostCategory();
 
   $(summernoteEditorShort.value).summernote({
-      callbacks: {
-          onChange: (contents) => {
-              descriptionShort.value = contents;
-          }
+    callbacks: {
+      onChange: (contents) => {
+        descriptionShort.value = contents;
       }
+    }
   });
 
   $(summernoteEditorFull.value).summernote({
-      callbacks: {
-          onChange: (contents) => {
-              descriptionFull.value = contents;
-          }
+    callbacks: {
+      onChange: (contents) => {
+        descriptionFull.value = contents;
       }
+    }
   });
 
 });

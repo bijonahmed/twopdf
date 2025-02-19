@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '/config/axiosConfig';  // Make sure to configure axios
 import loaderImage from "../assets/loadergif.gif";
 
-function PdfToPPTConverter() {
+function PdfToPPTConverter({ description }) {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -96,7 +96,7 @@ function PdfToPPTConverter() {
                     )}
                     <div className="upload_group">
                         <form onSubmit={(e) => e.preventDefault()}>
-                            <div className="btn_group">
+                            <div className="btn_group text-center">
                                 <label htmlFor="upload">Select PDF files</label>
                                 <input
                                     type="file"
@@ -106,6 +106,14 @@ function PdfToPPTConverter() {
                                 />
                                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                             </div>
+
+                            <br />
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
+
+
                         </form>
                     </div>
                     {pptFile && (

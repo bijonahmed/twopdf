@@ -56,7 +56,7 @@
                                         <table class="table w-100 table-wrapper">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-left">Title</th>
+                                                    <th class="text-left">Name</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
@@ -72,8 +72,6 @@
                                                         <center>
                                                             <button type="button"><i class="fas fa-edit"
                                                                     @click="edit(item.id)"></i></button>
-                                                                    <button type="button"><i class="fas fa-search-plus"
-                                                                    @click="preview(item.id)"></i></button>
                                                              
                                                         </center>
                                                     </td>
@@ -81,7 +79,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th class="text-left">Title</th>
+                                                    <th class="text-left">Name</th>
                                                     <th class="text-center">Status</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
@@ -175,11 +173,6 @@ const edit = (id) => {
     // Your logic for editing goes here
     console.log('Editing item with id:', id);
 };
-
-
-
-
-
 
 
 // Define a method to handle deleting

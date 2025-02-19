@@ -6,17 +6,18 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 
-const PdfMerger = () => {
+const PdfMerger = ({ description }) => {
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [showModal, setShowModal] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
+  const [previewUrls, setPreviewUrls] = useState([]);
 
   useEffect(() => {
     //fetchData();
   }, []);
-
+  const plain_description = description.replace(/<[^>]*>/g, "");
   const fetchData = async () => {
     try {
       const response = await axios.get(`/public/countPerDayValidation`);
@@ -48,8 +49,6 @@ const PdfMerger = () => {
     const isValid = await validateLimit();
     if (!isValid) {
       setLimitReached(true);
-      //  setLimitReached(true);
-      //alert("Daily limit reached. Please buy a package to continue.");
       return;
     }
 
@@ -58,6 +57,10 @@ const PdfMerger = () => {
       setShowModal(true);
       return;
     }
+
+    // Generate preview URLs
+    const urls = selectedFiles.map((file) => URL.createObjectURL(file));
+    setPreviewUrls(urls);
 
     setFiles(selectedFiles);
     setIsLoading(true);
@@ -106,7 +109,7 @@ const PdfMerger = () => {
 
   return (
     <div>
-      <div className="tools container-1060" style={{minHeight: '100vh'}}>
+      <div className="tools container-1060" style={{ minHeight: "100vh" }}>
         <div className="tools-top">
           <div className="tools-top__headlines">
             <h2 className="title">Merge PDF files</h2>
@@ -123,8 +126,9 @@ const PdfMerger = () => {
               </center>
             </div>
           )}
+
           <div className="upload_group">
-            <div className="btn_group">
+            <div className="btn_group text-center">
               <label htmlFor="upload">Select PDF files</label>
               <input
                 type="file"
@@ -134,6 +138,25 @@ const PdfMerger = () => {
                 onChange={handleFileChange}
               />
             </div>
+            <br/>
+            <div className="row">
+        {previewUrls.map((url, index) => (
+          <div className="col-4 mb-3" key={index}>
+            <iframe
+              src={url}
+              width="100%"
+              height="400px"
+              title={`PDF Preview ${index + 1}`}
+              className="border"
+            ></iframe>
+          </div>
+        ))}
+      </div>
+            <br />
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></div>
           </div>
         </div>
       </div>
@@ -165,16 +188,18 @@ const PdfMerger = () => {
 
       <div
         className={`modal ${limitReached ? "d-block" : "d-none"}`}
-        role="dialog">
+        role="dialog"
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Daily Limit Reached</h5>
             </div>
             <div className="modal-body">
-               
-              <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
-              
+              <p>
+                You've reached your daily limit for this action. To view pricing
+                details, Please <Link to="/pricing">check here</Link>.
+              </p>
             </div>
             <div className="modal-footer">
               <button

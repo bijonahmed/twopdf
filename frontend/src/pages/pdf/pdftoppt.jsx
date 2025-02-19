@@ -8,13 +8,13 @@ import { useParams } from "react-router-dom";
 import axios from "/config/axiosConfig";
 import Loader from "../../components/Loader";
 
-
 const Pdftoppt = () => {
   const [loading, setLoading] = useState(false);
   const [seoData, setSeoData] = useState({
     title: "",
     description: "",
     keywords: "",
+    description_full: "",
   });
 
   const slug = "pdf_to_powerpoint";
@@ -25,7 +25,6 @@ const Pdftoppt = () => {
         const response = await axios.get("/public/checkSeoContent", {
           params: { slug },
         });
-
         // Assuming API response contains SEO meta data
         if (response.data.seo) {
           setSeoData({
@@ -33,6 +32,8 @@ const Pdftoppt = () => {
             description:
               response.data.seo.meta_description || "Default description",
             keywords: response.data.seo.keywords || "default, seo, keywords",
+            description_full:
+              response.data.seo.description_full || "description_full",
           });
         }
       } catch (error) {
@@ -61,9 +62,9 @@ const Pdftoppt = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfToPPTConverter />
+        <PdfToPPTConverter description={seoData.description_full} />
       )}
-     
+
       <Footer />
     </>
   );

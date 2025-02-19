@@ -14,35 +14,37 @@ const Imgtopdf = () => {
     title: "",
     description: "",
     keywords: "",
+    description_full: "",
   });
 
   const slug = "image_to_pdf";
   useEffect(() => {
-    const fetchUserData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get("/public/checkSeoContent", {
-          params: { slug },
-        });
-
-        // Assuming API response contains SEO meta data
-        if (response.data.seo) {
-          setSeoData({
-            title: response.data.seo.meta_title || "Image To PDF",
-            description:
-              response.data.seo.meta_description || "Default description",
-            keywords: response.data.seo.keywords || "default, seo, keywords",
+      const fetchUserData = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get("/public/checkSeoContent", {
+            params: { slug },
           });
+          // Assuming API response contains SEO meta data
+          if (response.data.seo) {
+            setSeoData({
+              title: response.data.seo.meta_title || "Image To PDF",
+              description:
+                response.data.seo.meta_description || "Default description",
+              keywords: response.data.seo.keywords || "default, seo, keywords",
+              description_full:
+                response.data.seo.description_full || "description_full",
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching brand data:", error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error("Error fetching brand data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [slug]);
+      };
+  
+      fetchUserData();
+    }, [slug]);
   // Get the base domain dynamically
   const baseUrl = window.location.href;
   const canonicalUrl = `${baseUrl}`;
@@ -60,7 +62,7 @@ const Imgtopdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <ImageToPDF />
+        <ImageToPDF description={seoData.description_full} />
       )}
 
       <Footer />

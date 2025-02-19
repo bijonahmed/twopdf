@@ -19,6 +19,7 @@ use App\Models\ProductAdditionalImg;
 use App\Models\ProductVarrient;
 use App\Models\AttributeValues;
 use App\Models\Post;
+use App\Models\SEO;
 use Illuminate\Support\Str;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
@@ -40,8 +41,9 @@ class PostController extends Controller
     {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name'           => 'required',
-            'categoryId'     => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
+            'status'     => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -49,14 +51,12 @@ class PostController extends Controller
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('name'))));
         $data = array(
             'name'                       => $request->name,
-            'slug'                       => $slug,
-            'description_short'          => !empty($request->description_short) ? $request->description_short : "",
             'description_full'           => !empty($request->description_full) ? $request->description_full : "",
-            'question'                   => !empty($request->question) ? $request->question : "",
-            'answer'                     => !empty($request->answer) ? $request->answer : "",
-            'categoryId'                 => !empty($request->categoryId) ? $request->categoryId : "",
-            'status'                     => 1, //!empty($request->status) ? $request->status : "",
-            'entry_by'                   => $this->userid
+            'keywords'                   => !empty($request->keywords) ? $request->keywords : "",
+            'meta_title'                 => !empty($request->meta_title) ? $request->meta_title : "",
+            'meta_description'           => !empty($request->meta_description) ? $request->meta_description : "",
+            'slug'                       => !empty($request->slug) ? $request->slug : "",
+            'status'                     => $request->status, //!empty($request->status) ? $request->status : "",
         );
         // dd($data);
         if (!empty($request->file('files'))) {
@@ -75,7 +75,7 @@ class PostController extends Controller
 
         ///dd($data);
         //Post::create($data);
-        $post = Post::find($request->id);
+        $post = SEO::find($request->id);
         $post->update($data);
         $resdata['product_id'] = $post->id;
         return response()->json($resdata);
@@ -85,8 +85,8 @@ class PostController extends Controller
     {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
-            'name'           => 'required',
-            'categoryId'     => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -94,14 +94,12 @@ class PostController extends Controller
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $request->input('name'))));
         $data = array(
             'name'                       => $request->name,
-            'slug'                       => $slug,
-            'description_short'          => !empty($request->description_short) ? $request->description_short : "",
             'description_full'           => !empty($request->description_full) ? $request->description_full : "",
-            'question'                   => !empty($request->question) ? $request->question : "",
-            'answer'                     => !empty($request->answer) ? $request->answer : "",
-            'categoryId'                 => !empty($request->categoryId) ? $request->categoryId : "",
+            'keywords'                   => !empty($request->keywords) ? $request->keywords : "",
+            'meta_title'                 => !empty($request->meta_title) ? $request->meta_title : "",
+            'meta_description'           => !empty($request->meta_description) ? $request->meta_description : "",
+            'slug'                       => !empty($request->slug) ? $request->slug : "",
             'status'                     => 1, //!empty($request->status) ? $request->status : "",
-            'entry_by'                   => $this->userid
         );
         // dd($data);
         if (!empty($request->file('files'))) {
@@ -115,8 +113,9 @@ class PostController extends Controller
             $file_url = $uploadPath . $path;
             $data['thumnail_img'] = $file_url;
         }
+      //  dd($data);
         //Post::create($data);
-        $resdata['product_id'] = Post::insertGetId($data);
+        $resdata['product_id'] = SEO::insertGetId($data);
         return response()->json($resdata);
     }
 
@@ -129,11 +128,11 @@ class PostController extends Controller
         // Get search query from the request
         $searchQuery    = $request->searchQuery;
         // dd($selectedFilter);
-        $query = Post::orderBy('id', 'desc')
-            ->select('posts.*');
+        $query = SEO::orderBy('id', 'desc')
+            ->select('seo.*');
 
         if ($searchQuery !== null) {
-            $query->where('posts.name', 'like', '%' . $searchQuery . '%');
+            $query->where('seo.name', 'like', '%' . $searchQuery . '%');
         }
 
         $paginator = $query->paginate($pageSize, ['*'], 'page', $page);
@@ -157,10 +156,9 @@ class PostController extends Controller
 
     public function postrow($id)
     {
-        $data = Post::where('posts.id', $id)
-            ->select('posts.*', 'post_category.name as category_name')
-            ->join('post_category', 'posts.categoryId', '=', 'post_category.id')
-            ->first();
+      
+
+        $data = SEO::where('seo.id', $id)->first();
         $responseData['data']      = $data;
         $responseData['images']    = !empty($data->thumnail_img) ? url($data->thumnail_img) : "";
         // dd($responseData);
