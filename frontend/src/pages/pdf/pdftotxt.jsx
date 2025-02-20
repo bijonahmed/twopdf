@@ -14,6 +14,7 @@ const Pdftotxt = () => {
     title: "",
     description: "",
     keywords: "",
+    meta_title: "",
     description_full: "",
   });
 
@@ -29,11 +30,11 @@ const Pdftotxt = () => {
           if (response.data.seo) {
             setSeoData({
               title: response.data.seo.meta_title || "Image To PDF",
-              description:
-                response.data.seo.meta_description || "Default description",
+              description:response.data.seo.meta_description || "Default description",
               keywords: response.data.seo.keywords || "default, seo, keywords",
-              description_full:
-                response.data.seo.description_full || "description_full",
+              meta_title: response.data.seo.meta_title || "meta_title",
+              description_full: response.data.seo.description_full || "description_full",
+
             });
           }
         } catch (error) {
@@ -62,7 +63,7 @@ const Pdftotxt = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfToTxtConverter description={seoData.description_full} />
+        <PdfToTxtConverter description={seoData} />
       )}
 
       <Footer />

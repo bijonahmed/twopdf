@@ -17,7 +17,7 @@ const PdfMerger = ({ description }) => {
   useEffect(() => {
     //fetchData();
   }, []);
-  const plain_description = description.replace(/<[^>]*>/g, "");
+ 
   const fetchData = async () => {
     try {
       const response = await axios.get(`/public/countPerDayValidation`);
@@ -153,10 +153,22 @@ const PdfMerger = ({ description }) => {
         ))}
       </div>
             <br />
-            <div
-              className="text-justify"
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></div>
+
+
+            <h1>
+         <center><div
+            className="text-justify"
+            dangerouslySetInnerHTML={{
+              __html: description.meta_title || "Default Meta Title",
+            }}
+          /></center> 
+        </h1>
+        <div
+          className="text-justify mt-3"
+          dangerouslySetInnerHTML={{
+            __html: description.description_full || "Default Full Description",
+          }}
+        />
           </div>
         </div>
       </div>

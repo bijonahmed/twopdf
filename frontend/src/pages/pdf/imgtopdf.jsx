@@ -13,6 +13,7 @@ const Imgtopdf = () => {
   const [seoData, setSeoData] = useState({
     title: "",
     description: "",
+    meta_title: "",
     keywords: "",
     description_full: "",
   });
@@ -29,11 +30,10 @@ const Imgtopdf = () => {
           if (response.data.seo) {
             setSeoData({
               title: response.data.seo.meta_title || "Image To PDF",
-              description:
-                response.data.seo.meta_description || "Default description",
-              keywords: response.data.seo.keywords || "default, seo, keywords",
-              description_full:
-                response.data.seo.description_full || "description_full",
+              description: response.data.seo.meta_description || "Default description",
+              keywords: response.data.seo.keywords || "default, seo, keywords", 
+              meta_title: response.data.seo.meta_title || "default, seo, keywords", 
+              description_full: response.data.seo.description_full || "description_full",
             });
           }
         } catch (error) {
@@ -62,7 +62,7 @@ const Imgtopdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <ImageToPDF description={seoData.description_full} />
+        <ImageToPDF description={seoData} />
       )}
 
       <Footer />

@@ -14,6 +14,7 @@ const Splitpdf = () => {
     title: "",
     description: "",
     keywords: "",
+    meta_title: "",
     description_full:"",
   });
 
@@ -29,9 +30,9 @@ const Splitpdf = () => {
         if (response.data.seo) {
           setSeoData({
             title: response.data.seo.meta_title || "Image To PDF",
-            description:
-              response.data.seo.meta_description || "Default description",
+            description: response.data.seo.meta_description || "Default description",
             keywords: response.data.seo.keywords || "default, seo, keywords",
+            meta_title: response.data.seo.meta_title || "meta_title",
             description_full: response.data.seo.description_full || "description_full",
           });
         }
@@ -63,7 +64,7 @@ const Splitpdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfSplitter description={seoData.description_full} />
+        <PdfSplitter description={seoData} />
       )}
 
       <Footer />

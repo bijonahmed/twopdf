@@ -97,10 +97,24 @@ const PDFZipUpload = ({ description }) => {
 
             </div>
             <br />
-            <div
-              className="text-justify"
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></div>
+
+
+
+
+            <h1>
+          <center><div
+            className="text-justify"
+            dangerouslySetInnerHTML={{
+              __html: description.meta_title || "Default Meta Title",
+            }}
+          /></center>
+        </h1>
+        <div
+          className="text-justify mt-3"
+          dangerouslySetInnerHTML={{
+            __html: description.description_full || "Default Full Description",
+          }}
+        />
 
 
 

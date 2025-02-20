@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { PDFDocument } from 'pdf-lib';
-import axios from '/config/axiosConfig';
-import loaderImage from '../assets/loadergif.gif'; // Ensure you have a loader gif available
-import { Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { PDFDocument } from "pdf-lib";
+import axios from "/config/axiosConfig";
+import loaderImage from "../assets/loadergif.gif"; // Ensure you have a loader gif available
+import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 const PdfSplitter = ({ description }) => {
   const [file, setFile] = useState(null);
@@ -12,7 +12,7 @@ const PdfSplitter = ({ description }) => {
   const [limitReached, setLimitReached] = useState(false);
 
   useEffect(() => {
-    fetchData();  // Only validate the limit on page load
+    fetchData(); // Only validate the limit on page load
   }, []);
 
   const fetchData = async () => {
@@ -89,9 +89,9 @@ const PdfSplitter = ({ description }) => {
         newPdf.addPage(page);
 
         const pdfBytes = await newPdf.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = `page_${i + 1}.pdf`;
         a.click();
@@ -101,12 +101,11 @@ const PdfSplitter = ({ description }) => {
       setIsLoading(false);
 
       // Trigger the insertion of data only after successful PDF split
-      await axios.post('/public/insertSplitData', {
-        action: 'PDF Split',
+      await axios.post("/public/insertSplitData", {
+        action: "PDF Split",
         timestamp: new Date().toISOString(),
-        fileName: '',//file.name,
+        fileName: "", //file.name,
       });
-
     } catch (error) {
       console.error("Error splitting PDF:", error);
       setIsLoading(false);
@@ -115,7 +114,7 @@ const PdfSplitter = ({ description }) => {
 
   return (
     <div>
-      <div className="tools container-1060" style={{ minHeight: '100vh' }}>
+      <div className="tools container-1060" style={{ minHeight: "100vh" }}>
         <div className="tools-top">
           <div className="tools-top__headlines">
             <h2 className="title">Split PDF File</h2>
@@ -143,19 +142,31 @@ const PdfSplitter = ({ description }) => {
               />
             </div>
 
-
-
-            
             <br />
+
+            <h1>
+              <div
+                className="text-justify"
+                dangerouslySetInnerHTML={{
+                  __html: description.meta_title || "Default Meta Title",
+                }}
+              />
+            </h1>
             <div
-              className="text-justify"
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></div>
+              className="text-justify mt-3"
+              dangerouslySetInnerHTML={{
+                __html:
+                  description.description_full || "Default Full Description",
+              }}
+            />
           </div>
         </div>
       </div>
 
-      <div className={`modal ${showModal ? 'd-block' : 'd-none'}`} role="dialog">
+      <div
+        className={`modal ${showModal ? "d-block" : "d-none"}`}
+        role="dialog"
+      >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -163,7 +174,10 @@ const PdfSplitter = ({ description }) => {
             </div>
             <div className="modal-body">
               {limitReached ? (
-                <p>You've reached your daily limit for this action. To view pricing details, Please <Link to="/pricing">check here</Link>.</p>
+                <p>
+                  You've reached your daily limit for this action. To view
+                  pricing details, Please <Link to="/pricing">check here</Link>.
+                </p>
               ) : (
                 <p>Please upload a PDF file to proceed.</p>
               )}
