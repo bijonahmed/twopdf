@@ -8,13 +8,16 @@ function PdfToTxtConverter({ description }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(5);
+  const [isFileSelected, setIsFileSelected] = useState(false); // Track if file is selected
 
   // Handle file input change
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
     setErrorMessage("");
-    setCountdown(5);
-    setIsLoading(true);
+    setIsFileSelected(true); // Mark file as selected
+   /// setIsLoading(true);
+    setCountdown(5); // Set countdown to 5 seconds when a file is selected
   };
 
   // Validate the file to ensure it's a PDF
@@ -107,34 +110,61 @@ function PdfToTxtConverter({ description }) {
           <div className="upload_group">
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="btn_group text-center">
-                <label htmlFor="upload">Select PDF files</label>
+                <label htmlFor="upload">Select PDF file</label>
                 <input
                   type="file"
                   id="upload"
                   accept="application/pdf"
                   onChange={handleFileChange}
+                  disabled={isFileSelected} // Disable input after file is selected
                 />
                 {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
               </div>
 
-              <br />
+              {/* Show file preview if a PDF is selected */}
+              {file && (
+                <div className="file-preview">
+                  <h4>{file.name}</h4>
+                  {/* Display a PDF preview */}
+                  <iframe
+                    src={URL.createObjectURL(file)}
+                    width="100%"
+                    height="600px"
+                    title={`PDF Preview - ${file.name}`}
+                  />
+                </div>
+              )}
 
+              {/* Show the Submit button after file is selected */}
+              {isFileSelected && (
+                <center><div className="btn-group text-center mt-3">
+                  <button
+                    type="button"
+                    className="btn"
+                    onClick={handleFileUpload}
+                    disabled={isLoading || !file}
+                  >
+                    Convert to TXT
+                  </button>
+                </div></center>
+              )}
 
               <h1>
-          <center><div
-            className="text-justify"
-            dangerouslySetInnerHTML={{
-              __html: description.meta_title || "Default Meta Title",
-            }}
-          /></center>
-        </h1>
-        <div
-          className="text-justify mt-3"
-          dangerouslySetInnerHTML={{
-            __html: description.description_full || "Default Full Description",
-          }}
-        />
-
+                <center>
+                  <div
+                    className="text-justify"
+                    dangerouslySetInnerHTML={{
+                      __html: description.meta_title || "Default Meta Title",
+                    }}
+                  />
+                </center>
+              </h1>
+              <div
+                className="text-justify mt-3"
+                dangerouslySetInnerHTML={{
+                  __html: description.description_full || "Default Full Description",
+                }}
+              />
             </form>
           </div>
         </div>

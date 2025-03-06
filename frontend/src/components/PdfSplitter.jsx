@@ -4,12 +4,15 @@ import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif"; // Ensure you have a loader gif available
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const PdfSplitter = ({ description }) => {
   const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [showModal, setShowModal] = useState(false);
   const [limitReached, setLimitReached] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null); // To store the preview URL
+  const [previewError, setPreviewError] = useState(false);
 
   useEffect(() => {
     fetchData(); // Only validate the limit on page load
@@ -58,7 +61,8 @@ const PdfSplitter = ({ description }) => {
     }
 
     setFile(selectedFile);
-    startCountdownAndSplit(selectedFile);
+    setPreviewUrl(URL.createObjectURL(selectedFile)); // Set the preview URL for the file
+    setPreviewError(false);
   };
 
   const startCountdownAndSplit = (selectedFile) => {
@@ -122,14 +126,7 @@ const PdfSplitter = ({ description }) => {
               Upload a PDF file and split it into individual pages.
             </p>
           </div>
-          {isLoading && (
-            <div className="loading">
-              <img src={loaderImage} alt="Loading..." />
-              <center>
-                <p>Please wait {countdown} seconds.</p>
-              </center>
-            </div>
-          )}
+
           <div className="upload_group">
             <div className="btn_group text-center">
               <label htmlFor="upload">Select PDF file</label>
@@ -140,6 +137,69 @@ const PdfSplitter = ({ description }) => {
                 onChange={handleFileChange}
                 disabled={isLoading || limitReached}
               />
+            </div>
+
+            {file && (
+              <div className="pdf-preview mt-4">
+                <h3>Preview:</h3>
+                {previewError ? (
+                  <p>Unable to preview the PDF. Please upload a valid PDF.</p>
+                ) : (
+                  <object
+                    data={previewUrl}
+                    type="application/pdf"
+                    width="100%"
+                    height="800px"
+                    onError={() => setPreviewError(true)}
+                  >
+                    <p>Your browser does not support PDF preview.</p>
+                  </object>
+                )}
+              </div>
+            )}
+
+            {isLoading && (
+              <center><div className="loading">
+                <img src={loaderImage} alt="Loading..." />
+                <center>
+                  <p>Please wait {countdown} seconds.</p>
+                </center>
+              </div></center>
+            )}
+
+            <div className="text-center mt-3">
+              <center>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => startCountdownAndSplit(file)}
+                  disabled={isLoading || !file || limitReached}
+                  style={{
+                    padding: "12px 24px", // Adds padding to make the button larger
+                    fontSize: "18px", // Increases the font size for readability
+                    borderRadius: "8px", // Rounded corners
+                    backgroundColor: "#007bff", // Button background color
+                    color: "#fff", // Text color
+                    border: "none", // Removes border
+                    cursor:
+                      isLoading || !file || limitReached
+                        ? "not-allowed"
+                        : "pointer", // Shows a different cursor when disabled
+                    transition:
+                      "background-color 0.3s ease, transform 0.2s ease", // Smooth transition for background color and button size
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Adds a subtle shadow effect
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = "#0056b3"; // Change background color on hover
+                    e.target.style.transform = "scale(1.05)"; // Slightly enlarge the button on hover
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "#007bff"; // Revert background color
+                    e.target.style.transform = "scale(1)"; // Revert button size
+                  }}
+                >
+                  Start Splitting
+                </button>
+              </center>
             </div>
 
             <br />
