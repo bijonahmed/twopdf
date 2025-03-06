@@ -1,0 +1,157 @@
+/* Global Styles */
+  /* Container */
+ 
+  h2.text-center {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  /* Upload Button */
+  #upload {
+    display: none;
+  }
+  
+  label.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  label.btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* DnD Area */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .sortable-item {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .sortable-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sortable-item:active {
+    transform: scale(0.98);
+  }
+  
+  /* Merge Button */
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  /* Loading State */
+  /* .loading {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .loading img {
+    width: 50px;
+    height: 50px;
+    animation: rotate 1.5s linear infinite;
+  } */
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loading p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal.d-block {
+    display: flex;
+  }
+  
+  .modal-dialog {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .modal-header {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .modal-title {
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+  }
+  
