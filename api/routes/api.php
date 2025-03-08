@@ -70,7 +70,9 @@ Route::group([
     Route::post('insertSplitData', [UnauthenticatedController::class, 'insertSplitData']);
     Route::post('convert-pdf-to-txt', [UnauthenticatedController::class, 'converttoword']);
     Route::post('convert-pdf-to-ppt', [UnauthenticatedController::class, 'convertToPowerPoint']);
+    Route::post('/protect-pdf', [UnauthenticatedController::class, 'generateProtectedPdf']);
 });
+
 
 Route::middleware(['auth:api', CheckUserStatus::class])->group(function () {
 

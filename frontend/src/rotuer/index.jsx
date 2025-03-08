@@ -15,7 +15,6 @@ import Dashboard from "../pages/Dashboard";
 import CategorySlug from "../pages/Category";
 import CategoryAll from "../pages/CategoryAll";
 
-
 import Premimum from "../pages/packages/premimum";
 import Whyw3programmer from "../pages/Whyw3programmer.jsx";
 import Signup from "../pages/Signup.jsx";
@@ -31,6 +30,7 @@ import Pdftotxt from "../pages/pdf/pdftotxt.jsx";
 import Pdftoppt from "../pages/pdf/pdftoppt.jsx";
 import Pdfzip from "../pages/pdf/pdfzip.jsx";
 import ImagetoPDF from "../pages/pdf/imgtopdf.jsx";
+import Protectpdf from "../pages/pdf/protectpdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
@@ -77,6 +77,7 @@ const AppRouter = () => {
       <Route path="/pdf/pdftoppt" element={<Pdftoppt />} />
       <Route path="/pdf/pdfzip" element={<Pdfzip />} />
       <Route path="/pdf/imgtopdf" element={<ImagetoPDF />} />
+      <Route path="/pdf/protectpdf" element={<Protectpdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

@@ -3,22 +3,22 @@ import { Helmet } from "react-helmet";
 import GuestNavbar from "../../components/GuestNavbar";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
-import PdfToPPTConverter from "../../components/PdfToPPTConverter";
+import ProtectPDF from "../../components/ProtectPDF";
+import Loader from "../../components/Loader";
 import { useParams } from "react-router-dom";
 import axios from "/config/axiosConfig";
-import Loader from "../../components/Loader";
 
-const Pdftoppt = () => {
+const Splitpdf = () => {
   const [loading, setLoading] = useState(false);
   const [seoData, setSeoData] = useState({
     title: "",
     description: "",
     keywords: "",
     meta_title: "",
-    description_full: "",
+    description_full:"",
   });
 
-  const slug = "pdf_to_powerpoint";
+  const slug = "protect_pdf";
   useEffect(() => {
     const fetchUserData = async () => {
       setLoading(true);
@@ -28,8 +28,6 @@ const Pdftoppt = () => {
         });
         // Assuming API response contains SEO meta data
         if (response.data.seo) {
-            console.log("====" + response.data.seo.meta_title);
-
           setSeoData({
             title: response.data.seo.meta_title || "Image To PDF",
             description: response.data.seo.meta_description || "Default description",
@@ -60,11 +58,13 @@ const Pdftoppt = () => {
         <link rel="canonical" href={canonicalUrl} />
       </Helmet>
       <GuestNavbar />
+      {/* <ProtectPDF /> */}
+
       {loading ? (
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <PdfToPPTConverter description={seoData} />
+        <ProtectPDF description={seoData} />
       )}
 
       <Footer />
@@ -72,4 +72,4 @@ const Pdftoppt = () => {
   );
 };
 
-export default Pdftoppt;
+export default Splitpdf;

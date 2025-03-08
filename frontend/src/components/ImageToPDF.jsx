@@ -3,57 +3,76 @@ import loaderImage from "../assets/loadergif.gif";
 import jsPDF from "jspdf";
 
 const ImageToPDF = ({ description }) => {
-  const [image, setImage] = useState(null); // Store the selected image
+  const [images, setImages] = useState([]); // Store multiple images
   const [isLoading, setIsLoading] = useState(false); // To control the loading state
   const [countdown, setCountdown] = useState(5); // Countdown time
 
   const handleImageUpload = (e) => {
-    const file = e.target.files[0]; // Get the first image file
+    const files = e.target.files; // Get the selected files
     setIsLoading(true); // Start loading
     setCountdown(5); // Reset countdown
-    setImage(null); // Clear previous image
 
-    if (file && file.type.startsWith("image")) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result); // Set the image source to be used for PDF
-      };
-      reader.readAsDataURL(file); // Read the image file
+    const imageFiles = Array.from(files).filter((file) =>
+      file.type.startsWith("image")
+    );
+
+    if (imageFiles.length > 0) {
+      const imagePreviews = imageFiles.map((file) => {
+        const reader = new FileReader();
+        return new Promise((resolve, reject) => {
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file); // Read the image file
+        });
+      });
+
+      Promise.all(imagePreviews).then((imagesData) => {
+        setImages(imagesData); // Set all image previews
+        setIsLoading(false); // Stop loading after images are loaded
+      });
     } else {
-      alert("Please upload a valid image.");
-      setIsLoading(false); // Stop loading if file is not an image
+      alert("Please upload valid images.");
+      setIsLoading(false); // Stop loading if files are not images
     }
   };
 
   const handleGeneratePDF = () => {
-    if (!image) {
-      alert("Please upload an image first.");
+    setIsLoading(true); 
+    if (images.length === 0) {
+      alert("Please upload images first.");
       return;
     }
 
     const pdf = new jsPDF();
-    const img = new Image();
-    img.src = image;
+    images.forEach((image, index) => {
+      const img = new Image();
+      img.src = image;
 
-    img.onload = () => {
-      // Calculate the dimensions of the image for the PDF
-      const imgWidth = 180; // Adjust the width as needed
-      const imgHeight = (img.height * imgWidth) / img.width;
+      img.onload = () => {
+        const imgWidth = 180; // Adjust the width as needed
+        const imgHeight = (img.height * imgWidth) / img.width;
 
-      pdf.addImage(img, "PNG", 10, 10, imgWidth, imgHeight);
-      pdf.save("generated.pdf"); // Save the generated PDF
-      setIsLoading(false); // Stop loading when PDF is saved
-    };
+        if (index > 0) {
+          pdf.addPage(); // Add a new page for each image
+        }
 
-    img.onerror = () => {
-      alert("Error loading the image.");
-      setIsLoading(false); // Stop loading if error occurs
-    };
+        pdf.addImage(img, "PNG", 10, 10, imgWidth, imgHeight);
+        if (index === images.length - 1) {
+          pdf.save("generated.pdf"); // Save the generated PDF
+          setIsLoading(false); // Stop loading when PDF is saved
+        }
+      };
+
+      img.onerror = () => {
+        alert("Error loading the image.");
+        setIsLoading(false); // Stop loading if error occurs
+      };
+    });
   };
 
   // Automatically trigger PDF generation after countdown
   useEffect(() => {
-    if (isLoading && image) {
+    if (isLoading && images.length > 0) {
       const timer = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
@@ -68,16 +87,14 @@ const ImageToPDF = ({ description }) => {
 
       return () => clearInterval(timer); // Cleanup when countdown finishes
     }
-  }, [image, isLoading]); // Trigger effect when image or loading state changes
+  }, [images, isLoading]); // Trigger effect when images or loading state changes
 
   return (
     <div className="tools container-1060" style={{ minHeight: "100vh" }}>
       <div className="tools-top">
         <div className="tools-top__headlines">
           <h2 className="title">Image to PDF</h2>
-          <p className="subtitle">
-            Convert your Image to a PDF file in seconds.
-          </p>
+          <p className="subtitle">Convert your Images to a PDF file in seconds.</p>
         </div>
         <div style={{ padding: "20px", textAlign: "center" }}>
           {isLoading && (
@@ -90,39 +107,43 @@ const ImageToPDF = ({ description }) => {
           {/* File input for image upload */}
           <div className="upload_group">
             <div className="btn_group">
-              <label htmlFor="upload">Select an Image</label>
+              <label htmlFor="upload">Select Images</label>
               <input
                 type="file"
                 id="upload"
                 accept="image/*"
+                multiple
                 onChange={handleImageUpload}
                 style={{ margin: "20px 0", padding: "10px" }}
               />
             </div>
           </div>
 
-          {/* Display uploaded image */}
-          {image && (
-            <div>
-              <img
-                src={image}
-                alt="Uploaded"
-                style={{
-                  width: "300px", // Adjusted width for better view
-                  height: "auto",
-                  margin: "10px 0",
-                  borderRadius: "10px", // Rounded corners for the image
-                  border: "2px solid #4CAF50", // Green border for the image
-                  boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)", // Subtle shadow around the image
-                  transition: "transform 0.3s ease", // Smooth transition for hover effect
-                }}
-                onMouseOver={(e) => {
-                  e.target.style.transform = "scale(1.05)"; // Slight zoom on hover
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.transform = "scale(1)"; // Reset zoom on mouse out
-                }}
-              />
+          {/* Display uploaded image previews */}
+          {images.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+              {images.map((image, index) => (
+                <div key={index} style={{ margin: "10px" }}>
+                  <img
+                    src={image}
+                    alt={`Uploaded ${index}`}
+                    style={{
+                      width: "150px", // Adjusted width for better view
+                      height: "auto",
+                      borderRadius: "10px", // Rounded corners for the image
+                      border: "2px solid #4CAF50", // Green border for the image
+                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)", // Subtle shadow around the image
+                      transition: "transform 0.3s ease", // Smooth transition for hover effect
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.transform = "scale(1.05)"; // Slight zoom on hover
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.transform = "scale(1)"; // Reset zoom on mouse out
+                    }}
+                  />
+                </div>
+              ))}
             </div>
           )}
 
@@ -130,7 +151,7 @@ const ImageToPDF = ({ description }) => {
           <center>
             <button
               onClick={handleGeneratePDF}
-              disabled={isLoading || !image} // Disable button while loading or no image
+              disabled={isLoading || images.length === 0} // Disable button while loading or no image
               style={{
                 padding: "10px 20px",
                 backgroundColor: "#4CAF50",
@@ -146,7 +167,7 @@ const ImageToPDF = ({ description }) => {
             </button>
           </center>
         </div>
-        <br /> 
+        <br />
         <h1>
           <div
             className="text-justify"

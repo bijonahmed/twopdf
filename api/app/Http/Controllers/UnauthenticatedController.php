@@ -27,15 +27,20 @@ use DB;
 use File;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use TCPDF;
+use setasign\Fpdi\TcpdfFpdi;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Smalot\PdfParser\Parser;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PDFPasswordProtect;
 use Carbon\Carbon;
 use PDO;
 use Spatie\PdfToImage\Pdf;
 use setasign\Fpdi\Tcpdf\Fpdi;
+use setasign\Fpdi\PdfReader;
+use setasign\Fpdi\PdfParser\StreamReader;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Slide\Background\Image as BackgroundImage;
@@ -45,6 +50,13 @@ use PhpOffice\PhpPresentation\Style\Fill;
 use PhpOffice\PhpPresentation\Style\Color;
 use PhpOffice\PhpPresentation\Style\Font;
 use Illuminate\Support\Facades\Storage;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
+use Owenoj\PDFPasswordProtect\Facade\PDFPasswordProtect as FacadePDFPasswordProtect;
+use Owenoj\PDFPasswordProtect\PDFPasswordProtect as PDFPasswordProtectPDFPasswordProtect;
+use Owenoj\PDFPasswordProtect\PDFPasswordProtectServiceProvider;
+use Illuminate\Support\Facades\Log;
+
 
 class UnauthenticatedController extends Controller
 {
@@ -181,81 +193,163 @@ class UnauthenticatedController extends Controller
 
     public function convertToPowerPoint(Request $request)
     {
-
         // Validate the uploaded file (PDF)
         $request->validate([
             'file' => 'required|mimes:pdf|max:50000',  // Max size 50 MB
         ]);
 
-        // Get the uploaded PDF file
-        $file = $request->file('file');
-        $pdfPath = $file->getPathname();
-
         try {
+            // Store the uploaded file
+            $file = $request->file('file');
+            $pdfPath = $file->store('temp'); // Store file in Laravel storage
+
+            // Ensure the file was stored successfully
+            if (!$pdfPath) {
+                return response()->json(['error' => 'File upload failed.'], 500);
+            }
+
             // Parse the PDF and extract text
             $pdfParser = new Parser();
-            $pdf = $pdfParser->parseFile($pdfPath);
+            $pdf = $pdfParser->parseFile(storage_path('app/' . $pdfPath));
             $pages = $pdf->getPages();
 
-            // Create a new PowerPoint presentation
-            $presentation = new PhpPresentation();
-
-            // Ensure that if the PDF contains no pages, we handle it gracefully
             if (empty($pages)) {
                 return response()->json(['error' => 'PDF contains no pages'], 500);
             }
 
-            // Loop through each page in the PDF and create a corresponding slide
-            foreach ($pages as $pageNumber => $page) {
-                $pageText = $page->getText();
+            // Create a new PowerPoint presentation
+            $presentation = new PhpPresentation();
+
+            // Loop through each page and create slides
+            foreach ($pages as $page) {
+                $pageText = trim($page->getText()) ?: "No content available for this slide.";
                 $slide = $presentation->createSlide();
 
-                // Create a RichText shape to hold the text
+                // Add text shape to the slide
                 $richText = $slide->createRichTextShape();
                 $richText->setWidth(600);
                 $richText->setHeight(400);
-
-                // If no text was extracted from the page, add a fallback message
-                if (empty($pageText)) {
-                    $pageText = "No content available for this slide.";
-                }
-
-                // Add text to the RichText shape
                 $textRun = $richText->createTextRun($pageText);
-                $textRun->getFont()->setSize(12);  // Set font size
-                $textRun->getFont()->setName('Arial');  // Set font name
+                $textRun->getFont()->setSize(12);
+                $textRun->getFont()->setName('Arial');
 
-
-                // Optional: Add background color to the text box
+                // Set background color
                 $richText->getFill()->setFillType(Fill::FILL_SOLID);
                 $richText->getFill()->setStartColor(new \PhpOffice\PhpPresentation\Style\Color('FFFFFF')); // White background
-
-            }
-
-            // Remove the first slide if it exists
-            $slides = $presentation->getSlide();  // Get the slides collection
-            if ($slides) {
-                $presentation->removeSlideByIndex(0);  // Remove the first slide (index 0)
             }
 
             // Save the PPTX file
-            $pptxFilePath = storage_path('app/temp/converted_ppt.pptx');
+            $pptxFileName = 'converted_ppt_' . time() . '.pptx';
+            $pptxFilePath = storage_path('app/temp/' . $pptxFileName);
+
+            // Ensure the temp directory exists
+            Storage::makeDirectory('temp');
+
             $writer = \PhpOffice\PhpPresentation\IOFactory::createWriter($presentation, 'PowerPoint2007');
             $writer->save($pptxFilePath);
+
+            // Delete the uploaded PDF after processing
+            Storage::delete($pdfPath);
 
             // Return the PPTX file for download
             return response()->download($pptxFilePath)->deleteFileAfterSend(true);
         } catch (\Exception $e) {
-            // Handle errors
-            return response()->json(['error' => 'Error during conversion. Please try again.'], 500);
+            return response()->json(['error' => 'Error during conversion: ' . $e->getMessage()], 500);
         }
     }
+
+
+
+    public function generateProtectedPdf(Request $request)
+    {
+
+       // dd($request->content);
+
+        $request->validate([
+            'content' => 'nullable|string|min:5',
+            'password' => 'required|string|min:6', // Ensure password is at least 6 characters
+        ]);
+        /*
+        // Generate the PDF content using Dompdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml('<h1>Hello, this is a password-protected PDF!</h1>');
+        $dompdf->render();
+
+        // Save the PDF to a temporary location
+        $pdfContent = $dompdf->output();
+        $tempFile = storage_path('app/temp.pdf');
+        file_put_contents($tempFile, $pdfContent);
+
+        // Encrypt the PDF with a password
+        $protectedPdfPath = storage_path('app/protected_pdf.pdf');
+        FacadePDFPasswordProtect::encrypt($tempFile, $protectedPdfPath, $request->password);
+        // Delete the temporary file
+        unlink($tempFile);
+
+        // Return the encrypted PDF as a download
+        return response()->download($protectedPdfPath)->deleteFileAfterSend(true);
+        */
+
+        // Initialize Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+
+        // Load dynamic HTML content
+        $content = $request->content;
+       // dd($content);
+
+        // Convert newlines to <br> tags so that the content will be formatted properly
+       // $formattedContent = nl2br(e($content));  // nl2br() function adds <br> tags for newlines
+        $formattedContent = "<p>" . implode("</p><p>", explode("\r\n", $content)) . "</p>";
+        //$formattedContent = "<p>" . implode("</p><p>", explode("\n", $content)) . "</p>";
+        $dompdf->loadHtml($formattedContent);
+        $dompdf->render();
+
+        $tempDir = public_path('pdf_protected/app/');
+        $protectedDir = public_path('pdf_protected/');
+        
+        // Ensure directories exist
+        if (!file_exists($tempDir)) {
+            mkdir($tempDir, 0777, true);
+        }
+        if (!file_exists($protectedDir)) {
+            mkdir($protectedDir, 0777, true);
+        }
+        
+        // Save the PDF to a temporary file
+        $pdfContent = $dompdf->output();
+        $tempFile = $tempDir . 'temp.pdf';
+        file_put_contents($tempFile, $pdfContent);
+        
+        $protectedPdfPath = $protectedDir . 'protected_pdf.pdf';
+        
+        // Encrypt and save the PDF in the public folder
+        FacadePDFPasswordProtect::encrypt($tempFile, $protectedPdfPath, $request->password);
+        
+        // Check if the file was saved correctly
+        if (file_exists($protectedPdfPath)) {
+            Log::info('Encrypted PDF saved successfully at: ' . $protectedPdfPath);
+        } else {
+            Log::error('Failed to save encrypted PDF.');
+        }
+        
+        // Generate the direct URL for downloading the file
+        $downloadLink = url('pdf_protected/protected_pdf.pdf'); // URL for frontend
+        
+        return response()->json([
+            'message' => 'PDF generated successfully.',
+            'download_link' => $downloadLink
+        ]);
+    }
+
+
 
     public function checkSeoContent(Request $request)
     {
         // dd($request->all());
         $slug            = !empty($request->slug) ? $request->slug : "";
-        $response['seo'] = SeoData::where('slug', $slug)->where('status',1)->first();
+        $response['seo'] = SeoData::where('slug', $slug)->where('status', 1)->first();
         return response()->json($response, 200);
     }
 }
