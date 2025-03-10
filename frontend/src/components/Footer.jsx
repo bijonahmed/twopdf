@@ -52,11 +52,11 @@ const Footer = () => {
             </div>
 
             <div className="col-md-3">
-              <h5>Contact Us</h5>
+             
               <p className="contact-info">
                 <i className="bi bi-envelope"></i>{" "}
                 <a href="mailto:support@twopdf.com" style={{ color: "white" }}>
-                  support@twopdf.com
+                  Email: support@twopdf.com
                 </a>
               </p>
             </div>

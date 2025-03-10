@@ -6,12 +6,7 @@ import Loader from "../components/Loader";
 import axios from "/config/axiosConfig";
 import GuestNavbar from "../components/GuestNavbar";
 import Footer from "../components/Footer";
-import ImageToPDF from "../components/ImageToPDF";
-import PdfMerger from "../components/PdfMerger";
-import PdfSplitter from "../components/PdfSplitter";
-import PdfCompressor from "../components/PdfCompressor";
-import PDFZipUpload from "../components/PDFZipUpload";
-import PdfToWordConverter from "../components/PdfToTxtConverter";
+// import "../components/css/Index.css";
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +23,9 @@ const Index = () => {
         <div>
           <div className="tools container-1060">
             <div className="tools-top">
-              <div className="tools-top__headlines">
+              <div className="container">
+                <div className="row justify-content-center">
+                <div className="tools-top__headlines">
                 <h1 className="title">
                   All-in-one AI-powered PDF tools, 100% FREE and easy to use!
                 </h1>
@@ -38,7 +35,21 @@ const Index = () => {
                   use. Seamlessly merge, split, compress, convert, rotate,
                   unlock, and watermark PDFs with just a few clicks.
                 </p>
+              </div> 
+                </div>
               </div>
+
+              {/* <div className="tools-top__headlines">
+                <h1 className="title">
+                  All-in-one AI-powered PDF tools, 100% FREE and easy to use!
+                </h1>
+                <p className="subtitle">
+                  Discover a complete suite of PDF tools right at your
+                  fingertips! Our services are 100% FREE and incredibly easy to
+                  use. Seamlessly merge, split, compress, convert, rotate,
+                  unlock, and watermark PDFs with just a few clicks.
+                </p>
+              </div> */}
 
               {/* <div class="tools-top__btn"><a href="/">Use
                   for free</a></div> */}
@@ -281,8 +292,18 @@ const Index = () => {
                   </div>
                   {/* Repeat for other boxes... */}
 
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "#f9f9f9",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <Link to="/pdf/word-to-pdf">
                       <div className="box_top">
                         <div className="top_icon">
                           <img
@@ -297,13 +318,29 @@ const Index = () => {
                           them to PDF.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+
+
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "#f9f9f9",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                   <Link to="/pdf/ppt-to-pdf">
                       <div className="box_top">
                         <div className="top_icon">
-                          <img src="/images/PDF.png" alt="pdf" />
+                        <img
+                            src="/images/PDF.png"
+                            alt="pdf"
+                            style={{ width: "120px" }}
+                          />
                         </div>
                         <h3>PowerPoint to PDF</h3>
                         <p>
@@ -311,7 +348,7 @@ const Index = () => {
                           converting them to PDF.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                   <div className="content_box d-none">
                     <a href="#">

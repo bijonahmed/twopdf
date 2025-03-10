@@ -1,0 +1,89 @@
+/* Typing animation */
+@keyframes typing {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  /* Cursor blinking effect */
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  /* Apply typing effect to the title */
+  .tools-top__headlines .title {
+    font-family: 'Arial', sans-serif; /* Font style */
+    font-size: 3rem; /* Default size for large screens */
+    color: #333; /* Text color */
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #333; /* Cursor effect */
+    animation: typing 4s steps(60) 1s 1 normal both, blink 0.75s step-end infinite;
+    margin-bottom: 20px; /* Space between title and subtitle */
+    word-wrap: break-word; /* Allow word break on small screens */
+    text-align: center; /* Center text */
+    padding: 0 20px; /* Padding to avoid cutting off on mobile */
+  }
+  
+  /* Subtitle styling */
+  .tools-top__headlines .subtitle {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.25rem; /* Default subtitle font size */
+    color: #666; /* Lighter color for the subtitle */
+    line-height: 1.6;
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* Media Queries for responsiveness */
+  
+  /* For large devices (desktops) */
+  @media (min-width: 1200px) {
+    .tools-top__headlines .title {
+      font-size: 3rem;
+    }
+    .tools-top__headlines .subtitle {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* For medium devices (tablets) */
+  @media (max-width: 1199px) and (min-width: 768px) {
+    .tools-top__headlines .title {
+      font-size: 2.5rem;
+    }
+    .tools-top__headlines .subtitle {
+      font-size: 1.125rem;
+    }
+  }
+  
+  /* For small devices (tablets and phones) */
+  @media (max-width: 767px) {
+    .tools-top__headlines .title {
+      font-size: 2rem;
+    }
+    .tools-top__headlines .subtitle {
+      font-size: 1rem;
+      max-width: 90%;
+    }
+  }
+  
+  /* For very small devices (phones) */
+  @media (max-width: 480px) {
+    .tools-top__headlines .title {
+      font-size: 1.5rem;
+    }
+    .tools-top__headlines .subtitle {
+      font-size: 0.875rem;
+      max-width: 95%;
+    }
+  }
+  

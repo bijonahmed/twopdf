@@ -19,11 +19,12 @@
     "docx": "^7.8.2",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
     "jquery": "^3.7.1",
     "json2csv": "^6.0.0-alpha.2",
-    "jspdf": "^2.5.1",
+    "jspdf": "^2.5.2",
     "jszip": "^3.10.1",
-    "mammoth": "^1.8.0",
+    "mammoth": "^1.9.0",
     "pako": "^2.1.0",
     "pdf-lib": "^1.17.1",
     "pdf-parse": "^1.1.1",
@@ -31,6 +32,7 @@
     "pdf2json": "^3.1.4",
     "pdfjs-dist": "^2.16.105",
     "pdfkit": "^0.16.0",
+    "pptx2html": "^0.3.4",
     "pptxgenjs": "^3.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -42,7 +44,8 @@
     "react-sortable-hoc": "^2.0.0",
     "sweetalert2": "^11.12.1",
     "tesseract.js": "^5.1.1",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

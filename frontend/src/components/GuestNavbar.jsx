@@ -98,6 +98,21 @@ const Navbar = () => {
                         Image to PDF
                       </Link>
                     </li>
+                    <li>
+                      <Link className="dropdown-item" to="/pdf/protectpdf">
+                        PDF Protect
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/pdf/watermarkpdf">
+                       PDF Watermark
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/pdf/word-to-pdf">
+                       Word to PDF
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 

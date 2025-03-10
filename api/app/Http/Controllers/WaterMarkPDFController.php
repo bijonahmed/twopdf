@@ -28,11 +28,85 @@ class WaterMarkPDFController extends Controller
 {
     protected $frontend_url;
     protected $userid;
-
-
-
     // Add Watermark Function
 
+    public function addWatermark(Request $request)
+    {
+        try {
+            $request->validate([
+                'files.*'               => 'required|mimes:pdf',
+                'watermark_text.*'      => 'required|min:1',
+                'watermarkOpacity.*'    => 'required',
+                'watermarkFontSize.*'   => 'required',
+                'watermark_position.*'  => 'required|in:top-left,top-right,bottom-left,bottom-right,center',
+            ]);
+
+            $files = $request->file('files');
+            $watermarkTexts = $request->input('watermark_text');
+            $watermarkPositions = $request->input('watermark_position');
+            $watermarkFontSize = $request->input('watermarkFontSize') ?? 10;
+            $watermarkOpacity = $request->input('watermarkOpacity') ?? 0.2;
+
+            $watermarkedFilePaths = [];
+
+            foreach ($files as $index => $file) {
+                // Ensure directory exists
+                $storagePath = public_path('temp_pdfs');
+                if (!file_exists($storagePath)) {
+                    mkdir($storagePath, 0777, true);
+                }
+
+                // Store file in public/temp_pdfs/
+                $fileName = $file->getClientOriginalName();
+                $file->move($storagePath, $fileName);
+                $fullPath = $storagePath . '/' . $fileName;
+
+                // Initialize FPDI object
+                $pdf = new PDF_Rotate();
+                $pageCount = $pdf->setSourceFile($fullPath);
+
+                for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+                    $pdf->AddPage();
+                    $tplIdx = $pdf->importPage($pageNo);
+                    $pdf->useTemplate($tplIdx);
+
+                    $watermarkText = $watermarkTexts[$index];
+                    $position = $watermarkPositions[$index];
+
+                    list($x, $y) = $this->getWatermarkPosition($position, $pdf, $watermarkText);
+                    $this->AddRotatedText($pdf, $x, $y, $watermarkText, 45, $watermarkFontSize, $watermarkOpacity);
+                }
+
+                // Define new file path
+                $newFileName = 'watermarked_' . time() . '.pdf';
+                $newFilePath = $storagePath . '/' . $newFileName;
+
+                // Save the watermarked PDF
+                $pdf->Output($newFilePath, 'F');
+
+                // Store the accessible URL for response
+                $watermarkedFilePaths[] = url('temp_pdfs/' . $newFileName);
+
+                // Delete the original uploaded file
+                unlink($fullPath);
+            }
+
+            return response()->json([
+                'download_link' => $watermarkedFilePaths[0]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while processing the file.',
+                'message' => $e->getMessage(),
+                'customMsg' => "It seems that your PDF file is not compatible with our system due to certain compression techniques. 
+                 Please check if the file is in a supported format or try uploading a different one.",
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
+
+    /*
     public function addWatermark(Request $request)
     {
         try {
@@ -66,8 +140,10 @@ class WaterMarkPDFController extends Controller
 
             foreach ($files as $index => $file) {
                 // Store the uploaded file temporarily
-                $tempPath = $file->store('public/temp_pdfs');
-                $fullPath = storage_path('app/' . $tempPath);
+                //$tempPath = $file->store('temp_pdfs');
+                //$fullPath = public_path('app/' . $tempPath);
+                $tempPath = $file->storeAs('temp_pdfs', $file->getClientOriginalName(), 'public');
+                $fullPath = public_path('temp_pdfs/' . $file->getClientOriginalName());
 
                 // Initialize FPDI object
                 $pdf = new PDF_Rotate();
@@ -89,19 +165,19 @@ class WaterMarkPDFController extends Controller
 
                 // Define new file path only if everything is successful
                 $newFileName = 'watermarked_' . time() . '.pdf';
-                $newFilePath = storage_path('app/public/pdfs/' . $newFileName);
+                $newFilePath = public_path('temp_pdfs/' . $newFileName);
 
                 $pdf->Output($newFilePath, 'F'); // Save the watermarked file
 
                 // Store the new file path for response
-                $watermarkedFilePaths[] = 'pdfs/' . $newFileName;
+                $watermarkedFilePaths[] = 'temp_pdfs/' . $newFileName;
 
                 // Delete temporary file after processing
                 Storage::delete($tempPath);
             }
 
             return response()->json([
-                'download_link' => asset('storage/' . $watermarkedFilePaths[0])
+                'download_link' => public_path('temp_pdfs/' . $watermarkedFilePaths[0])
             ]);
         } catch (\Exception $e) {
             // Catch any errors and return them in the response
@@ -114,8 +190,7 @@ class WaterMarkPDFController extends Controller
             ], 500);
         }
     }
-
-
+    */
 
     // Calculate watermark position
     private function getWatermarkPosition($position, $pdf, $text = '')
