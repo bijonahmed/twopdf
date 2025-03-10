@@ -250,6 +250,35 @@ const Index = () => {
                       </div>
                     </Link>
                   </div>
+
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "#f9f9f9",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <Link to="/pdf/watermarkpdf">
+                      <div className="box_top">
+                        <div className="top_icon">
+                          <img
+                            src="/images/PDF.png"
+                            alt="pdf"
+                            style={{ width: "120px" }}
+                          />
+                        </div>
+                        <h3>Watermark</h3>
+                        <p>
+                          Stamp an image or text over your PDF in seconds.
+                          Choose the typography, transparency and position.
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
                   {/* Repeat for other boxes... */}
 
                   <div className="content_box d-none">
@@ -357,42 +386,7 @@ const Index = () => {
                       </div>
                     </a>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Sign PDF</h3>
-                        <p>
-                          Sign yourself or request electronic signatures from
-                          others.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Watermark</h3>
-                        <p>
-                          Stamp an image or text over your PDF in seconds.
-                          Choose the typography, transparency and position.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
+
                   <div className="content_box d-none">
                     <a href="#">
                       <div className="box_top">

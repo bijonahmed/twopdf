@@ -31,6 +31,7 @@ import Pdftoppt from "../pages/pdf/pdftoppt.jsx";
 import Pdfzip from "../pages/pdf/pdfzip.jsx";
 import ImagetoPDF from "../pages/pdf/imgtopdf.jsx";
 import Protectpdf from "../pages/pdf/protectpdf.jsx";
+import Watermarkpdf from "../pages/pdf/watermarkpdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
@@ -78,6 +79,7 @@ const AppRouter = () => {
       <Route path="/pdf/pdfzip" element={<Pdfzip />} />
       <Route path="/pdf/imgtopdf" element={<ImagetoPDF />} />
       <Route path="/pdf/protectpdf" element={<Protectpdf />} />
+      <Route path="/pdf/watermarkpdf" element={<Watermarkpdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

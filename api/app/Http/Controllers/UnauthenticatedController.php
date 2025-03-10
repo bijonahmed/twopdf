@@ -27,6 +27,8 @@ use DB;
 use File;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Barryvdh\DomPDF\Facade as PDFWaterMark;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use TCPDF;
 use setasign\Fpdi\TcpdfFpdi;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -56,7 +58,7 @@ use Owenoj\PDFPasswordProtect\Facade\PDFPasswordProtect as FacadePDFPasswordProt
 use Owenoj\PDFPasswordProtect\PDFPasswordProtect as PDFPasswordProtectPDFPasswordProtect;
 use Owenoj\PDFPasswordProtect\PDFPasswordProtectServiceProvider;
 use Illuminate\Support\Facades\Log;
-
+use PhpOffice\PhpWord\Writer\PDF\DomPDF as PDFDomPDF;
 
 class UnauthenticatedController extends Controller
 {
@@ -289,20 +291,12 @@ class UnauthenticatedController extends Controller
         // Return the encrypted PDF as a download
         return response()->download($protectedPdfPath)->deleteFileAfterSend(true);
         */
-
         // Initialize Dompdf
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $dompdf = new Dompdf($options);
-
-        // Load dynamic HTML content
         $content = $request->content;
-       // dd($content);
-
-        // Convert newlines to <br> tags so that the content will be formatted properly
-       // $formattedContent = nl2br(e($content));  // nl2br() function adds <br> tags for newlines
         $formattedContent = "<p>" . implode("</p><p>", explode("\r\n", $content)) . "</p>";
-        //$formattedContent = "<p>" . implode("</p><p>", explode("\n", $content)) . "</p>";
         $dompdf->loadHtml($formattedContent);
         $dompdf->render();
 
@@ -316,14 +310,12 @@ class UnauthenticatedController extends Controller
         if (!file_exists($protectedDir)) {
             mkdir($protectedDir, 0777, true);
         }
-        
         // Save the PDF to a temporary file
         $pdfContent = $dompdf->output();
         $tempFile = $tempDir . 'temp.pdf';
         file_put_contents($tempFile, $pdfContent);
         
         $protectedPdfPath = $protectedDir . 'protected_pdf.pdf';
-        
         // Encrypt and save the PDF in the public folder
         FacadePDFPasswordProtect::encrypt($tempFile, $protectedPdfPath, $request->password);
         
@@ -341,6 +333,74 @@ class UnauthenticatedController extends Controller
             'message' => 'PDF generated successfully.',
             'download_link' => $downloadLink
         ]);
+    }
+
+
+    public function addWatermark(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'files.*' => 'required|mimes:pdf|max:2048',  // Ensure each file is a valid PDF
+            'watermark_text.*' => 'required|string|min:3' // Ensure each watermark text is a valid string and at least 3 characters
+        ]);
+    
+        // Retrieve the uploaded files and watermark text
+        $files = $request->file('files');  // Files array
+        $watermarkTexts = $request->input('watermark_text');  // Watermark text array
+    
+        // Array to hold download links
+        $downloadLinks = [];
+    
+        // Process each file
+        foreach ($files as $index => $file) {
+            $watermarkText = $watermarkTexts[$index] ?? '';  // Get watermark text for this file
+            
+            if (empty($watermarkText)) {
+                return response()->json([
+                    'error' => 'Missing watermark text for one of the files.'
+                ], 400);
+            }
+    
+            // Store the uploaded PDF temporarily
+            $originalPath = $file->store('temp');
+            $filePath = storage_path("app/{$originalPath}");
+    
+            // Load the PDF file using DOMPDF
+            $pdf = PDF::loadFile($filePath);
+    
+            // Add watermark text using custom CSS (DOMPDF does not have direct watermark method)
+            $htmlContent = $this->addWatermarkToHtml($filePath, $watermarkText);
+            $pdf->loadHTML($htmlContent);
+    
+            // Save the watermarked PDF
+            $newFileName = 'watermarked_' . time() . '_' . $index . '.pdf';
+            $newFilePath = storage_path("app/public/{$newFileName}");
+            $pdf->save($newFilePath);
+    
+            // Store the link to the watermarked PDF
+            $downloadLinks[] = asset("storage/{$newFileName}");
+        }
+    
+        // Return the download links for all processed files
+        return response()->json([
+            'download_links' => $downloadLinks
+        ]);
+    }
+    
+    private function addWatermarkToHtml($filePath, $watermarkText)
+    {
+        // Read the PDF content and generate the HTML
+        // NOTE: You would need to convert the PDF to HTML (this is a simplified example)
+    
+        $html = '<html>
+                    <body style="position: relative;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 50px; color: rgba(255,0,0,0.5); transform: rotate(-45deg);">
+                            ' . $watermarkText . '
+                        </div>
+                    </body>
+                </html>';
+    
+        return $html;
     }
 
 

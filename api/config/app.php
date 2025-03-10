@@ -160,10 +160,10 @@ return [
          * Package Service Providers...
          */
         Darryldecode\Cart\CartServiceProvider::class,
-
         /*
          * Application Service Providers...
          */
+
 		Yajra\DataTables\DataTablesServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         App\Providers\AppServiceProvider::class,
@@ -186,6 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class
     ])->toArray(),
 
