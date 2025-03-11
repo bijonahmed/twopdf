@@ -40,10 +40,11 @@ const PdfMerger = ({ description }) => {
   const [files, setFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [countdown, setCountdown] = useState(0);
+ 
   const [limitReached, setLimitReached] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countdownInterval, setCountdownInterval] = useState(null);
+  const [countdown, setCountdown] = useState(0);
 
   const handleMerge = async () => {
     try {

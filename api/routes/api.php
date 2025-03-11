@@ -12,6 +12,7 @@ use App\Http\Controllers\Documents\DocumentsController;
 use App\Http\Controllers\Setting\SettingController;
 use App\Http\Controllers\UnauthenticatedController;
 use App\Http\Controllers\WaterMarkPDFController;
+use App\Http\Controllers\ExcelPDFController;
 use App\Http\Controllers\Brands\BrandsController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Post\PostController;
@@ -73,6 +74,7 @@ Route::group([
     Route::post('convert-pdf-to-ppt', [UnauthenticatedController::class, 'convertToPowerPoint']);
     Route::post('/protect-pdf', [UnauthenticatedController::class, 'generateProtectedPdf']);
     Route::post('/watermark-pdf', [WaterMarkPDFController::class, 'addWatermark']);
+    Route::post('/upload-excel', [ExcelPDFController::class, 'uploadExcel']);
 });
 
 

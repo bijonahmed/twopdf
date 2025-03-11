@@ -34,6 +34,7 @@ import Protectpdf from "../pages/pdf/protectpdf.jsx";
 import Watermarkpdf from "../pages/pdf/watermarkpdf.jsx";
 import Wordtopdf from "../pages/pdf/wordtopdf.jsx";
 import Ppttopdf from "../pages/pdf/ppttopdf.jsx";
+import Exceltopdf from "../pages/pdf/exceltopdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
@@ -65,8 +66,7 @@ const AppRouter = () => {
       <Route path="/whyw3programmer" element={<Whyw3programmer />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/pdf-books" element={<Pdfbooks />} />
-    
-      
+          
       {/* //add new */}
       <Route path="/premimum-packages" element={<Premimum />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
@@ -84,6 +84,7 @@ const AppRouter = () => {
       <Route path="/pdf/watermarkpdf" element={<Watermarkpdf />} />
       <Route path="/pdf/word-to-pdf" element={<Wordtopdf />} />
       <Route path="/pdf/ppt-to-pdf" element={<Ppttopdf />} />
+      <Route path="/pdf/excel-to-pdf" element={<Exceltopdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

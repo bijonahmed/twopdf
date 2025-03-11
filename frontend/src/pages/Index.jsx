@@ -350,8 +350,18 @@ const Index = () => {
                       </div>
                     </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "#f9f9f9",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                      <Link to="/pdf/excel-to-pdf">
                       <div className="box_top">
                         <div className="top_icon">
                           <img
@@ -366,7 +376,7 @@ const Index = () => {
                           them to PDF.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                   <div className="content_box d-none">
                     <a href="#">
