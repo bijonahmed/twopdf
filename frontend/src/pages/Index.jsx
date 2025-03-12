@@ -25,17 +25,18 @@ const Index = () => {
             <div className="tools-top">
               <div className="container">
                 <div className="row justify-content-center">
-                <div className="tools-top__headlines">
-                <h1 className="title">
-                  All-in-one AI-powered PDF tools, 100% FREE and easy to use!
-                </h1>
-                <p className="subtitle">
-                  Discover a complete suite of PDF tools right at your
-                  fingertips! Our services are 100% FREE and incredibly easy to
-                  use. Seamlessly merge, split, compress, convert, rotate,
-                  unlock, and watermark PDFs with just a few clicks.
-                </p>
-              </div> 
+                  <div className="tools-top__headlines">
+                    <h1 className="title">
+                      All-in-one AI-powered PDF tools, 100% FREE and easy to
+                      use!
+                    </h1>
+                    <p className="subtitle">
+                      Discover a complete suite of PDF tools right at your
+                      fingertips! Our services are 100% FREE and incredibly easy
+                      to use. Seamlessly merge, split, compress, convert,
+                      rotate, unlock, and watermark PDFs with just a few clicks.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -69,7 +70,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -77,9 +78,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/margepdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/merge_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -97,7 +98,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -105,9 +106,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/splitpdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/spilt_pdf.webp"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -125,7 +126,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -133,9 +134,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/pdfzip">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/zip_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -153,7 +154,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -161,9 +162,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/pdftotxt">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/pdf-to-txt.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -171,7 +172,7 @@ const Index = () => {
                         <h3>PDF to Text</h3>
                         <p>
                           Easily convert your PDF files into easy to edit txt.
-                          The converted txt document is almost 100% accurate.
+                          The document is almost 100% accurate.
                         </p>
                       </div>
                     </Link>
@@ -181,7 +182,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -189,9 +190,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/pdftoppt">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/pdf_to_ppt.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -209,7 +210,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -217,9 +218,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/imgtopdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/image_to_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -238,7 +239,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -246,17 +247,17 @@ const Index = () => {
                   >
                     <Link to="/pdf/protectpdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/proted_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
                         </div>
                         <h3>Protect PDF </h3>
                         <p>
-                          Protect PDF files with a password. Encrypt PDF
-                          documents to prevent unauthorized access.
+                          Protect PDF files with a password.  PDF
+                          documents unauthorized access.
                         </p>
                       </div>
                     </Link>
@@ -267,7 +268,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -275,9 +276,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/watermarkpdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/watermark_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -285,7 +286,7 @@ const Index = () => {
                         <h3>Watermark</h3>
                         <p>
                           Stamp an image or text over your PDF in seconds.
-                          Choose the typography, transparency and position.
+                  
                         </p>
                       </div>
                     </Link>
@@ -297,7 +298,7 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
@@ -305,9 +306,9 @@ const Index = () => {
                   >
                     <Link to="/pdf/word-to-pdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/word-to-pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -321,28 +322,28 @@ const Index = () => {
                     </Link>
                   </div>
 
-
                   <div
                     className="content_box"
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
                     }}
                   >
-                   <Link to="/pdf/ppt-to-pdf">
+                    <Link to="/pdf/ppt-to-pdf">
                       <div className="box_top">
-                        <div className="top_icon">
-                        <img
-                            src="/images/PDF.png"
+                        <div className="top_icon mt-4">
+                          <img
+
+                            src="/images/PPT_to_PDF.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
                         </div>
-                        <h3>PowerPoint to PDF</h3>
+                        <h3>PPT to PDF</h3>
                         <p>
                           Make PPT and PPTX slideshows easy to view by
                           converting them to PDF.
@@ -355,19 +356,19 @@ const Index = () => {
                     style={{
                       border: "2px solid #ddd",
                       borderRadius: "8px",
-                      background: "#f9f9f9",
+                      background: "rgb(237, 236, 244)",
                       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                       padding: "20px",
                       marginBottom: "20px",
                     }}
                   >
-                      <Link to="/pdf/excel-to-pdf">
+                    <Link to="/pdf/excel-to-pdf">
                       <div className="box_top">
                         <div className="top_icon">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/excel-to-pdf.png"
                             alt="pdf"
-                            style={{ width: "120px" }}
+                            style={{ width: "150px" }}
                           />
                         </div>
                         <h3>Excel to PDF</h3>
@@ -378,31 +379,23 @@ const Index = () => {
                       </div>
                     </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "rgb(237, 236, 244)",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <Link to="/pdf/pdf-to-jpg">
                       <div className="box_top">
                         <div className="top_icon">
                           <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Edit PDF</h3>
-                        <p>
-                          Add text, images, shapes or freehand annotations to a
-                          PDF document. Edit the size, font, and color of the
-                          added content.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
+                            src="/images/pdf_to_jpg.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -413,33 +406,25 @@ const Index = () => {
                           contained in a PDF.
                         </p>
                       </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>PDF to JPG</h3>
-                        <p>
-                          Convert each PDF page into a JPG or extract all images
-                          contained in a PDF.
-                        </p>
-                      </div>
-                    </a>
+                    </Link>
                   </div>
 
-                  <div className="content_box d-none">
+                  <div
+                    className="content_box"
+                    style={{
+                      border: "2px solid #ddd",
+                      borderRadius: "8px",
+                      background: "rgb(237, 236, 244)",
+                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      padding: "20px",
+                      marginBottom: "20px",
+                    }}
+                  >
                     <a href="#">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/rotate_pdf.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />

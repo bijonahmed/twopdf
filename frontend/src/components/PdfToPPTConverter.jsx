@@ -9,6 +9,7 @@ function PdfToPPTConverter({ description }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [pptFile, setPptFile] = useState(null);
   const [countdown, setCountdown] = useState(5);
+
   // Handle file input change
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -60,178 +61,181 @@ function PdfToPPTConverter({ description }) {
         }
       );
 
-      // Create a downloadable link for the converted PPT file
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      setPptFile(url);
-
-      setLoading(false);
+      // Ensure the response has content before creating the URL
+      if (response.data && response.data.size > 0) {
+        const pptUrl = window.URL.createObjectURL(new Blob([response.data]));
+        setPptFile(pptUrl);
+        setLoading(false);
+      } else {
+        setErrorMessage("Conversion failed. No content returned.");
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
       setErrorMessage("Error during conversion. Please try again.");
+      console.error("Error during conversion:", error);
     }
   };
 
   return (
     <div
-    className="tools container-1060"
-    style={{
-      minHeight: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "Arial, sans-serif",
-      backgroundColor: "#f9f9f9",
-      padding: "20px",
-    }}
-  >
-    <div
-      className="tools-top">
-      <h2
-        className="title"
-        style={{ color: "#333", fontSize: "24px", marginBottom: "10px" }}
-      >
-        PDF To PPT
-      </h2>
-      <p className="subtitle" style={{ color: "#666", fontSize: "16px" }}>
-        Convert your PDF to a PPT file in seconds.
-      </p>
-  
-      <div className="upload_group" style={{ marginTop: "20px" }}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div className="btn_group text-center">
-            <label
-              htmlFor="upload"
-              className="upload-label"
+      className="tools container-1060"
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Arial, sans-serif",
+        backgroundColor: "#f9f9f9",
+        padding: "20px",
+      }}
+    >
+      <div className="tools-top">
+        <h2
+          className="title"
+          style={{ color: "#333", fontSize: "24px", marginBottom: "10px" }}
+        >
+          PDF To PPT
+        </h2>
+        <p className="subtitle" style={{ color: "#666", fontSize: "16px" }}>
+          Convert your PDF to a PPT file in seconds.
+        </p>
+
+        <div className="upload_group" style={{ marginTop: "20px" }}>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div className="btn_group text-center">
+              <label
+                htmlFor="upload"
+                className="upload-label"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 20px",
+                  backgroundColor: "#007bff",
+                  color: "#fff",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                }}
+              >
+                Select PDF file
+              </label>
+              <input
+                type="file"
+                id="upload"
+                accept="application/pdf"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+              />
+              {errorMessage && (
+                <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
+              )}
+            </div>
+          </form>
+        </div>
+
+        {/* PDF Preview */}
+        {previewURL && (
+          <div
+            className="pdf-preview"
+            style={{
+              width: "100%",
+              marginTop: "15px",
+              border: "1px solid #ddd",
+              borderRadius: "5px",
+              overflow: "hidden",
+            }}
+          >
+            <iframe
+              src={previewURL}
+              width="100%"
+              height="700px"
+              style={{ border: "none" }}
+            />
+          </div>
+        )}
+
+        {/* Convert Button */}
+        {file && (
+          <div className="convert-section" style={{ marginTop: "20px" }}>
+            <button
+              onClick={handleFileUpload}
+              disabled={loading}
+              className="convert-btn"
+              style={{
+                width: "100%",
+                padding: "12px",
+                fontSize: "16px",
+                color: "#fff",
+                backgroundColor: loading ? "#aaa" : "#28a745",
+                border: "none",
+                borderRadius: "5px",
+                cursor: loading ? "not-allowed" : "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              {loading ? (
+                <div className="loading">
+                  <img
+                    src={loaderImage}
+                    alt="Loading..."
+                    style={{ width: "30px", verticalAlign: "middle" }}
+                  />
+                  <span style={{ marginLeft: "10px" }}>
+                    Uploading in {countdown} seconds...
+                  </span>
+                </div>
+              ) : (
+                "Convert to PPT"
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Download PPT Link */}
+        {pptFile && (
+          <div className="download-section" style={{ marginTop: "20px" }}>
+            <p style={{ color: "#28a745", fontWeight: "bold" }}>
+              Your PowerPoint is ready!
+            </p>
+            <a
+              href={pptFile}
+              download="converted_presentation.pptx"
+              className="download-btn"
               style={{
                 display: "inline-block",
                 padding: "10px 20px",
                 backgroundColor: "#007bff",
                 color: "#fff",
                 borderRadius: "5px",
-                cursor: "pointer",
+                textDecoration: "none",
                 fontWeight: "bold",
               }}
             >
-              Select PDF file
-            </label>
-            <input
-              type="file"
-              id="upload"
-              accept="application/pdf"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-            {errorMessage && (
-              <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
-            )}
+              Download PPT
+            </a>
           </div>
-        </form>
-      </div>
-  
-      {/* PDF Preview */}
-      {previewURL && (
+        )}
+
+        <h1 style={{ marginTop: "20px" }}>
+          <center>
+            <div
+              className="text-justify"
+              dangerouslySetInnerHTML={{
+                __html: description.meta_title || "Default Meta Title",
+              }}
+            />
+          </center>
+        </h1>
         <div
-          className="pdf-preview"
-          style={{
-            width: "100%",
-            marginTop: "15px",
-            border: "1px solid #ddd",
-            borderRadius: "5px",
-            overflow: "hidden",
+          className="text-justify mt-3"
+          dangerouslySetInnerHTML={{
+            __html: description.description_full || "Default Full Description",
           }}
-        >
-          <iframe
-            src={previewURL}
-            width="100%"
-            height="700px"
-            style={{ border: "none" }}
-          />
-        </div>
-      )}
-  
-      {/* Convert Button */}
-      {file && (
-        <div className="convert-section" style={{ marginTop: "20px" }}>
-          <button
-            onClick={handleFileUpload}
-            disabled={loading}
-            className="convert-btn"
-            style={{
-              width: "100%",
-              padding: "12px",
-              fontSize: "16px",
-              color: "#fff",
-              backgroundColor: loading ? "#aaa" : "#28a745",
-              border: "none",
-              borderRadius: "5px",
-              cursor: loading ? "not-allowed" : "pointer",
-              fontWeight: "bold",
-            }}
-          >
-            {loading ? (
-              <div className="loading">
-                <img
-                  src={loaderImage}
-                  alt="Loading..."
-                  style={{ width: "30px", verticalAlign: "middle" }}
-                />
-                <span style={{ marginLeft: "10px" }}>
-                  Uploading in {countdown} seconds...
-                </span>
-              </div>
-            ) : (
-              "Convert to PPT"
-            )}
-          </button>
-        </div>
-      )}
-  
-      {/* Download PPT Link */}
-      {pptFile && (
-        <div className="download-section" style={{ marginTop: "20px" }}>
-          <p style={{ color: "#28a745", fontWeight: "bold" }}>
-            Your PowerPoint is ready!
-          </p>
-          <a
-            href={pptFile}
-            download="converted_presentation.pptx"
-            className="download-btn"
-            style={{
-              display: "inline-block",
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              borderRadius: "5px",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Download PPT
-          </a>
-        </div>
-      )}
-  
-      <h1 style={{ marginTop: "20px" }}>
-        <center>
-          <div
-            className="text-justify"
-            dangerouslySetInnerHTML={{
-              __html: description.meta_title || "Default Meta Title",
-            }}
-          />
-        </center>
-      </h1>
-      <div
-        className="text-justify mt-3"
-        dangerouslySetInnerHTML={{
-          __html: description.description_full || "Default Full Description",
-        }}
-        style={{ marginTop: "10px", color: "#555", fontSize: "14px" }}
-      />
+          style={{ marginTop: "10px", color: "#555", fontSize: "14px" }}
+        />
+      </div>
     </div>
-  </div>
-  
   );
 }
 

@@ -223,7 +223,8 @@ class UnauthenticatedController extends Controller
             $presentation = new PhpPresentation();
 
             // Loop through each page and create slides
-            foreach ($pages as $page) {
+            foreach ($pages as $index => $page) {
+
                 $pageText = trim($page->getText()) ?: "No content available for this slide.";
                 $slide = $presentation->createSlide();
 
@@ -236,9 +237,27 @@ class UnauthenticatedController extends Controller
                 $textRun->getFont()->setName('Arial');
 
                 // Set background color
+                // Dynamically set background color based on some logic (e.g., using PDF page text)
+                $backgroundColor = 'FFFFFF';  // Default to white
+
+                // Example: Check for certain words or patterns in the text to dynamically set color
+                if (strpos(strtolower($pageText), 'important') !== false) {
+                    $backgroundColor = 'FF0000';  // Red if the page contains the word "important"
+                } elseif (strpos(strtolower($pageText), 'note') !== false) {
+                    $backgroundColor = 'FFFF00';  // Yellow for pages containing the word "note"
+                }
+
+                // Set the slide background color dynamically
                 $richText->getFill()->setFillType(Fill::FILL_SOLID);
-                $richText->getFill()->setStartColor(new \PhpOffice\PhpPresentation\Style\Color('FFFFFF')); // White background
+                $richText->getFill()->setStartColor(new \PhpOffice\PhpPresentation\Style\Color($backgroundColor));
             }
+
+            // Remove the first slide after all slides are created
+            // After creating all slides, remove the first slide (index 0)
+            if ($presentation->getSlideCount() > 0) {
+                $presentation->removeSlideByIndex(0); // Removes the first slide
+            }
+
 
             // Save the PPTX file
             $pptxFileName = 'converted_ppt_' . time() . '.pptx';
@@ -265,7 +284,7 @@ class UnauthenticatedController extends Controller
     public function generateProtectedPdf(Request $request)
     {
 
-       // dd($request->content);
+        // dd($request->content);
 
         $request->validate([
             'content' => 'nullable|string|min:5',
@@ -302,7 +321,7 @@ class UnauthenticatedController extends Controller
 
         $tempDir = public_path('pdf_protected/app/');
         $protectedDir = public_path('pdf_protected/');
-        
+
         // Ensure directories exist
         if (!file_exists($tempDir)) {
             mkdir($tempDir, 0777, true);
@@ -314,21 +333,21 @@ class UnauthenticatedController extends Controller
         $pdfContent = $dompdf->output();
         $tempFile = $tempDir . 'temp.pdf';
         file_put_contents($tempFile, $pdfContent);
-        
+
         $protectedPdfPath = $protectedDir . 'protected_pdf.pdf';
         // Encrypt and save the PDF in the public folder
         FacadePDFPasswordProtect::encrypt($tempFile, $protectedPdfPath, $request->password);
-        
+
         // Check if the file was saved correctly
         if (file_exists($protectedPdfPath)) {
             Log::info('Encrypted PDF saved successfully at: ' . $protectedPdfPath);
         } else {
             Log::error('Failed to save encrypted PDF.');
         }
-        
+
         // Generate the direct URL for downloading the file
         $downloadLink = url('pdf_protected/protected_pdf.pdf'); // URL for frontend
-        
+
         return response()->json([
             'message' => 'PDF generated successfully.',
             'download_link' => $downloadLink
@@ -343,55 +362,55 @@ class UnauthenticatedController extends Controller
             'files.*' => 'required|mimes:pdf|max:2048',  // Ensure each file is a valid PDF
             'watermark_text.*' => 'required|string|min:3' // Ensure each watermark text is a valid string and at least 3 characters
         ]);
-    
+
         // Retrieve the uploaded files and watermark text
         $files = $request->file('files');  // Files array
         $watermarkTexts = $request->input('watermark_text');  // Watermark text array
-    
+
         // Array to hold download links
         $downloadLinks = [];
-    
+
         // Process each file
         foreach ($files as $index => $file) {
             $watermarkText = $watermarkTexts[$index] ?? '';  // Get watermark text for this file
-            
+
             if (empty($watermarkText)) {
                 return response()->json([
                     'error' => 'Missing watermark text for one of the files.'
                 ], 400);
             }
-    
+
             // Store the uploaded PDF temporarily
             $originalPath = $file->store('temp');
             $filePath = storage_path("app/{$originalPath}");
-    
+
             // Load the PDF file using DOMPDF
             $pdf = PDF::loadFile($filePath);
-    
+
             // Add watermark text using custom CSS (DOMPDF does not have direct watermark method)
             $htmlContent = $this->addWatermarkToHtml($filePath, $watermarkText);
             $pdf->loadHTML($htmlContent);
-    
+
             // Save the watermarked PDF
             $newFileName = 'watermarked_' . time() . '_' . $index . '.pdf';
             $newFilePath = storage_path("app/public/{$newFileName}");
             $pdf->save($newFilePath);
-    
+
             // Store the link to the watermarked PDF
             $downloadLinks[] = asset("storage/{$newFileName}");
         }
-    
+
         // Return the download links for all processed files
         return response()->json([
             'download_links' => $downloadLinks
         ]);
     }
-    
+
     private function addWatermarkToHtml($filePath, $watermarkText)
     {
         // Read the PDF content and generate the HTML
         // NOTE: You would need to convert the PDF to HTML (this is a simplified example)
-    
+
         $html = '<html>
                     <body style="position: relative;">
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 50px; color: rgba(255,0,0,0.5); transform: rotate(-45deg);">
@@ -399,7 +418,7 @@ class UnauthenticatedController extends Controller
                         </div>
                     </body>
                 </html>';
-    
+
         return $html;
     }
 
