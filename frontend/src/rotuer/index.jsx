@@ -36,6 +36,7 @@ import Wordtopdf from "../pages/pdf/wordtopdf.jsx";
 import Ppttopdf from "../pages/pdf/ppttopdf.jsx";
 import Exceltopdf from "../pages/pdf/exceltopdf.jsx";
 import Pdftojpg from "../pages/pdf/pdftojpg.jsx";
+import Rotatepdf from "../pages/pdf/rotatepdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
@@ -87,6 +88,7 @@ const AppRouter = () => {
       <Route path="/pdf/ppt-to-pdf" element={<Ppttopdf />} />
       <Route path="/pdf/excel-to-pdf" element={<Exceltopdf />} />
       <Route path="/pdf/pdf-to-jpg" element={<Pdftojpg />} />
+      <Route path="/pdf/rotate-pdf" element={<Rotatepdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

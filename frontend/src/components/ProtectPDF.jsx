@@ -34,20 +34,20 @@ const ProtectPDF = ({ description }) => {
 
   const [isCopied, setIsCopied] = useState(false);
   const handleShare = () => {
-   // Create a temporary input element to hold the URL for copying
-   const textField = document.createElement("input");
-   textField.value = pdfUrl;
-   document.body.appendChild(textField);
+    // Create a temporary input element to hold the URL for copying
+    const textField = document.createElement("input");
+    textField.value = pdfUrl;
+    document.body.appendChild(textField);
 
-   // Select and copy the text inside the input field
-   textField.select();
-   document.execCommand("copy");
+    // Select and copy the text inside the input field
+    textField.select();
+    document.execCommand("copy");
 
-   // Remove the temporary input field
-   document.body.removeChild(textField);
+    // Remove the temporary input field
+    document.body.removeChild(textField);
 
-   setIsCopied(true);
-   setTimeout(() => setIsCopied(false), 2000); // Reset "Copied!" message after 2 seconds
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000); // Reset "Copied!" message after 2 seconds
   };
   const handleCopy = () => {
     // Create a temporary input element to hold the URL for copying
@@ -197,80 +197,78 @@ const ProtectPDF = ({ description }) => {
       {/* PDF Modal */}
       {isModalOpen && (
         <div
-        className="modal show"
-        style={{
-          display: "block",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
-          zIndex: 1040,
-        }}
-      >
-        <div
-          className="modal-dialog modal-fullscreen"
+          className="modal show"
           style={{
-            margin: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            resize: "both", // Allows resizing
-            overflow: "auto", // Ensures the content doesn't overflow when resizing
-            maxWidth: "90%", // Max width for resizing
-            maxHeight: "90%", // Max height for resizing
+            display: "block",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            zIndex: 1040,
           }}
         >
           <div
-            className="modal-content"
+            className="modal-dialog modal-fullscreen"
             style={{
-              width: "100%",
-              height: "100%",
-              resize: "both", // Allow resizing of the modal content
-              overflow: "auto", // Ensure content inside the modal is scrollable when resized
+              margin: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              resize: "both", // Allows resizing
+              overflow: "auto", // Ensures the content doesn't overflow when resizing
+              maxWidth: "90%", // Max width for resizing
+              maxHeight: "90%", // Max height for resizing
             }}
           >
-            <div className="modal-header">
-              <h5 className="modal-title">Generated PDF</h5>
-              {/* <button type="button" className="close" onClick={closeModal}>
+            <div
+              className="modal-content"
+              style={{
+                width: "100%",
+                height: "100%",
+                resize: "both", // Allow resizing of the modal content
+                overflow: "auto", // Ensure content inside the modal is scrollable when resized
+              }}
+            >
+              <div className="modal-header">
+                <h5 className="modal-title">Generated PDF</h5>
+                {/* <button type="button" className="close" onClick={closeModal}>
                 &times;
               </button> */}
-            </div>
-            <div className="modal-body" style={{ padding: 0 }}>
-              <embed
-                src={pdfUrl}
-                width="100%"
-                height="100%"
-                type="application/pdf"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
-            </div>
-            <div className="modal-footer">
-  <button className="btn btn-secondary" onClick={closeModal}>
-    Close
-  </button>
-  <button className="btn btn-info" onClick={handleCopy}>
-    <i className="fa fa-copy"></i>{" "}
-    {isCopied ? "Copied!" : "Copy Link"}
-  </button>
+              </div>
+              <div className="modal-body" style={{ padding: 0 }}>
+                <embed
+                  src={pdfUrl}
+                  width="100%"
+                  height="100%"
+                  type="application/pdf"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={closeModal}>
+                  Close
+                </button>
+                <button className="btn btn-info" onClick={handleCopy}>
+                  <i className="fa fa-copy"></i>{" "}
+                  {isCopied ? "Copied!" : "Copy Link"}
+                </button>
 
-  {/* Updated 'Share with Friends' button with distinct functionality */}
-  <button className="btn btn-info" onClick={handleShare}>
-    <i className="fa fa-share-alt"></i>{" "}
-    {isCopied ? "Shared!" : "Share with Friends"}
-  </button>
-</div>
-
+                {/* Updated 'Share with Friends' button with distinct functionality */}
+                <button className="btn btn-info" onClick={handleShare}>
+                  <i className="fa fa-share-alt"></i>{" "}
+                  {isCopied ? "Shared!" : "Share with Friends"}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      
       )}
       {showModal && (
         <div className="modal d-block">

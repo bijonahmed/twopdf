@@ -420,7 +420,7 @@ const Index = () => {
                       marginBottom: "20px",
                     }}
                   >
-                    <a href="#">
+                    <Link to="/pdf/rotate-pdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
                           <img
@@ -435,7 +435,7 @@ const Index = () => {
                           rotate multiple PDFs at once!
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                   <div className="content_box d-none">
                     <a href="#">
