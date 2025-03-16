@@ -37,29 +37,30 @@ import Ppttopdf from "../pages/pdf/ppttopdf.jsx";
 import Exceltopdf from "../pages/pdf/exceltopdf.jsx";
 import Pdftojpg from "../pages/pdf/pdftojpg.jsx";
 import Rotatepdf from "../pages/pdf/rotatepdf.jsx";
+import HtmltoPdf from "../pages/pdf/htmltoPdf.jsx";
+import Compresspdf from "../pages/pdf/compresspdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
 import TermsAndConditions from "../pages/TermsAndConditions.jsx";
 
-import NotFound from '../pages/NotFound';
-
+import NotFound from "../pages/NotFound";
 
 //import ProtectedRoute from "../components/ProtectedRoute";
 //<Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
 const AppRouter = () => {
   return (
     <Routes>
-       <Route path="/" element={<Index />} />
+      <Route path="/" element={<Index />} />
       {/* <Route path="/home" element={<Home />} /> */}
       <Route path="/edit-brand/:id" element={<Editbrand />} />
       <Route path="/brand-list" element={<BrandList />} />
       <Route path="/add-brand" element={<AddBrand />} />
-     
+
       <Route path="/contact" element={<Contact />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-       <Route path="/user-login" element={<UserLogin />} />
+      <Route path="/user-login" element={<UserLogin />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/category/:slug" element={<CategorySlug />} />
       <Route path="/all-category" element={<CategoryAll />} />
@@ -68,7 +69,7 @@ const AppRouter = () => {
       <Route path="/whyw3programmer" element={<Whyw3programmer />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/pdf-books" element={<Pdfbooks />} />
-          
+
       {/* //add new */}
       <Route path="/premimum-packages" element={<Premimum />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
@@ -89,6 +90,8 @@ const AppRouter = () => {
       <Route path="/pdf/excel-to-pdf" element={<Exceltopdf />} />
       <Route path="/pdf/pdf-to-jpg" element={<Pdftojpg />} />
       <Route path="/pdf/rotate-pdf" element={<Rotatepdf />} />
+      <Route path="/pdf/html-to-pdf" element={<HtmltoPdf />} />
+      <Route path="/pdf/compress-pdf" element={<Compresspdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

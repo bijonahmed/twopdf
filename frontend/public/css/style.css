@@ -3688,8 +3688,8 @@ button.swiper-pagination-bullet {
     padding: 20px;
     background: #fff;
     border-radius: 0px;
-    max-width: 338px;
-    padding: 32px;
+    max-width: 315px;
+    padding: 20px;
     transition: box-shadow .3s;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

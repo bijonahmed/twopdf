@@ -66,16 +66,7 @@ const Index = () => {
               <div className="col-md-12">
                 <div className="content_container">
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/margepdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -94,16 +85,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/splitpdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -122,16 +104,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/pdfzip">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -150,16 +123,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/pdftotxt">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -178,16 +142,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/pdftoppt">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -206,16 +161,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/imgtopdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -235,16 +181,7 @@ const Index = () => {
                   </div>
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/protectpdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -264,16 +201,7 @@ const Index = () => {
                   </div>
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/watermarkpdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -294,16 +222,7 @@ const Index = () => {
                   {/* Repeat for other boxes... */}
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/word-to-pdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -323,16 +242,7 @@ const Index = () => {
                   </div>
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/ppt-to-pdf">
                       <div className="box_top">
                         <div className="top_icon mt-4">
@@ -352,16 +262,7 @@ const Index = () => {
                     </Link>
                   </div>
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/excel-to-pdf">
                       <div className="box_top">
                         <div className="top_icon">
@@ -381,16 +282,7 @@ const Index = () => {
                   </div>
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/pdf-to-jpg">
                       <div className="box_top">
                         <div className="top_icon">
@@ -410,16 +302,7 @@ const Index = () => {
                   </div>
 
                   <div
-                    className="content_box"
-                    style={{
-                      border: "2px solid #ddd",
-                      borderRadius: "8px",
-                      background: "rgb(237, 236, 244)",
-                      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                      padding: "20px",
-                      marginBottom: "20px",
-                    }}
-                  >
+                    className="content_box">
                     <Link to="/pdf/rotate-pdf">
                       <div className="box_top">
                         <div className="top_icon mt-3">
@@ -437,12 +320,13 @@ const Index = () => {
                       </div>
                     </Link>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div
+                    className="content_box">
+                     <Link to="/pdf/html-to-pdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-3">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/html_to_pdf.svg"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
@@ -450,12 +334,31 @@ const Index = () => {
                         <h3>HTML to PDF </h3>
                         <p>
                           Convert webpages in HTML to PDF. Copy and paste the
-                          URL of the page you want and convert it to PDF with a
-                          click.
+                          URL of the page.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
+
+                  <div className="content_box">
+                  <Link to="/pdf/compress-pdf">
+                      <div className="box_top">
+                        <div className="top_icon mt-3">
+                          <img
+                            src="/images/compress_pdf.webp" alt="pdf"
+                            style={{ width: "120px" }}
+                          />
+                        </div>
+                        <h3>Compress PDF</h3>
+                        <p>
+                        Convert your PDF to PDF/A for long-term use. Keep formatting intact for future access.
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+
+
+
                   <div className="content_box d-none">
                     <a href="#">
                       <div className="box_top">
@@ -494,25 +397,7 @@ const Index = () => {
                       </div>
                     </a>
                   </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>PDF to PDF/A </h3>
-                        <p>
-                          Transform your PDF to PDF/A, the ISO-standardized
-                          version of PDF for long-term archiving. Your PDF will
-                          preserve formatting when accessed in the future.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
+                 
                   <div className="content_box d-none">
                     <a href="#">
                       <div className="box_top">
