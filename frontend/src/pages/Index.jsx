@@ -359,153 +359,27 @@ const Index = () => {
 
 
 
-                  <div className="content_box d-none">
-                    <a href="#">
+                  <div className="content_box">
+                  <Link to="/pdf/reading-pdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-4">
                           <img
-                            src="/images/PDF.png"
+                            src="/images/pdf-converter-pro-banner.png"
                             alt="pdf"
                             style={{ width: "120px" }}
                           />
                         </div>
-                        <h3>Unlock PDF </h3>
+                        <h3>Reading PDF </h3>
                         <p>
                           Remove PDF password security, giving you the freedom
                           to use your PDFs as you want.
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   </div>
 
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Organize PDF </h3>
-                        <p>
-                          Sort pages of your PDF file however you like. Delete
-                          PDF pages or add PDF pages to your document at your
-                          convenience.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                 
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Repair PDF </h3>
-                        <p>
-                          Repair a damaged PDF and recover data from corrupt
-                          PDF. Fix PDF files with our Repair tool.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Page numbers</h3>
-                        <p>
-                          Add page numbers into PDFs with ease. Choose your
-                          positions, dimensions, typography.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Scan to PDF</h3>
-                        <p>
-                          Capture document scans from your mobile device and
-                          send them instantly to your browser.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>OCR PDF</h3>
-                        <p>
-                          Easily convert scanned PDF into searchable and
-                          selectable documents.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Compare PDF</h3>
-                        <p>
-                          Show a side-by-side document comparison and easily
-                          spot changes between different file versions.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="content_box d-none">
-                    <a href="#">
-                      <div className="box_top">
-                        <div className="top_icon">
-                          <img
-                            src="/images/PDF.png"
-                            alt="pdf"
-                            style={{ width: "120px" }}
-                          />
-                        </div>
-                        <h3>Redact PDF</h3>
-                        <p>
-                          Redact text and graphics to permanently remove
-                          sensitive information from a PDF.
-                        </p>
-                      </div>
-                    </a>
-                  </div>
+                  
+                  
                 </div>
               </div>
             </div>

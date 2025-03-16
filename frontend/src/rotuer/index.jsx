@@ -39,6 +39,7 @@ import Pdftojpg from "../pages/pdf/pdftojpg.jsx";
 import Rotatepdf from "../pages/pdf/rotatepdf.jsx";
 import HtmltoPdf from "../pages/pdf/htmltoPdf.jsx";
 import Compresspdf from "../pages/pdf/compresspdf.jsx";
+import Readingpdf from "../pages/pdf/readingpdf.jsx";
 
 import Pricing from "../pages/Pricing.jsx";
 import PrivacyPolicy from "../pages/PrivacyPolicy.jsx";
@@ -92,6 +93,7 @@ const AppRouter = () => {
       <Route path="/pdf/rotate-pdf" element={<Rotatepdf />} />
       <Route path="/pdf/html-to-pdf" element={<HtmltoPdf />} />
       <Route path="/pdf/compress-pdf" element={<Compresspdf />} />
+      <Route path="/pdf/reading-pdf" element={<Readingpdf />} />
       <Route path="/users/profile" element={<UserProfile />} />
       <Route path="/users/change-password" element={<ChangePassword />} />
       <Route path="/users/my-certificate" element={<MyCertificate />} />

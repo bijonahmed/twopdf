@@ -14,6 +14,8 @@
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "@prodfox/react-pdf-editor": "^1.2.38",
+    "@prodfox/react-ui-plugin": "^1.2.0",
     "@react-pdf-viewer/core": "^3.12.0",
     "array-move": "^4.0.0",
     "axios": "^1.6.2",
