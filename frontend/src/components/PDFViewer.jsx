@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useCreateIframeAndLoadViewer } from "@prodfox/react-ui-plugin";
 
-function ReadingPDF({ description }) {
+function PDFViewer({ description }) {
   const containerRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [viewerReady, setViewerReady] = useState(false);
@@ -129,4 +129,4 @@ function ReadingPDF({ description }) {
   );
 }
 
-export default ReadingPDF;
+export default PDFViewer;

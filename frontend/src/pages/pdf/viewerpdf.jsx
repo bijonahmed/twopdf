@@ -3,12 +3,12 @@ import { Helmet } from "react-helmet";
 import GuestNavbar from "../../components/GuestNavbar";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
-import ReadingPDF from "../../components/ReadingPDF";
+import PDFViewer from "../../components/PDFViewer";
 import { useParams } from "react-router-dom";
 import axios from "/config/axiosConfig";
 import Loader from "../../components/Loader";
 
-const readingpdf = () => {
+const Viewerpdf = () => {
   const [loading, setLoading] = useState(false);
   const [seoData, setSeoData] = useState({
     title: "",
@@ -18,33 +18,36 @@ const readingpdf = () => {
     description_full: "",
   });
 
-  const slug = "reading_to_pdf";
+  const slug = "pdf_viewer";
   useEffect(() => {
-      const fetchUserData = async () => {
-        setLoading(true);
-        try {
-          const response = await axios.get("/public/checkSeoContent", {
-            params: { slug },
+    const fetchUserData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get("/public/checkSeoContent", {
+          params: { slug },
+        });
+        // Assuming API response contains SEO meta data
+        if (response.data.seo) {
+          setSeoData({
+            title: response.data.seo.meta_title || "Image To PDF",
+            description:
+              response.data.seo.meta_description || "Default description",
+            keywords: response.data.seo.keywords || "default, seo, keywords",
+            meta_title:
+              response.data.seo.meta_title || "default, seo, keywords",
+            description_full:
+              response.data.seo.description_full || "description_full",
           });
-          // Assuming API response contains SEO meta data
-          if (response.data.seo) {
-            setSeoData({
-              title: response.data.seo.meta_title || "Image To PDF",
-              description: response.data.seo.meta_description || "Default description",
-              keywords: response.data.seo.keywords || "default, seo, keywords", 
-              meta_title: response.data.seo.meta_title || "default, seo, keywords", 
-              description_full: response.data.seo.description_full || "description_full",
-            });
-          }
-        } catch (error) {
-          console.error("Error fetching brand data:", error);
-        } finally {
-          setLoading(false);
         }
-      };
-  
-      fetchUserData();
-    }, [slug]);
+      } catch (error) {
+        console.error("Error fetching brand data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [slug]);
   // Get the base domain dynamically
   const baseUrl = window.location.href;
   const canonicalUrl = `${baseUrl}`;
@@ -62,7 +65,7 @@ const readingpdf = () => {
         // Loader (replace with any spinner or animation component)
         <Loader />
       ) : (
-        <ReadingPDF description={seoData} />
+        <PDFViewer description={seoData} />
       )}
 
       <Footer />
@@ -70,4 +73,4 @@ const readingpdf = () => {
   );
 };
 
-export default readingpdf;
+export default Viewerpdf;

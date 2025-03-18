@@ -360,7 +360,7 @@ const Index = () => {
 
 
                   <div className="content_box">
-                  <Link to="/pdf/reading-pdf">
+                  <Link to="/pdf/pdf-viewer">
                       <div className="box_top">
                         <div className="top_icon mt-4">
                           <img
@@ -369,7 +369,7 @@ const Index = () => {
                             style={{ width: "120px" }}
                           />
                         </div>
-                        <h3>Reading PDF </h3>
+                        <h3>PDF Viewer</h3>
                         <p>
                           Remove PDF password security, giving you the freedom
                           to use your PDFs as you want.

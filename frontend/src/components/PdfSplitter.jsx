@@ -1,180 +1,217 @@
-import React, { useState, useRef } from "react";
-import html2pdf from "html2pdf.js";
-import loaderImage from "../assets/loadergif.gif";
-
-const HTMLToPDF = ({ description }) => {
-  const [htmlContent, setHtmlContent] = useState("");
+import React, { useState, useEffect } from 'react';
+import { PDFDocument } from 'pdf-lib';
+import axios from '/config/axiosConfig';
+import loaderImage from '../assets/loadergif.gif'; // Ensure you have a loader gif available
+import { Route } from 'react-router-dom';
+import { Link } from "react-router-dom";
+const PdfSplitter = ({ description }) => {
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [countdown, setCountdown] = useState(10);
-  const pdfRef = useRef(null);
+  const [countdown, setCountdown] = useState(5);
+  const [showModal, setShowModal] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
+  useEffect(() => {
+    fetchData();  // Only validate the limit on page load
+  }, []);
 
-    if (!file) return;
-
-    if (file.type !== "text/html") {
-      alert("Only HTML files are allowed!");
-      return;
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`/public/countPerDayValidationSplit`);
+      console.log("Response Status:", response.data.responseStatus);
+      if (response.data.responseStatus === 0) {
+        setLimitReached(true);
+        setShowModal(true); // Show modal when limit is reached
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      setHtmlContent(event.target.result);
-    };
-    reader.readAsText(file);
   };
 
-  const handleConvertToPDF = () => {
-    if (!htmlContent) {
-      alert("No HTML content available to convert to PDF.");
+  const validateLimit = async () => {
+    try {
+      const response = await axios.get(`/public/countPerDayValidationSplit`);
+      console.log("Response Status:", response.data.responseStatus);
+      if (response.data.responseStatus === 0) {
+        setLimitReached(true);
+        setShowModal(true); // Show modal when limit is reached
+        return false;
+      }
+      return true;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return false;
+    }
+  };
+
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (!selectedFile) {
+      setShowModal(true);
       return;
     }
 
-    setIsLoading(true); // Show loader
-    setCountdown(10); // Reset countdown to 10 seconds
+    const limitValid = await validateLimit();
+    if (!limitValid) {
+      setShowModal(true);
+      return;
+    }
+
+    setFile(selectedFile);
+    startCountdownAndSplit(selectedFile);
+  };
+
+  const startCountdownAndSplit = (selectedFile) => {
+    setIsLoading(true);
+    setCountdown(5);
 
     const countdownInterval = setInterval(() => {
       setCountdown((prevCountdown) => {
         if (prevCountdown <= 1) {
-          clearInterval(countdownInterval); // Clear interval when countdown reaches 0
+          clearInterval(countdownInterval);
+          splitPdf(selectedFile);
+          return 0;
         }
         return prevCountdown - 1;
       });
     }, 1000);
+  };
 
-    const options = {
-      margin: [10, 10], // Ensure there is space for content
-      filename: "converted-file.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 3, // Increase the scale factor for better resolution
-        useCORS: true,
-        allowTaint: true,
-        logging: true, // Enable logging for debugging
-        width: 800, // Adjust to ensure content fits within PDF page
-        height: 8000, // Adjust the height if the content is large
-      },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    };
+  const splitPdf = async (selectedFile) => {
+    try {
+      const fileArrayBuffer = await selectedFile.arrayBuffer();
+      const pdf = await PDFDocument.load(fileArrayBuffer);
+      const numPages = pdf.getPageCount();
 
-    html2pdf()
-      .set(options)
-      .from(pdfRef.current)
-      .toPdf()
-      .get("pdf")
-      .then((pdf) => {
-        let totalPages = pdf.internal.getNumberOfPages();
-        if (totalPages > 1) {
-          // Handling multiple pages if there are too many content
-          pdf.deletePage(1); // Example: delete first page if not needed
-        }
-        pdf.save(); // Save the generated PDF
-      })
-      .finally(() => {
-        setIsLoading(false); // Hide loader after conversion
+      for (let i = 0; i < numPages; i++) {
+        const newPdf = await PDFDocument.create();
+        const [page] = await newPdf.copyPages(pdf, [i]);
+        newPdf.addPage(page);
+
+        const pdfBytes = await newPdf.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `page_${i + 1}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      setIsLoading(false);
+
+      // Trigger the insertion of data only after successful PDF split
+      await axios.post('/public/insertSplitData', {
+        action: 'PDF Split',
+        timestamp: new Date().toISOString(),
+        fileName: '',//file.name,
       });
+
+    } catch (error) {
+      console.error("Error splitting PDF:", error);
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="card">
-            <div className="card-header text-center">
-              <h2>Upload HTML & Convert to PDF</h2>
-            </div>
-            <div className="card-body">
-              <input
-                type="file"
-                accept=".html"
-                onChange={handleFileUpload}
-                className="form-control mb-3"
-              />
+    <div className="container py-5">
+  {/* Bootstrap Card */}
+  <div className="card shadow-lg rounded-4 border-0">
+    <div className="card-body p-4">
+      {/* Title Section */}
+      <div className="text-center mb-4">
+        <h2 className="card-title fw-bold">Split PDF File</h2>
+        <p className="card-subtitle text-muted">
+          Upload a PDF file and split it into individual pages.
+        </p>
+      </div>
 
-              {/* Loader Section */}
-              {isLoading && (
-                <div className="loading" style={{ textAlign: "center" }}>
-                  <img src={loaderImage} alt="Loading..." width="50" />
-                  <p>Please wait {countdown} seconds.</p>
-                </div>
-              )}
-            </div>
+      {/* Loading Section */}
+      {isLoading && (
+        <div className="text-center mb-4">
+          <img src={loaderImage} alt="Loading..." className="mb-2" style={{ maxWidth: '150px' }} />
+          <p className="text-primary fw-medium">Please wait {countdown} seconds.</p>
+        </div>
+      )}
 
-            {htmlContent && (
-              <div
-                ref={pdfRef}
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    <style>
-                      * { font-family: Arial, sans-serif; }
-                      .iframe-placeholder {
-                        background-color: #f1f1f1;
-                        text-align: center;
-                        padding: 20px;
-                        font-size: 16px;
-                        border: 1px dashed #ccc;
-                      }
+      {/* File Upload Section */}
+      <div className="mb-4 text-center">
+        <label htmlFor="upload" className="btn btn-outline-primary px-4 py-2 rounded-pill fw-semibold">
+          Select PDF File
+        </label>
+        <input
+          type="file"
+          id="upload"
+          accept="application/pdf"
+          onChange={handleFileChange}
+          disabled={isLoading || limitReached}
+          className="d-none"
+        />
+      </div>
 
-                      /* Page Break */
-                      .page-break { 
-                        page-break-before: always; 
-                        page-break-inside: avoid;
-                      }
+      {/* Description Section */}
+      <div className="mt-4">
+        <h5 className="text-center fw-semibold mb-3">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: description.meta_title || "Default Meta Title",
+            }}
+          />
+        </h5>
+        <div
+          className="text-muted"
+          dangerouslySetInnerHTML={{
+            __html: description.description_full || "Default Full Description",
+          }}
+        />
+      </div>
+    </div>
+  </div>
 
-                      /* Prevent overflow issues */
-                      .container {
-                        overflow: auto;
-                      }
-
-                      .welcome-container {
-                        background: #e9f7f7;
-                        padding: 20px;
-                        margin-bottom: 20px;
-                      }
-
-                      .button {
-                        background-color: #008CBA;
-                        color: white;
-                        padding: 10px 20px;
-                        text-align: center;
-                        border: none;
-                        cursor: pointer;
-                      }
-
-                      .button:hover {
-                        background-color: #005f73;
-                      }
-
-                      /* Force page breaks */
-                      .page-break {
-                        page-break-before: always;
-                      }
-                    </style>
-                    ${htmlContent.replace(/<iframe[^>]*>(.*?)<\/iframe>/g, (match) => {
-                      return `<div class="iframe-placeholder">Iframe content is not supported in PDF. View it at the following URL: [URL]</div>`;
-                    })}
-                  `,
-                }}
-              />
-            )}
-
-            <div className="card-footer text-center">
-              <button
-                onClick={handleConvertToPDF}
-                disabled={!htmlContent || isLoading}
-                className="btn btn-primary w-100"
-              >
-                {isLoading ? "Converting..." : "Convert to PDF"}
-              </button>
-            </div>
-          </div>
-          <br />
-          <br />
+  {/* Bootstrap Modal */}
+  <div
+    className={`modal fade ${showModal ? 'show d-block' : ''}`}
+    tabIndex="-1"
+    role="dialog"
+    style={{ backgroundColor: showModal ? 'rgba(0, 0, 0, 0.5)' : 'transparent' }}
+  >
+    <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-content rounded-4 shadow">
+        <div className="modal-header border-0">
+          <h5 className="modal-title fw-bold text-danger">Error</h5>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={() => setShowModal(false)}
+          />
+        </div>
+        <div className="modal-body">
+          {limitReached ? (
+            <p className="text-muted">
+              You've reached your daily limit for this action. To view pricing details, please{' '}
+              <Link to="/pricing" className="text-decoration-none fw-semibold">
+                check here
+              </Link>.
+            </p>
+          ) : (
+            <p className="text-muted">Please upload a PDF file to proceed.</p>
+          )}
+        </div>
+        <div className="modal-footer border-0">
+          <button
+            type="button"
+            className="btn btn-secondary rounded-pill px-4"
+            onClick={() => setShowModal(false)}
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
-export default HTMLToPDF;
+export default PdfSplitter;
