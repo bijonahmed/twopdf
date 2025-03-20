@@ -84,7 +84,7 @@ const PDFToJPG = ({ description }) => {
       backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "10px",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+    
       marginBottom: "20px",
       textAlign: "center",
     },
@@ -115,7 +115,7 @@ const PDFToJPG = ({ description }) => {
       margin: "10px",
       padding: "10px",
       borderRadius: "10px",
-      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+     
       backgroundColor: "#f9f9f9",
       textAlign: "center",
     },
@@ -147,8 +147,9 @@ const PDFToJPG = ({ description }) => {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="container">
       {/* Title Card */}
+      <br/>
       <div style={styles.card}>
         <h2 style={styles.title}>
           <div

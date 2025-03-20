@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import axios from "/config/axiosConfig";
 import GuestNavbar from "../components/GuestNavbar";
+import TwoPDFSolutions from "../components/TwoPDFSolutions";
 import Footer from "../components/Footer";
-// import "../components/css/Index.css";
+import "../components/css/Index.css";
 const Index = () => {
   const [loading, setLoading] = useState(true);
 
@@ -40,20 +41,7 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* <div className="tools-top__headlines">
-                <h1 className="title">
-                  All-in-one AI-powered PDF tools, 100% FREE and easy to use!
-                </h1>
-                <p className="subtitle">
-                  Discover a complete suite of PDF tools right at your
-                  fingertips! Our services are 100% FREE and incredibly easy to
-                  use. Seamlessly merge, split, compress, convert, rotate,
-                  unlock, and watermark PDFs with just a few clicks.
-                </p>
-              </div> */}
-
-              {/* <div class="tools-top__btn"><a href="/">Use
-                  for free</a></div> */}
+               
             </div>
           </div>
         </div>
@@ -265,11 +253,11 @@ const Index = () => {
                     className="content_box">
                     <Link to="/pdf/excel-to-pdf">
                       <div className="box_top">
-                        <div className="top_icon">
+                        <div className="top_icon mt-4">
                           <img
                             src="/images/excel-to-pdf.png"
                             alt="pdf"
-                            style={{ width: "150px" }}
+                            style={{ width: "120px" }}
                           />
                         </div>
                         <h3>Excel to PDF</h3>
@@ -362,7 +350,7 @@ const Index = () => {
                   <div className="content_box">
                   <Link to="/pdf/pdf-viewer">
                       <div className="box_top">
-                        <div className="top_icon mt-4">
+                        <div className="top_icon mt-3">
                           <img
                             src="/images/pdf-converter-pro-banner.png"
                             alt="pdf"
@@ -382,6 +370,7 @@ const Index = () => {
                   
                 </div>
               </div>
+              <TwoPDFSolutions/>
             </div>
           </div>
         </section>

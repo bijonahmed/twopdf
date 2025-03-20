@@ -187,7 +187,7 @@ const PDFUploadWithWatermark = ({ description }) => {
 
   return (
     <div className="container mt-5" style={{ maxWidth: "1000px" }}>
-      <div className="card shadow-lg p-4">
+      <div className="card p-4">
         <div className="card-body">
           <h1 className="text-center text-primary fw-bold">
             Upload & Watermark PDF

@@ -116,7 +116,7 @@ const PdfSplitter = ({ description }) => {
   return (
     <div className="container py-5">
   {/* Bootstrap Card */}
-  <div className="card shadow-lg rounded-4 border-0">
+  <div className="card rounded-4 border-0">
     <div className="card-body p-4">
       {/* Title Section */}
       <div className="text-center mb-4">

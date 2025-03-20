@@ -121,7 +121,7 @@ const ProtectPDF = ({ description }) => {
 
         <div className="container mt-4">
           <div className="col-md-12">
-            <div className="card p-4 shadow">
+            <div className="card p-4">
               {/* Text Area */}
               <div className="mb-3">
                 <label className="form-label fw-bold">Write Content</label>

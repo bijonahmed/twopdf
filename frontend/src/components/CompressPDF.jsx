@@ -57,7 +57,7 @@ const CompressPDF = ({description}) => {
 
   return (
     <div className="container mt-5">
-    <div className="card shadow-lg">
+    <div className="card">
       <div className="card-body">
         {/* Title Section */}
         <h1>

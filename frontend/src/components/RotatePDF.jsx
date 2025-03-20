@@ -69,10 +69,10 @@ const RotatePDF = ({ description }) => {
 
   return (
     <div className="container mt-4">
-      <div className="card shadow-lg p-4 rounded">
-        <h3 className="text-center text-primary fw-bold mb-3">
+      <div className="card  p-4 rounded">
+        <h1 className="text-center text-primary fw-bold mb-3">
           {description?.meta_title || "Default Meta Title"}
-        </h3>
+        </h1>
 
         <div className="mb-3 text-center">
           <input

@@ -54,8 +54,8 @@ function PDFViewer({ description }) {
     <div className="container mt-5">
       {/* Bootstrap Card Component */}
       <div className="card">
-      <div className="card-header text-center text-white" style={{ backgroundColor: 'rgb(40, 40, 40)' }}>
-          <h4>PDF Viewer</h4>
+      <div className="card-header text-center text-black">
+          <h1>PDF Viewer</h1>
         </div>
 
         <div className="card-body">
