@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "/config/axiosConfig";
 import "../components/css/watermarkPDF.css";
-
+import "../components/css/WaterMarkWrapper.css";
 const PDFUploadWithWatermark = ({ description }) => {
   const [files, setFiles] = useState([]);
   const [watermarkText, setWatermarkText] = useState([]);
@@ -95,7 +95,7 @@ const PDFUploadWithWatermark = ({ description }) => {
         icon: "error",
         title: "Please select font size",
       });
-    
+
       return; // Stop further execution
     }
 
@@ -187,28 +187,35 @@ const PDFUploadWithWatermark = ({ description }) => {
 
   return (
     <div className="container mt-5" style={{ maxWidth: "1000px" }}>
-      <div className="card p-4">
-        <div className="card-body">
-          <h1 className="text-center text-primary fw-bold">
-            Upload & Watermark PDF
-          </h1>
-          <p className="text-center text-muted">
-            Upload your PDF file and add a watermark with custom settings.
-          </p>
+      <div className=" p-4">
+      
+          <div className="tools-top__headlines">
+            <h2 className="title">Watermark PDF</h2>
+          </div>
 
-          {/* Upload Section */}
-          <div className="upload-section text-center">
-            <label htmlFor="upload" className="btn btn-primary px-4 py-2">
-              Select PDF File
-            </label>
-            <input
-              type="file"
-              id="upload"
-              accept="application/pdf"
-              onChange={handleFileChange}
-              className="d-none"
-            />
-            {errorMessage && <p className="text-danger mt-2">{errorMessage}</p>}
+          <div
+            className="upload-area text-center mt-3"
+            onClick={() => document.getElementById("upload").click()}>
+            <p className="upload-instruction">
+              {" "}
+              Upload your PDF file and add a watermark with custom settings.
+            </p>
+            {/* Upload Section */}
+            <div className="upload-section text-center">
+              <label htmlFor="upload" className="btn btn-primary px-4 py-2">
+                Select PDF File
+              </label>
+              <input
+                type="file"
+                id="upload"
+                accept="application/pdf"
+                onChange={handleFileChange}
+                className="d-none"
+              />
+              {errorMessage && (
+                <p className="text-danger mt-2">{errorMessage}</p>
+              )}
+            </div>
           </div>
 
           {/* Watermark Settings */}
@@ -349,7 +356,7 @@ const PDFUploadWithWatermark = ({ description }) => {
                 description.description_full || "Default Full Description",
             }}
           />
-        </div>
+        
       </div>
       <br />
       <br />

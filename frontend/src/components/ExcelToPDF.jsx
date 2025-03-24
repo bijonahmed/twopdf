@@ -3,6 +3,7 @@ import * as XLSX from "xlsx"; // Import SheetJS
 import html2pdf from "html2pdf.js"; // Import html2pdf.js for PDF conversion
 import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif";
+import "../components/css/exceltopdf.css";
 
 const ExcelToPDF = ({ description }) => {
   const [excelFile, setExcelFile] = useState(null); // Store selected Excel file
@@ -184,75 +185,88 @@ const ExcelToPDF = ({ description }) => {
     <div className="container mt-5">
       <div className="row justify-content-center">
         <div className="col-md-12">
-          <div className="card border-light rounded-lg">
-            <div className="card-header text-center  text-black">
-              <h2 className="font-weight-bold">Convert Excel to PDF</h2>
+          <div className="border-light rounded-lg">
+            <div className="text-center  text-black">
+            <div className="tools-top__headlines">
+          <h2 className="title">Convert Excel to PDF</h2>
+        </div>
+             
             </div>
-            <div className="card-body">
-              {isLoading && (
-                <center>
-                  <div className="loading">
-                    <img src={loaderImage} alt="Loading..." />
-                    <center>
-                      <p className="text-muted">Loading... Please wait</p>
-                    </center>
-                  </div>
-                </center>
-              )}
 
-              {/* Error message display */}
-              {error && <div className="alert alert-danger">{error}</div>}
+            <div
+              className="upload-area text-center mt-3"
+              onClick={() => document.getElementById("upload").click()}
+            >
+              <p className="upload-instruction">
+                {" "}
+                Convert your PDF to a ZIP file in seconds.
+              </p>
 
-              {/* File upload input */}
-              <div className="form-group">
-                <input
-                  id="fileUpload"
-                  type="file"
-                  accept=".xlsx, .xls"
-                  onChange={handleFileUpload}
-                  className="form-control mb-3"
-                />
+              <div className="">
+                {isLoading && (
+                  <center>
+                    <div className="loading">
+                      <img src={loaderImage} alt="Loading..." />
+                      <center>
+                        <p className="text-muted">Loading... Please wait</p>
+                      </center>
+                    </div>
+                  </center>
+                )}
+
+                {/* Error message display */}
+                {error && <div className="alert alert-danger">{error}</div>}
+
+                {/* File upload input */}
+                <div className="form-group">
+                  <input
+                    id="fileUpload"
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileUpload}
+                    className="form-control mb-3"
+                  />
+                </div>
+
+                {/* Button to trigger conversion to PDF */}
+                <button
+                  onClick={handleConvertToPDF}
+                  disabled={isLoading || !excelFile} // Disable if no file selected or loading
+                  className="btn btn-primary w-100 mt-3 py-2"
+                  style={{ fontSize: "16px" }}
+                >
+                  {isLoading ? "Converting..." : "Convert to PDF"}
+                </button>
+
+                {/* Button to trigger export to HTML */}
+                <button
+                  onClick={handleExportToHTML}
+                  disabled={isLoading || !htmlContent} // Disable if no content to export or loading
+                  className="btn btn-secondary w-100 mt-3 py-2"
+                  style={{ fontSize: "16px" }}
+                >
+                  Export to HTML
+                </button>
               </div>
 
-              {/* Button to trigger conversion to PDF */}
-              <button
-                onClick={handleConvertToPDF}
-                disabled={isLoading || !excelFile} // Disable if no file selected or loading
-                className="btn btn-primary w-100 mt-3 py-2"
-                style={{ fontSize: "16px" }}
-              >
-                {isLoading ? "Converting..." : "Convert to PDF"}
-              </button>
-
-              {/* Button to trigger export to HTML */}
-              <button
-                onClick={handleExportToHTML}
-                disabled={isLoading || !htmlContent} // Disable if no content to export or loading
-                className="btn btn-secondary w-100 mt-3 py-2"
-                style={{ fontSize: "16px" }}
-              >
-                Export to HTML
-              </button>
+              {htmlContent && (
+                <div
+                  style={{
+                    padding: "20px",
+                    border: "1px solid #ddd",
+                    maxHeight: "300px",
+                    overflowY: "auto",
+                    marginTop: "20px",
+                    borderRadius: "8px",
+                    backgroundColor: "#f4f7fa",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  }}
+                  dangerouslySetInnerHTML={{ __html: htmlContent }} // Render the HTML table content
+                />
+              )}
             </div>
-
-            {htmlContent && (
-              <div
-                style={{
-                  padding: "20px",
-                  border: "1px solid #ddd",
-                  maxHeight: "300px",
-                  overflowY: "auto",
-                  marginTop: "20px",
-                  borderRadius: "8px",
-                  backgroundColor: "#f4f7fa",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                }}
-                dangerouslySetInnerHTML={{ __html: htmlContent }} // Render the HTML table content
-              />
-            )}
           </div>
           <br />
-
           <h3 className="text-center text-dark">
             <div
               className="font-weight-bold"
@@ -262,7 +276,8 @@ const ExcelToPDF = ({ description }) => {
             />
           </h3>
           <div
-            className="text-justify mt-3 text-muted"
+            className="text-justify mt-3"
+            style={{ textAlign: "justify" }}
             dangerouslySetInnerHTML={{
               __html:
                 description.description_full || "Default Full Description",

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import loaderImage from "../assets/loadergif.gif";
 import axios from "/config/axiosConfig";
+import "../components/css/ProtectPDF.css";
 import { Link } from "react-router-dom";
 
 const ProtectPDF = ({ description }) => {
@@ -114,17 +115,18 @@ const ProtectPDF = ({ description }) => {
 
   return (
     <div className="tools container-1060" style={{ minHeight: "100vh" }}>
-      <div className="tools-top">
+     
         <div className="tools-top__headlines">
           <h2 className="title">Generate Password-Protected PDF</h2>
         </div>
 
         <div className="container mt-4">
           <div className="col-md-12">
+          <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
+          <p className="upload-instruction"> Convert your Images to a PDF file in seconds.</p>
             <div className="card p-4">
               {/* Text Area */}
               <div className="mb-3">
-                <label className="form-label fw-bold">Write Content</label>
                 <textarea
                   id="contentTextarea"
                   className={`form-control ${
@@ -143,7 +145,6 @@ const ProtectPDF = ({ description }) => {
 
               {/* Password Input */}
               <div className="mb-3">
-                <label className="form-label fw-bold">Enter Password</label>
                 <input
                   type="password"
                   className={`form-control ${
@@ -167,6 +168,9 @@ const ProtectPDF = ({ description }) => {
                 {isLoading ? "Generating..." : "Generate PDF"}
               </button>
             </div>
+
+            </div>
+
           </div>
         </div>
         {isLoading && <p>Loading...</p>}
@@ -187,12 +191,12 @@ const ProtectPDF = ({ description }) => {
           }}
         />
         <div
-          className="text-justify mt-3"
+          className="text-justify mt-3" style={{ textAlign: "justify"}}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}
         />
-      </div>
+      
 
       {/* PDF Modal */}
       {isModalOpen && (

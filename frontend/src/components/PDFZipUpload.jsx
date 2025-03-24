@@ -3,6 +3,7 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { PDFDocument } from "pdf-lib";
 import loaderImage from "../assets/loadergif.gif";
+import "../components/css/PDFZip.css";
 
 const PDFZipUpload = ({ description }) => {
   const [files, setFiles] = useState([]); // Store multiple files
@@ -71,7 +72,6 @@ const PDFZipUpload = ({ description }) => {
       <div className="tools-top">
         <div className="tools-top__headlines">
           <h2 className="title">Multiple PDF to ZIP</h2>
-          <p className="subtitle">Convert your PDF to a ZIP file in seconds.</p>
         </div>
 
         {isLoading && (
@@ -85,6 +85,10 @@ const PDFZipUpload = ({ description }) => {
 
         <div className="upload_group">
           <form onSubmit={(e) => e.preventDefault()}>
+
+          <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
+             <p className="upload-instruction"> Convert your PDF to a ZIP file in seconds.</p>
+
             <div className="btn_group text-center">
               <label htmlFor="upload">Select PDF files</label>
               <input
@@ -95,6 +99,10 @@ const PDFZipUpload = ({ description }) => {
                 onChange={handleFileChange}
               />
             </div>
+            </div>
+
+
+
             <br />
 
             {/* PDF Previews */}
@@ -105,14 +113,14 @@ const PDFZipUpload = ({ description }) => {
                     {Array.from(files).map((file, index) => {
                       const fileURL = URL.createObjectURL(file);
                       return (
-                        <div key={index} className="col-md-5 mb-4">
-                          <div className="pdf-preview">
+                        <div key={index} className="col-md-10">
+                          <div className="pdf-preview pdf-image-style">
                             <p>{file.name}</p>
                             {/* You can display the PDF using iframe */}
-                            <iframe
+                            <iframe className=""
                               src={fileURL}
                               width="100%"
-                              height="400px"
+                              height="500px"
                               title={`PDF Preview - ${file.name}`}
                             ></iframe>
                           </div>
@@ -149,7 +157,7 @@ const PDFZipUpload = ({ description }) => {
               </center>
             </h1>
             <div
-              className="text-justify mt-3"
+              className="text-justify mt-3" style={{ textAlign: "justify" }}
               dangerouslySetInnerHTML={{
                 __html:
                   description.description_full || "Default Full Description",

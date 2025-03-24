@@ -24,13 +24,15 @@ const SortableItem = ({ file, index, onDragStart, onDrop, onDragOver }) => {
         <i className="sortable-icon fas fa-grip-vertical"></i>
       </div>
 
-      <iframe
-        src={file.previewUrl}
-        width="100%"
-        height="300px"
-        title={file.file.name}
-        className="pdf-preview"
-      ></iframe>
+      <div className="pdf-image-style">
+        <iframe
+          src={file.previewUrl}
+          width="100%"
+          height="300px"
+          title={file.file.name}
+          className="pdf-iframe"
+        ></iframe>
+      </div>
       <p className="text-center mt-2">{file.file.name}</p>
     </div>
   );
@@ -40,7 +42,7 @@ const PdfMerger = ({ description }) => {
   const [files, setFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
- 
+
   const [limitReached, setLimitReached] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countdownInterval, setCountdownInterval] = useState(null);
@@ -191,9 +193,12 @@ const PdfMerger = ({ description }) => {
 
   return (
     <div className="container-fluid">
-      <h2 className="text-center">Drag & Drop PDF Sorting</h2>
+       <div className="tools-top__headlines mt-4">
+          <h2 className="title">Drag & Drop PDFs to Sort and Merge</h2>
+        </div>
+      <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
 
-      <div className="text-center mb-3">
+        <p className="upload-instruction">Drag & Drop PDFs Here or</p>
         <label htmlFor="upload" className="btn btn-primary">
           Select PDFs
         </label>
@@ -206,6 +211,8 @@ const PdfMerger = ({ description }) => {
           style={{ display: "none" }}
         />
       </div>
+
+  
 
       <div className="row">
         {files.map((file, index) => (
@@ -255,7 +262,7 @@ const PdfMerger = ({ description }) => {
           </center>
         </h1>
         <div
-          className="text-justify mt-3"
+          className="text-justify mt-3" style={{ textAlign: "justify"}}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}

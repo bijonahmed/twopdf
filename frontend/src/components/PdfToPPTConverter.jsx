@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "/config/axiosConfig"; // Make sure to configure axios
 import loaderImage from "../assets/loadergif.gif";
+import "../components/css/PdfToPPT.css";
 
 function PdfToPPTConverter({ description }) {
   const [file, setFile] = useState(null);
@@ -9,6 +10,7 @@ function PdfToPPTConverter({ description }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [pptFile, setPptFile] = useState(null);
   const [countdown, setCountdown] = useState(5);
+  const [isLoading, setIsLoading] = useState(false); // To control the loading state
 
   // Handle file input change
   const handleFileChange = (event) => {
@@ -78,62 +80,42 @@ function PdfToPPTConverter({ description }) {
   };
 
   return (
-    <div
-      className="tools container-1060"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f9f9f9",
-        padding: "20px",
-      }}
-    >
-      <div className="tools-top">
-        <h2
-          className="title"
-          style={{ color: "#333", fontSize: "24px", marginBottom: "10px" }}
-        >
-          PDF To PPT
-        </h2>
-        <p className="subtitle" style={{ color: "#666", fontSize: "16px" }}>
-          Convert your PDF to a PPT file in seconds.
-        </p>
+    <div className="tools container-1060" style={{ minHeight: "100vh" }}>
+     
+        <div className="tools-top__headlines">
+          <h2 className="title">PDF To PPT</h2>
+        </div>
 
-        <div className="upload_group" style={{ marginTop: "20px" }}>
+        <div className="upload_group">
           <form onSubmit={(e) => e.preventDefault()}>
-            <div className="btn_group text-center">
-              <label
-                htmlFor="upload"
-                className="upload-label"
-                style={{
-                  display: "inline-block",
-                  padding: "10px 20px",
-                  backgroundColor: "#007bff",
-                  color: "#fff",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  fontWeight: "bold",
-                }}
-              >
-                Select PDF file
-              </label>
-              <input
-                type="file"
-                id="upload"
-                accept="application/pdf"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-              />
-              {errorMessage && (
-                <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
-              )}
+            <div
+              className="upload-area"
+              onClick={() => document.getElementById("upload").click()}
+            >
+              <p className="upload-instruction tex-justify">
+                <center>Convert your PDF to a PPT file in seconds.</center>
+              </p>
+
+              <div className="btn_group text-center">
+                <label htmlFor="upload" className="upload-label">
+                  Select PDF file
+                </label>
+                <input
+                  type="file"
+                  id="upload"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                />
+                {errorMessage && (
+                  <p style={{ color: "red", marginTop: "10px" }}>
+                    {errorMessage}
+                  </p>
+                )}
+              </div>
             </div>
           </form>
         </div>
-
         {/* PDF Preview */}
         {previewURL && (
           <div
@@ -156,6 +138,19 @@ function PdfToPPTConverter({ description }) {
         )}
 
         {/* Convert Button */}
+        {loading ? (
+          <div className="loading">
+            <img
+              src={loaderImage}
+              alt="Loading..."
+              style={{ width: "150px", verticalAlign: "middle" }}
+            />
+            <span style={{ marginLeft: "10px" }}>
+              Uploading Please waiting ...
+            </span>
+          </div>
+        ) : null}
+
         {file && (
           <div className="convert-section" style={{ marginTop: "20px" }}>
             <button
@@ -174,20 +169,7 @@ function PdfToPPTConverter({ description }) {
                 fontWeight: "bold",
               }}
             >
-              {loading ? (
-                <div className="loading">
-                  <img
-                    src={loaderImage}
-                    alt="Loading..."
-                    style={{ width: "30px", verticalAlign: "middle" }}
-                  />
-                  <span style={{ marginLeft: "10px" }}>
-                    Uploading in {countdown} seconds...
-                  </span>
-                </div>
-              ) : (
-                "Convert to PPT"
-              )}
+              Convert
             </button>
           </div>
         )}
@@ -198,22 +180,25 @@ function PdfToPPTConverter({ description }) {
             <p style={{ color: "#28a745", fontWeight: "bold" }}>
               Your PowerPoint is ready!
             </p>
-            <a
-              href={pptFile}
-              download="converted_presentation.pptx"
-              className="download-btn"
-              style={{
-                display: "inline-block",
-                padding: "10px 20px",
-                backgroundColor: "#007bff",
-                color: "#fff",
-                borderRadius: "5px",
-                textDecoration: "none",
-                fontWeight: "bold",
-              }}
-            >
-              Download PPT
-            </a>
+            <enter>
+              <a
+                href={pptFile}
+                download="converted_presentation.pptx"
+                className="download-btn w-100"
+                style={{
+                  display: "inline-block",
+                  padding: "10px 20px",
+                  backgroundColor: "#007bff",
+                  color: "#fff",
+                  borderRadius: "5px",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                Download PPT
+              </a>
+            </enter>
           </div>
         )}
 
@@ -232,9 +217,9 @@ function PdfToPPTConverter({ description }) {
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}
-          style={{ marginTop: "10px", color: "#555", fontSize: "14px" }}
+          style={{ color: "black", textAlign: "justify" }}
         />
-      </div>
+     
     </div>
   );
 }

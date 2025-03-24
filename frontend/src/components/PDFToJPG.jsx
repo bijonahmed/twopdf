@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as pdfjs from "pdfjs-dist/build/pdf";
 import "pdfjs-dist/build/pdf.worker.entry"; // Import worker inline
+import "../components/css/exceltopdf.css";
 
 const PDFToJPG = ({ description }) => {
   const [pdfDoc, setPdfDoc] = useState(null);
@@ -84,7 +85,7 @@ const PDFToJPG = ({ description }) => {
       backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "10px",
-    
+
       marginBottom: "20px",
       textAlign: "center",
     },
@@ -115,7 +116,7 @@ const PDFToJPG = ({ description }) => {
       margin: "10px",
       padding: "10px",
       borderRadius: "10px",
-     
+
       backgroundColor: "#f9f9f9",
       textAlign: "center",
     },
@@ -149,9 +150,10 @@ const PDFToJPG = ({ description }) => {
   return (
     <div className="container">
       {/* Title Card */}
-      <br/>
-      <div style={styles.card}>
-        <h2 style={styles.title}>
+      <br />
+
+      <div className="tools-top__headlines">
+        <h2 className="title">
           <div
             dangerouslySetInnerHTML={{
               __html: description.meta_title || "Default Meta Title",
@@ -160,51 +162,60 @@ const PDFToJPG = ({ description }) => {
         </h2>
       </div>
 
-      {/* File Upload Card */}
-      <div style={styles.card}>
-        <h5 style={styles.heading}>Upload Your PDF</h5>
-        <input
-          type="file"
-          className="form-control"
-          accept="application/pdf"
-          onChange={handleFileUpload}
-          style={styles.input}
-        />
+      <div
+        className="upload-area text-center mt-3"
+        onClick={() => document.getElementById("upload").click()}
+      >
+        <p className="upload-instruction">
+          Convert your PDF to a JPG file in seconds.
+        </p>
+
+        {/* File Upload Card */}
+        <div>
+          <input
+            type="file"
+            className="form-control"
+            accept="application/pdf"
+            onChange={handleFileUpload}
+            style={styles.input}
+          />
+        </div>
+
+        {/* PDF Preview */}
+        {pdfDoc && (
+          <div>
+            <h5 style={styles.heading}>PDF Preview:</h5>
+            <div style={styles.previewContainer}>
+              {renderedPages.map((imgSrc, index) => (
+                <div key={index} style={styles.imageCard}>
+                  <img
+                    src={imgSrc}
+                    alt={`Page ${index + 1}`}
+                    style={styles.image}
+                  />
+                  <div style={styles.imageText}>Page {index + 1}</div>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={handleConvertToJPG} style={styles.button}>
+              Convert to JPG
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* PDF Preview */}
-      {pdfDoc && (
-        <div style={styles.card}>
-          <h5 style={styles.heading}>PDF Preview:</h5>
-          <div style={styles.previewContainer}>
-            {renderedPages.map((imgSrc, index) => (
-              <div key={index} style={styles.imageCard}>
-                <img
-                  src={imgSrc}
-                  alt={`Page ${index + 1}`}
-                  style={styles.image}
-                />
-                <div style={styles.imageText}>Page {index + 1}</div>
-              </div>
-            ))}
-          </div>
-
-          <button onClick={handleConvertToJPG} style={styles.button}>
-            Convert to JPG
-          </button>
-        </div>
-      )}
-
       {/* Description Card */}
-      <div style={styles.card}>
+      <div >
         <div
           className="text-justify"
+          style={{ textAlign: "justify" }}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}
-          style={styles.description}
         />
       </div>
+      <br/>
     </div>
   );
 };

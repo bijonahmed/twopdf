@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import loaderImage from "../assets/loadergif.gif";
 import jsPDF from "jspdf";
+import "../components/css/ImageToPDF.css";
 
 const ImageToPDF = ({ description }) => {
   const [images, setImages] = useState([]); // Store multiple images
@@ -37,7 +38,7 @@ const ImageToPDF = ({ description }) => {
   };
 
   const handleGeneratePDF = () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     if (images.length === 0) {
       alert("Please upload images first.");
       return;
@@ -91,18 +92,18 @@ const ImageToPDF = ({ description }) => {
 
   return (
     <div className="tools container-1060" style={{ minHeight: "100vh" }}>
-      <div className="tools-top">
-        <div className="tools-top__headlines">
-          <h2 className="title">Image to PDF</h2>
-          <p className="subtitle">Convert your Images to a PDF file in seconds.</p>
-        </div>
-        <div style={{ padding: "20px", textAlign: "center" }}>
-          {isLoading && (
-            <div className="loading" style={{ marginBottom: "20px" }}>
-              <img src={loaderImage} alt="Loading..." />
-              <p>Uploading in {countdown} seconds...</p>
-            </div>
-          )}
+      <div className="tools-top__headlines">
+        <h2 className="title">Image to PDF</h2>
+      </div>
+      <div style={{textAlign: "center" }}>
+        {isLoading && (
+          <div className="loading">
+            <img src={loaderImage} alt="Loading..." />
+            <p>Uploading in {countdown} seconds...</p>
+          </div>
+        )}
+        <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
+          <p className="upload-instruction"> Convert your Images to a PDF file in seconds.</p>
 
           {/* File input for image upload */}
           <div className="upload_group">
@@ -114,75 +115,81 @@ const ImageToPDF = ({ description }) => {
                 accept="image/*"
                 multiple
                 onChange={handleImageUpload}
-                style={{ margin: "20px 0", padding: "10px" }}
+               
               />
             </div>
           </div>
-
-          {/* Display uploaded image previews */}
-          {images.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-              {images.map((image, index) => (
-                <div key={index} style={{ margin: "10px" }}>
-                  <img
-                    src={image}
-                    alt={`Uploaded ${index}`}
-                    style={{
-                      width: "150px", // Adjusted width for better view
-                      height: "auto",
-                      borderRadius: "10px", // Rounded corners for the image
-                      border: "2px solid #4CAF50", // Green border for the image
-                      boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)", // Subtle shadow around the image
-                      transition: "transform 0.3s ease", // Smooth transition for hover effect
-                    }}
-                    onMouseOver={(e) => {
-                      e.target.style.transform = "scale(1.05)"; // Slight zoom on hover
-                    }}
-                    onMouseOut={(e) => {
-                      e.target.style.transform = "scale(1)"; // Reset zoom on mouse out
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Button to generate PDF */}
-          <center>
-            <button
-              onClick={handleGeneratePDF}
-              disabled={isLoading || images.length === 0} // Disable button while loading or no image
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#4CAF50",
-                color: "white",
-                border: "none",
-                cursor: "pointer",
-                marginTop: "20px",
-                borderRadius: "5px", // Rounded corners for the button
-                fontWeight: "bold", // Make the text bold
-              }}
-            >
-              {isLoading ? "Generating PDF..." : "Generate PDF"}
-            </button>
-          </center>
         </div>
-        <br />
-        <h1>
+
+        {/* Display uploaded image previews */}
+        {images.length > 0 && (
           <div
-            className="text-justify"
-            dangerouslySetInnerHTML={{
-              __html: description.meta_title || "Default Meta Title",
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
             }}
-          />
-        </h1>
+          >
+            {images.map((image, index) => (
+              <div key={index} style={{ margin: "10px" }}>
+                <img
+                  src={image}
+                  alt={`Uploaded ${index}`}
+                  style={{
+                    width: "150px", // Adjusted width for better view
+                    height: "auto",
+                    borderRadius: "10px", // Rounded corners for the image
+                    border: "2px solid #4CAF50", // Green border for the image
+                    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)", // Subtle shadow around the image
+                    transition: "transform 0.3s ease", // Smooth transition for hover effect
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.transform = "scale(1.05)"; // Slight zoom on hover
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.transform = "scale(1)"; // Reset zoom on mouse out
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Button to generate PDF */}
+        <center>
+          <button
+            onClick={handleGeneratePDF}
+            disabled={isLoading || images.length === 0} // Disable button while loading or no image
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+              marginTop: "20px",
+              borderRadius: "5px", // Rounded corners for the button
+              fontWeight: "bold", // Make the text bold
+            }}
+          >
+            {isLoading ? "Generating PDF..." : "Generate PDF"}
+          </button>
+        </center>
+      </div>
+      <br />
+      <h1>
         <div
-          className="text-justify mt-3"
+          className="text-justify"
           dangerouslySetInnerHTML={{
-            __html: description.description_full || "Default Full Description",
+            __html: description.meta_title || "Default Meta Title",
           }}
         />
-      </div>
+      </h1>
+      <div
+        className="text-justify mt-3" style={{ textAlign: "justify"}}
+        dangerouslySetInnerHTML={{
+          __html: description.description_full || "Default Full Description",
+        }}
+      />
     </div>
   );
 };

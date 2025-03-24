@@ -1,0 +1,78 @@
+/* Navbar base styles */
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+  }
+  
+  .navbar-brand img {
+    max-width: 120px;
+    height: auto;
+  }
+  
+  /* Styling for navbar items */
+  .navbar-nav .nav-item {
+    margin-right: 15px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Styling for active menu link */
+  .navbar-nav .nav-link.active-link {
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+  }
+  
+  /* Styling for hover effect */
+  .navbar-nav .nav-link:hover {
+    color: #007bff;
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  /* Offcanvas styles */
+  .offcanvas-body {
+    padding: 15px;
+  }
+  
+  .offcanvas .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .header-content__buttons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .header-content__buttons-item {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header-content__buttons-item:hover {
+    background-color: #0056b3;
+  }
+  
+  .header-content__buttons-item i {
+    margin-right: 8px;
+  }
+  
+  /* Toggler button */
+  .btn_menu {
+    border: none;
+    background-color: transparent;
+    color: #007bff;
+  }
+  

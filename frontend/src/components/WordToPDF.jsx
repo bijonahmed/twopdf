@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import mammoth from "mammoth";
 import html2pdf from "html2pdf.js"; // Import html2pdf.js library
+import "../components/css/WordtoPDF.css";
 
 const WordToHTML = ({ description }) => {
   const [htmlContent, setHtmlContent] = useState(""); // Store HTML content
@@ -89,13 +90,18 @@ const WordToHTML = ({ description }) => {
 
   return (
     <div className="container mt-5">
+
+
+
       <div className="row justify-content-center">
         <div className="col-md-12">
+        <div className="tools-top__headlines">
+            <h2 className="title">Convert DOCX to PDF & HTML</h2>
+          </div>
+
           {/* Bootstrap Card Layout */}
-          <div className="card">
-            <div className="card-header text-center">
-              <h2>Convert DOCX to PDF & HTML</h2>
-            </div>
+          <div className="upload-area text-center mt-3">
+            
             <div className="card-body">
               {/* File input for DOCX upload */}
               <div className="text-center">
@@ -118,8 +124,11 @@ const WordToHTML = ({ description }) => {
                 </button>
               </div>
             </div>
+          </div>
 
-            {/* Display the converted HTML content */}
+          {/* Display the converted HTML content */}
+
+          <div className="upload-area text-center mt-3">
             {htmlContent && (
               <div
                 style={{
@@ -132,8 +141,8 @@ const WordToHTML = ({ description }) => {
                 dangerouslySetInnerHTML={{ __html: htmlContent }} // Render the HTML content
               ></div>
             )}
-
-            <div className="card-footer text-center">
+            <br />
+            <div className="text-center">
               <div className="row">
                 {/* Left Column - Export to HTML Button */}
                 <div className="col-md-5 mb-2">
@@ -158,26 +167,26 @@ const WordToHTML = ({ description }) => {
                 </div>
               </div>
             </div>
-
-            <br />
-            <h1>
-              <center>
-                <div
-                  className="text-justify"
-                  dangerouslySetInnerHTML={{
-                    __html: description.meta_title || "Default Meta Title",
-                  }}
-                />
-              </center>
-            </h1>
-            <div
-              className="text-justify mt-3 p-2"
-              dangerouslySetInnerHTML={{
-                __html:
-                  description.description_full || "Default Full Description",
-              }}
-            />
           </div>
+          <br />
+          <h1>
+            <center>
+              <div
+                className="text-justify"
+                dangerouslySetInnerHTML={{
+                  __html: description.meta_title || "Default Meta Title",
+                }}
+              />
+            </center>
+          </h1>
+          <div
+            className="text-justify mt-3 p-2" style={{ textAlign: "justify"}}
+            dangerouslySetInnerHTML={{
+              __html:
+                description.description_full || "Default Full Description",
+            }}
+          />
+
           <br />
         </div>
       </div>
