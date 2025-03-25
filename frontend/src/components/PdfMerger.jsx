@@ -192,7 +192,7 @@ const PdfMerger = ({ description }) => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container">
        <div className="tools-top__headlines mt-4">
           <h2 className="title">Drag & Drop PDFs to Sort and Merge</h2>
         </div>

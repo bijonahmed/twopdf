@@ -14,7 +14,7 @@ const WordToHTML = ({ description }) => {
     if (!file) return;
 
     setDocFile(file); // Set the selected file
-    setHtmlContent(""); // Clear the previous content
+    setHtmlContent(""); // Clear previous content
   };
 
   // Handle DOCX to HTML conversion
@@ -76,58 +76,66 @@ const WordToHTML = ({ description }) => {
     const container = document.createElement("div");
     container.innerHTML = htmlContent;
 
-    // Configure html2pdf options (optional adjustments for your needs)
+    // Configure html2pdf options
     const options = {
       margin: 10,
       filename: "converted-file.pdf",
       html2canvas: { scale: 2 }, // Higher scale for better quality
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }, // PDF format and orientation
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
 
     // Use html2pdf.js to convert the HTML content to PDF
-    html2pdf().from(container).set(options).save(); // Trigger the PDF download
+    html2pdf().from(container).set(options).save();
   };
 
   return (
     <div className="container mt-5">
-
-
-
       <div className="row justify-content-center">
         <div className="col-md-12">
-        <div className="tools-top__headlines">
+          <div className="tools-top__headlines">
             <h2 className="title">Convert DOCX to PDF & HTML</h2>
           </div>
 
-          {/* Bootstrap Card Layout */}
-          <div className="upload-area text-center mt-3">
-            
+          {/* Display selected file name */}
+          {docFile && (
+            <div className="alert alert-info text-center mt-3">
+              <strong>Selected File:</strong> {docFile.name}
+            </div>
+          )}
+
+          {/* Upload Section */}
+          <div
+            className="upload-area text-center mt-3"
+            onClick={() => document.getElementById("pdfUpload").click()}
+          >
             <div className="card-body">
-              {/* File input for DOCX upload */}
               <div className="text-center">
                 {isLoading && <p>Loading... Please wait</p>}
 
+                <label htmlFor="upload" className="btn btn-primary">
+                  Select DOCX
+                </label>
                 <input
                   type="file"
+                  id="pdfUpload"
                   accept=".docx"
                   onChange={handleFileUpload}
-                  className="form-control mb-3"
+                  style={{ display: "none" }}
                 />
-
-                {/* Button to trigger DOCX to HTML conversion */}
-                <button
-                  onClick={handleGenerateHTML}
-                  disabled={isLoading || !docFile} // Disable button if no file selected or during loading
-                  className="btn btn-success btn-block mt-3 w-100"
-                >
-                  {isLoading ? "Generating..." : "Generate HTML"}
-                </button>
               </div>
             </div>
           </div>
 
-          {/* Display the converted HTML content */}
+          {/* Convert Button */}
+          <button
+            onClick={handleGenerateHTML}
+            disabled={isLoading || !docFile}
+            className="btn btn-success btn-block mt-3 w-100"
+          >
+            {isLoading ? "Generating..." : "Generate Preview"}
+          </button>
 
+          {/* Display Converted HTML Content */}
           <div className="upload-area text-center mt-3">
             {htmlContent && (
               <div
@@ -138,28 +146,29 @@ const WordToHTML = ({ description }) => {
                   overflowY: "auto",
                   marginTop: "20px",
                 }}
-                dangerouslySetInnerHTML={{ __html: htmlContent }} // Render the HTML content
+                dangerouslySetInnerHTML={{ __html: htmlContent }}
               ></div>
             )}
+
             <br />
             <div className="text-center">
               <div className="row">
-                {/* Left Column - Export to HTML Button */}
+                {/* Export to HTML Button */}
                 <div className="col-md-5 mb-2">
                   <button
                     onClick={handleExportHTML}
-                    disabled={!htmlContent} // Disable if no HTML content
+                    disabled={!htmlContent}
                     className="btn btn-danger btn-block w-100"
                   >
                     Export to HTML
                   </button>
                 </div>
 
-                {/* Right Column - Convert to PDF Button */}
+                {/* Convert to PDF Button */}
                 <div className="col-md-5 mb-2">
                   <button
                     onClick={handleConvertToPDF}
-                    disabled={!htmlContent} // Disable if no HTML content
+                    disabled={!htmlContent}
                     className="btn btn-primary btn-block w-100"
                   >
                     Convert to PDF
@@ -168,7 +177,10 @@ const WordToHTML = ({ description }) => {
               </div>
             </div>
           </div>
+
           <br />
+
+          {/* Meta Title & Description */}
           <h1>
             <center>
               <div
@@ -180,13 +192,13 @@ const WordToHTML = ({ description }) => {
             </center>
           </h1>
           <div
-            className="text-justify mt-3 p-2" style={{ textAlign: "justify"}}
+            className="text-justify mt-3 p-2"
+            style={{ textAlign: "justify" }}
             dangerouslySetInnerHTML={{
               __html:
                 description.description_full || "Default Full Description",
             }}
           />
-
           <br />
         </div>
       </div>

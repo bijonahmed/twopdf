@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as pdfLib from "pdf-lib";
+import "../components/css/compressPDF.css";
 
 const CompressPDF = ({description}) => {
   const [pdfFile, setPdfFile] = useState(null);
@@ -57,8 +58,8 @@ const CompressPDF = ({description}) => {
 
   return (
     <div className="container mt-5">
-    <div className="card">
-      <div className="card-body">
+    <div className="">
+      <div className="">
         {/* Title Section */}
         <h1>
           <center><div
@@ -70,16 +71,34 @@ const CompressPDF = ({description}) => {
         </h1>
 
         {/* File Upload Section */}
-        <div className="mb-4">
-         
-          <input
-            id="pdfUpload"
-            type="file"
-            accept="application/pdf"
-            onChange={handleFileUpload}
-            className="form-control"
-          />
+
+
+
+
+
+
+        <div className="upload-area text-center mt-3" onClick={() => document.getElementById("pdfUpload").click()}>
+        <p className="upload-instruction"> Convert your PDF to a ZIP file in seconds.</p>
+
+            <div className="mb-4">
+            
+        <label htmlFor="upload" className="btn btn-primary">
+          Select PDFs
+        </label>
+        <input
+          type="file"
+          id="pdfUpload"
+          accept="application/pdf"
+          multiple
+          onChange={handleFileUpload}
+          style={{ display: "none" }}
+        />
+            </div>
         </div>
+
+
+
+
 
         {/* PDF Preview in an iframe */}
         {pdfPreviewUrl && (
@@ -122,7 +141,7 @@ const CompressPDF = ({description}) => {
 
         {/* Full Description */}
         <div
-          className="text-justify mt-3"
+          className="text-justify mt-3" style={{ textAlign: "justify"}}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}

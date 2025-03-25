@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as pdfjs from "pdfjs-dist/build/pdf";
 import "pdfjs-dist/build/pdf.worker.entry";
 import "../components/css/roatePDF.css";
-
+import "../components/css/rotatePDFwrapper.css";
 const RotatePDF = ({ description }) => {
   const [pdfDoc, setPdfDoc] = useState(null);
   const [numPages, setNumPages] = useState(0);
@@ -69,18 +69,28 @@ const RotatePDF = ({ description }) => {
 
   return (
     <div className="container mt-4">
-      <div className="card  p-4 rounded">
-        <h1 className="text-center text-primary fw-bold mb-3">
-          {description?.meta_title || "Default Meta Title"}
-        </h1>
+      <div className=" p-4 rounded">
+        <div className="tools-top__headlines">
+          <h2 className="title">PDF Rotate</h2>
+        </div>
 
-        <div className="mb-3 text-center">
-          <input
-            type="file"
-            accept="application/pdf"
-            className="form-control"
-            onChange={handleFileUpload}
-          />
+        <div
+          className="upload-area text-center mt-3"
+          onClick={() => document.getElementById("upload").click()} >
+          <p className="upload-instruction"> Please upload your pdf</p>
+
+      <label htmlFor="upload" className="btn btn-primary">
+          Select PDFs
+        </label>
+        <input
+          type="file"
+          id="upload"
+          accept="application/pdf"
+          multiple
+          onChange={handleFileUpload}
+          style={{ display: "none" }}
+        />
+
         </div>
 
         <div className="d-flex justify-content-center">
@@ -102,9 +112,12 @@ const RotatePDF = ({ description }) => {
             </div>
           </>
         )}
-
+        <h1 className="text-center text-primary fw-bold mb-3">
+          {description?.meta_title || "Default Meta Title"}
+        </h1>
         <div
           className="text-justify mt-3"
+          style={{ textAlign: "justify" }}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}
@@ -117,7 +130,9 @@ const RotatePDF = ({ description }) => {
           <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}>
             ⬅️
           </button>
-          <button onClick={() => setCurrentPage((p) => Math.min(numPages, p + 1))}>
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(numPages, p + 1))}
+          >
             ➡️
           </button>
           <button onClick={() => setRotation((r) => (r - 90) % 360)}>🔄</button>
@@ -125,13 +140,14 @@ const RotatePDF = ({ description }) => {
           <button onClick={() => setFlipX((f) => !f)}>↔️</button>
           <button onClick={() => setFlipY((f) => !f)}>↕️</button>
           <button onClick={() => setZoom((z) => z + 0.2)}>➕</button>
-          <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))}>➖</button>
+          <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))}>
+            ➖
+          </button>
           <button onClick={exportToJPG}>🖼</button>
         </div>
       )}
-         <br/>
+      <br />
     </div>
- 
   );
 };
 

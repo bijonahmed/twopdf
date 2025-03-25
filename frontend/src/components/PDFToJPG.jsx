@@ -164,25 +164,34 @@ const PDFToJPG = ({ description }) => {
 
       <div
         className="upload-area text-center mt-3"
-        onClick={() => document.getElementById("upload").click()}
+        onClick={() => document.getElementById("pdfUpload").click()}
       >
         <p className="upload-instruction">
           Convert your PDF to a JPG file in seconds.
         </p>
 
-        {/* File Upload Card */}
-        <div>
-          <input
-            type="file"
-            className="form-control"
-            accept="application/pdf"
-            onChange={handleFileUpload}
-            style={styles.input}
-          />
-        </div>
+       
+        <label htmlFor="upload" className="btn btn-primary">
+          Select PDFs
+        </label>
+        <input
+          type="file"
+          id="pdfUpload"
+          accept="application/pdf"
+          multiple
+          onChange={handleFileUpload}
+          style={{ display: "none" }}
+        />
+
+
+
+
 
         {/* PDF Preview */}
-        {pdfDoc && (
+        
+      </div>
+
+      {pdfDoc && (
           <div>
             <h5 style={styles.heading}>PDF Preview:</h5>
             <div style={styles.previewContainer}>
@@ -198,12 +207,11 @@ const PDFToJPG = ({ description }) => {
               ))}
             </div>
 
-            <button onClick={handleConvertToJPG} style={styles.button}>
+            <center><button onClick={handleConvertToJPG} style={styles.button}>
               Convert to JPG
-            </button>
+            </button></center>
           </div>
         )}
-      </div>
 
       {/* Description Card */}
       <div >

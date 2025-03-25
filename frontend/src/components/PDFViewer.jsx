@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useCreateIframeAndLoadViewer } from "@prodfox/react-ui-plugin";
+import "../components/css/documentViewer.css";
 
 function PDFViewer({ description }) {
   const containerRef = useRef(null);
@@ -53,24 +54,30 @@ function PDFViewer({ description }) {
   return (
     <div className="container mt-5">
       {/* Bootstrap Card Component */}
-      <div className="card">
-      <div className="card-header text-center text-black">
-          <h1>PDF Viewer</h1>
+      <div className="">
+      <div className="text-center text-black">
+         <div className="tools-top__headlines">
+          <h2 className="title">Document Viewer</h2>
+        </div>
         </div>
 
-        <div className="card-body">
-          {/* File Upload Section */}
-          <div className="mb-3 text-center">
-            <input
-              type="file"
-              accept=".pdf"
-              multiple
-              onChange={handleFileChange}
-              className="form-control"
-              style={{ maxWidth: "300px", margin: "auto" }}
-            />
-          </div>
+        <div className="upload-area text-center mt-3" onClick={() => document.getElementById("pdfUpload").click()}>
+        <p className="upload-instruction">   Please upload a PDF file to view</p>
 
+
+
+        <label htmlFor="upload" className="btn btn-primary">
+          Select PDFs
+        </label>
+        <input
+          type="file"
+          id="pdfUpload"
+          accept="application/pdf"
+          multiple
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
+       
           {/* Display error message if exists */}
           {error && (
             <div
@@ -88,7 +95,7 @@ function PDFViewer({ description }) {
                 className="text-center text-muted"
                 style={{ fontSize: "16px" }}
               >
-                Please upload a PDF file to view
+             
               </div>
             ) : (
               <div
@@ -117,7 +124,7 @@ function PDFViewer({ description }) {
           </center>
         </h1>
         <div
-          className="text-justify mt-3 p-3"
+          className="text-justify mt-3 p-3" style={{ textAlign: 'justify'}}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}

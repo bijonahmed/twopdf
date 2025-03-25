@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import JSZip from "jszip";
-import html2pdf from "html2pdf.js"; // Import html2pdf library
+import html2pdf from "html2pdf.js"; 
 import "../components/css/ppt_to_pdf_wrapper.css";
 
 const PptxToHtmlPreview = ({ description }) => {
   const [pptxFile, setPptxFile] = useState(null);
+  const [pptxFileName, setPptxFileName] = useState(""); 
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,6 +18,7 @@ const PptxToHtmlPreview = ({ description }) => {
         "application/vnd.openxmlformats-officedocument.presentationml.presentation"
     ) {
       setPptxFile(file);
+      setPptxFileName(file.name); // Store file name
     } else {
       alert("Please upload a valid PPTX file.");
     }
@@ -30,9 +32,8 @@ const PptxToHtmlPreview = ({ description }) => {
     }
 
     setLoading(true);
-    setSlides([]); // Clear previous slides
+    setSlides([]); 
 
-    // Read the PPTX file
     const reader = new FileReader();
     reader.onload = async (e) => {
       const arrayBuffer = e.target.result;
@@ -58,7 +59,6 @@ const PptxToHtmlPreview = ({ description }) => {
           });
         });
 
-        // Wait for all slide processing to complete
         await Promise.all(promises);
         setSlides(slidesData);
       } catch (error) {
@@ -72,18 +72,15 @@ const PptxToHtmlPreview = ({ description }) => {
     reader.readAsArrayBuffer(pptxFile);
   };
 
-  // Extract text and images from the slide XML
   const extractTextAndImagesFromXml = async (xmlContent, zip) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let slideText = "";
       let slideImages = [];
 
-      // Use DOMParser to parse XML content
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(xmlContent, "application/xml");
       const slideElements = xmlDoc.getElementsByTagName("p:sp");
 
-      // Extract text from the slide XML
       for (let i = 0; i < slideElements.length; i++) {
         const txBody = slideElements[i].getElementsByTagName("p:txBody")[0];
         if (txBody) {
@@ -100,34 +97,10 @@ const PptxToHtmlPreview = ({ description }) => {
         }
       }
 
-      // Extract images from the slide XML
-      for (let i = 0; i < slideElements.length; i++) {
-        const pictureElement =
-          slideElements[i].getElementsByTagName("p:pic")[0];
-        if (pictureElement) {
-          const imagePath = pictureElement
-            .getElementsByTagName("p:blipFill")[0]
-            .getElementsByTagName("a:blip")[0]
-            .getAttribute("src");
-          if (imagePath) {
-            const imageFileName = imagePath.split("/").pop();
-            if (zip.files[`ppt/media/${imageFileName}`]) {
-              zip.files[`ppt/media/${imageFileName}`]
-                .async("base64")
-                .then(function (imgData) {
-                  slideImages.push(`data:image/jpeg;base64,${imgData}`);
-                  resolve({ text: slideText.trim(), images: slideImages });
-                });
-            }
-          }
-        }
-      }
-
       resolve({ text: slideText.trim(), images: slideImages });
     });
   };
 
-  // Function to export HTML to PDF
   const handleExportPDF = () => {
     const element = document.getElementById("slides-preview");
     const options = {
@@ -136,117 +109,86 @@ const PptxToHtmlPreview = ({ description }) => {
       image: { type: "jpeg", quality: 1 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-      pagebreak: { mode: "avoid-all", after: ".slide-card" }, // Ensure each slide is a separate page
+      pagebreak: { mode: "avoid-all", after: ".slide-card" },
     };
     html2pdf().from(element).set(options).save();
   };
 
   return (
     <div className="container">
-      {/* File upload section in card */}
-
       <div className="tools-top__headlines">
         <h2 className="title">Convert PPT to PDF</h2>
       </div>
 
-      <div
-        className="upload-area text-center mt-3"
-        onClick={() => document.getElementById("upload").click()}
-      >
-        <p className="upload-instruction"> Upload PPTX File</p>
+      {/* File upload section */}
+      <div className="upload-area text-center mt-3">
+        <p className="upload-instruction">Upload PPTX File</p>
 
-        <div className="card mb-4">
-          <div className="card-body text-center">
-            <input
-              type="file"
-              id="upload"
-              className="form-control mb-3 d-inline-block"
-              accept=".pptx"
-              onChange={handleFileChange}
-            />
-            <button
-              className="btn btn-primary w-100"
-              onClick={handleConvert}
-              disabled={!pptxFile || loading}
-            >
-              {loading ? "Loading..." : "Convert to HTML and Preview"}
-            </button>
-          </div>
-        </div>
-
-        {/* Loading spinner */}
-        {loading && (
-          <div className="loading-spinner text-center mb-4">Loading...</div>
-        )}
-
-        {/* Export PDF button in card */}
-        <div className=" mb-4">
-          <div className="text-center">
-            <button
-              className="btn btn-success w-100"
-              onClick={handleExportPDF}
-              disabled={slides.length === 0}
-            >
-              Export to PDF
-            </button>
-          </div>
-        </div>
-
-        <div id="slides-preview" className="row">
-          {slides.map((slide, index) => (
-            <div className="col-md-12" key={index}>
-              <div
-                className="card shadow-sm slide-card"
-                style={{ borderRadius: "10px", marginBottom: "20px" }}
-              >
-                <div className="card-body">
-                  {/* <h5 className="card-title">Slide {slide.slideNumber}</h5> */}
-                  <div
-                    className="card-text"
-                    dangerouslySetInnerHTML={{
-                      __html: slide.text || "No text found in this slide.",
-                    }}
-                  />
-                  {slide.images.length > 0
-                    ? slide.images.map((img, idx) => (
-                        <img
-                          key={idx}
-                          src={img}
-                          alt={`Slide ${slide.slideNumber} Image ${idx + 1}`}
-                          className="img-fluid mb-3"
-                          style={{
-                            maxWidth: "100%",
-                            maxHeight: "300px",
-                            objectFit: "contain",
-                          }}
-                        />
-                      ))
-                    : null}
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="card mb-4 p-3">
+          {pptxFileName && <p className="uploaded-file-name"><b>File:</b> {pptxFileName}</p>}
+          
+          <label htmlFor="pdfUpload" className="btn btn-primary">Select PPTX</label>
+          <input
+            type="file"
+            id="pdfUpload"
+            accept=".pptx"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
         </div>
       </div>
-      <br />
+
+      {/* Buttons for Conversion and PDF Export */}
+      <div className="text-center">
+        <button
+          className="btn btn-primary w-100 mb-2"
+          onClick={handleConvert}
+          disabled={!pptxFile || loading}
+        >
+          {loading ? "Loading..." : "Convert to HTML and Preview"}
+        </button>
+
+        <button
+          className="btn btn-success w-100"
+          onClick={handleExportPDF}
+          disabled={slides.length === 0}
+        >
+          Export to PDF
+        </button>
+      </div>
+
+      {loading && <div className="loading-spinner text-center mb-4">Loading...</div>}
+
+      {/* Slide Preview */}
+      <div id="slides-preview" className="row">
+        {slides.map((slide, index) => (
+          <div className="col-md-12" key={index}>
+            <div className="card shadow-sm slide-card" style={{ borderRadius: "10px", marginBottom: "20px" }}>
+              <div className="card-body">
+                <div
+                  className="card-text"
+                  dangerouslySetInnerHTML={{ __html: slide.text || "No text found in this slide." }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <h1>
         <center>
           <div
             className="text-justify"
-            dangerouslySetInnerHTML={{
-              __html: description.meta_title || "Default Meta Title",
-            }}
+            dangerouslySetInnerHTML={{ __html: description.meta_title || "Default Meta Title" }}
           />
         </center>
       </h1>
+      
       <div
-        className="text-justify mt-3 p-2" style={{ textAlign: 'justify' }}
-        dangerouslySetInnerHTML={{
-          __html: description.description_full || "Default Full Description",
-        }}
+        className="text-justify mt-3 p-2"
+        style={{ textAlign: "justify" }}
+        dangerouslySetInnerHTML={{ __html: description.description_full || "Default Full Description" }}
       />
-
-      <br />
     </div>
   );
 };

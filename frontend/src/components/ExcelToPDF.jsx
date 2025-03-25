@@ -12,7 +12,7 @@ const ExcelToPDF = ({ description }) => {
   const [error, setError] = useState(""); // Store error messages
   const [countdownInterval, setCountdownInterval] = useState(null);
   const [countdown, setCountdown] = useState(0);
-
+  const [fileName, setFileName] = useState("");
   const startCountdown = () => {
     setCountdown(5);
 
@@ -64,12 +64,14 @@ const ExcelToPDF = ({ description }) => {
       setError("Please upload a valid Excel file (.xlsx or .xls)");
       setExcelFile(null);
       setHtmlContent("");
+      setFileName("");
       return;
     }
 
     setError(""); // Clear any previous errors
     setExcelFile(file); // Store the selected file
     setHtmlContent(""); // Clear previous content
+    setFileName(file.name);
   };
 
   // Upload Excel file to the server
@@ -189,20 +191,14 @@ const ExcelToPDF = ({ description }) => {
             <div className="text-center  text-black">
             <div className="tools-top__headlines">
           <h2 className="title">Convert Excel to PDF</h2>
+          <center> {fileName && <p className="text-success mt-2">Selected File: {fileName}</p>}</center>
         </div>
              
             </div>
 
-            <div
-              className="upload-area text-center mt-3"
-              onClick={() => document.getElementById("upload").click()}
-            >
-              <p className="upload-instruction">
-                {" "}
-                Convert your PDF to a ZIP file in seconds.
-              </p>
+            <div className="upload-area text-center mt-3" onClick={() => document.getElementById("pdfUpload").click()}>
 
-              <div className="">
+              
                 {isLoading && (
                   <center>
                     <div className="loading">
@@ -217,37 +213,19 @@ const ExcelToPDF = ({ description }) => {
                 {/* Error message display */}
                 {error && <div className="alert alert-danger">{error}</div>}
 
-                {/* File upload input */}
-                <div className="form-group">
-                  <input
-                    id="fileUpload"
-                    type="file"
-                    accept=".xlsx, .xls"
-                    onChange={handleFileUpload}
-                    className="form-control mb-3"
-                  />
-                </div>
+                <label htmlFor="upload" className="btn btn-primary">
+                  Select Excel File
+                </label>
+                <input
+                  type="file"
+                  id="pdfUpload"
+                  accept=".xlsx, .xls"
+                  onChange={handleFileUpload}
+                  style={{ display: "none" }}
+                />
 
-                {/* Button to trigger conversion to PDF */}
-                <button
-                  onClick={handleConvertToPDF}
-                  disabled={isLoading || !excelFile} // Disable if no file selected or loading
-                  className="btn btn-primary w-100 mt-3 py-2"
-                  style={{ fontSize: "16px" }}
-                >
-                  {isLoading ? "Converting..." : "Convert to PDF"}
-                </button>
 
-                {/* Button to trigger export to HTML */}
-                <button
-                  onClick={handleExportToHTML}
-                  disabled={isLoading || !htmlContent} // Disable if no content to export or loading
-                  className="btn btn-secondary w-100 mt-3 py-2"
-                  style={{ fontSize: "16px" }}
-                >
-                  Export to HTML
-                </button>
-              </div>
+              
 
               {htmlContent && (
                 <div
@@ -265,6 +243,26 @@ const ExcelToPDF = ({ description }) => {
                 />
               )}
             </div>
+
+            {/* Button to trigger conversion to PDF */}
+            <button
+                  onClick={handleConvertToPDF}
+                  disabled={isLoading || !excelFile} // Disable if no file selected or loading
+                  className="btn btn-primary w-100 mt-3 py-2"
+                  style={{ fontSize: "16px" }}
+                >
+                  {isLoading ? "Converting..." : "Convert to PDF"}
+                </button>
+
+                {/* Button to trigger export to HTML */}
+                <button
+                  onClick={handleExportToHTML}
+                  disabled={isLoading || !htmlContent} // Disable if no content to export or loading
+                  className="btn btn-secondary w-100 mt-3 py-2"
+                  style={{ fontSize: "16px" }}
+                >
+                  Export to HTML
+                </button>
           </div>
           <br />
           <h3 className="text-center text-dark">
