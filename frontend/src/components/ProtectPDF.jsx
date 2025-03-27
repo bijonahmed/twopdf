@@ -4,6 +4,7 @@ import loaderImage from "../assets/loadergif.gif";
 import axios from "/config/axiosConfig";
 import "../components/css/ProtectPDF.css";
 import { Link } from "react-router-dom";
+import PDFTools from "../components/PDFTools.jsx";
 
 const ProtectPDF = ({ description }) => {
   const [file, setFile] = useState(null);
@@ -196,6 +197,12 @@ const ProtectPDF = ({ description }) => {
             __html: description.description_full || "Default Full Description",
           }}
         />
+
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+
       
 
       {/* PDF Modal */}

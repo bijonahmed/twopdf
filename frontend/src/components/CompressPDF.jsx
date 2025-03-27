@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as pdfLib from "pdf-lib";
 import "../components/css/compressPDF.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const CompressPDF = ({description}) => {
   const [pdfFile, setPdfFile] = useState(null);
@@ -150,6 +151,11 @@ const CompressPDF = ({description}) => {
       </div>
 
     </div>
+
+    
+ <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
     <br/> <br/>
   </div>
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import DOMPurify from "dompurify";
 import "../components/css/htmltopdf.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const HTMLToPDF = ({ description }) => {
   const [htmlContent, setHtmlContent] = useState("");
@@ -132,6 +133,9 @@ const HTMLToPDF = ({ description }) => {
         
       </div>
     </div>
+    <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
     <br />
     {showModal && (
       <div

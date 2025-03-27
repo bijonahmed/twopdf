@@ -3,6 +3,9 @@ import * as pdfjs from "pdfjs-dist/build/pdf";
 import "pdfjs-dist/build/pdf.worker.entry";
 import "../components/css/roatePDF.css";
 import "../components/css/rotatePDFwrapper.css";
+import PDFTools from "../components/PDFTools.jsx";
+
+
 const RotatePDF = ({ description }) => {
   const [pdfDoc, setPdfDoc] = useState(null);
   const [numPages, setNumPages] = useState(0);
@@ -123,6 +126,10 @@ const RotatePDF = ({ description }) => {
           }}
         />
       </div>
+
+      <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
 
       {/* Fixed Bottom Toolbar */}
       {pdfDoc && (

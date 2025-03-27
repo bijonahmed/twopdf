@@ -4,6 +4,7 @@ import { saveAs } from "file-saver";
 import { PDFDocument } from "pdf-lib";
 import loaderImage from "../assets/loadergif.gif";
 import "../components/css/PDFZip.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const PDFZipUpload = ({ description }) => {
   const [files, setFiles] = useState([]); // Store multiple files
@@ -103,7 +104,6 @@ const PDFZipUpload = ({ description }) => {
 
 
 
-            <br />
 
             {/* PDF Previews */}
             <div className="pdf-previews">
@@ -142,10 +142,10 @@ const PDFZipUpload = ({ description }) => {
                 >
                   Create ZIP
                 </button>
-                <br />
+              
               </div>
             </center>
-            <br />
+          
             <h1>
               <center>
                 <div
@@ -165,6 +165,12 @@ const PDFZipUpload = ({ description }) => {
             />
           </form>
         </div>
+
+        <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+          
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "/config/axiosConfig"; // Make sure to configure axios
 import loaderImage from "../assets/loadergif.gif";
 import "../components/css/PdfToPPT.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 function PdfToPPTConverter({ description }) {
   const [file, setFile] = useState(null);
@@ -219,6 +220,12 @@ function PdfToPPTConverter({ description }) {
           }}
           style={{ color: "black", textAlign: "justify" }}
         />
+
+<div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+
      
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as pdfjs from "pdfjs-dist/build/pdf";
 import "pdfjs-dist/build/pdf.worker.entry"; // Import worker inline
 import "../components/css/exceltopdf.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const PDFToJPG = ({ description }) => {
   const [pdfDoc, setPdfDoc] = useState(null);
@@ -183,10 +184,6 @@ const PDFToJPG = ({ description }) => {
           style={{ display: "none" }}
         />
 
-
-
-
-
         {/* PDF Preview */}
         
       </div>
@@ -223,6 +220,10 @@ const PDFToJPG = ({ description }) => {
           }}
         />
       </div>
+
+      <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
       <br/>
     </div>
   );

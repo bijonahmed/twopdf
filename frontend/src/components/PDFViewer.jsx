@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useCreateIframeAndLoadViewer } from "@prodfox/react-ui-plugin";
 import "../components/css/documentViewer.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 function PDFViewer({ description }) {
   const containerRef = useRef(null);
@@ -131,6 +132,13 @@ function PDFViewer({ description }) {
         />
         {/* Card Footer */}
       </div>
+
+
+      <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+
       <br/><br/>
     </div>
   );

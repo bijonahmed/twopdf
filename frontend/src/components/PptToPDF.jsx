@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import JSZip from "jszip";
-import html2pdf from "html2pdf.js"; 
+import html2pdf from "html2pdf.js";
 import "../components/css/ppt_to_pdf_wrapper.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const PptxToHtmlPreview = ({ description }) => {
   const [pptxFile, setPptxFile] = useState(null);
-  const [pptxFileName, setPptxFileName] = useState(""); 
+  const [pptxFileName, setPptxFileName] = useState("");
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +33,7 @@ const PptxToHtmlPreview = ({ description }) => {
     }
 
     setLoading(true);
-    setSlides([]); 
+    setSlides([]);
 
     const reader = new FileReader();
     reader.onload = async (e) => {
@@ -125,9 +126,15 @@ const PptxToHtmlPreview = ({ description }) => {
         <p className="upload-instruction">Upload PPTX File</p>
 
         <div className="card mb-4 p-3">
-          {pptxFileName && <p className="uploaded-file-name"><b>File:</b> {pptxFileName}</p>}
-          
-          <label htmlFor="pdfUpload" className="btn btn-primary">Select PPTX</label>
+          {pptxFileName && (
+            <p className="uploaded-file-name">
+              <b>File:</b> {pptxFileName}
+            </p>
+          )}
+
+          <label htmlFor="pdfUpload" className="btn btn-primary">
+            Select PPTX
+          </label>
           <input
             type="file"
             id="pdfUpload"
@@ -157,17 +164,24 @@ const PptxToHtmlPreview = ({ description }) => {
         </button>
       </div>
 
-      {loading && <div className="loading-spinner text-center mb-4">Loading...</div>}
+      {loading && (
+        <div className="loading-spinner text-center mb-4">Loading...</div>
+      )}
 
       {/* Slide Preview */}
       <div id="slides-preview" className="row">
         {slides.map((slide, index) => (
           <div className="col-md-12" key={index}>
-            <div className="card shadow-sm slide-card" style={{ borderRadius: "10px", marginBottom: "20px" }}>
+            <div
+              className="card shadow-sm slide-card"
+              style={{ borderRadius: "10px", marginBottom: "20px" }}
+            >
               <div className="card-body">
                 <div
                   className="card-text"
-                  dangerouslySetInnerHTML={{ __html: slide.text || "No text found in this slide." }}
+                  dangerouslySetInnerHTML={{
+                    __html: slide.text || "No text found in this slide.",
+                  }}
                 />
               </div>
             </div>
@@ -179,16 +193,25 @@ const PptxToHtmlPreview = ({ description }) => {
         <center>
           <div
             className="text-justify"
-            dangerouslySetInnerHTML={{ __html: description.meta_title || "Default Meta Title" }}
+            dangerouslySetInnerHTML={{
+              __html: description.meta_title || "Default Meta Title",
+            }}
           />
         </center>
       </h1>
-      
+
       <div
         className="text-justify mt-3 p-2"
         style={{ textAlign: "justify" }}
-        dangerouslySetInnerHTML={{ __html: description.description_full || "Default Full Description" }}
+        dangerouslySetInnerHTML={{
+          __html: description.description_full || "Default Full Description",
+        }}
       />
+
+      <div className="container mt-lg-4">
+        <PDFTools />
+      </div>
+      <br/>
     </div>
   );
 };

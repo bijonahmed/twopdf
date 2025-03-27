@@ -5,6 +5,7 @@ import loaderImage from "../assets/loadergif.gif"; // Ensure you have a loader g
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../components/css/mergeSpilt.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const PdfSplitter = ({ description }) => {
   const [file, setFile] = useState(null);
@@ -122,9 +123,8 @@ const PdfSplitter = ({ description }) => {
           {/* Title Section */}
           <div className="text-center">
             <div className="tools-top__headlines">
-            <h2 className="title">Split PDF File</h2>
-          </div>
-            
+              <h2 className="title">Split PDF File</h2>
+            </div>
           </div>
 
           {/* Loading Section */}
@@ -147,7 +147,10 @@ const PdfSplitter = ({ description }) => {
             className="upload-area text-center mt-3"
             onClick={() => document.getElementById("upload").click()}
           >
-             <p className="upload-instruction"> Upload a PDF file and split it into individual pages.</p>
+            <p className="upload-instruction">
+              {" "}
+              Upload a PDF file and split it into individual pages.
+            </p>
             <div className="mb-4 text-center">
               <label
                 htmlFor="upload"
@@ -183,6 +186,10 @@ const PdfSplitter = ({ description }) => {
                   description.description_full || "Default Full Description",
               }}
             />
+          </div>
+
+          <div className="container mt-lg-4">
+            <PDFTools />
           </div>
         </div>
       </div>

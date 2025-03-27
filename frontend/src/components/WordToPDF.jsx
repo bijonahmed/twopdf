@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import mammoth from "mammoth";
 import html2pdf from "html2pdf.js"; // Import html2pdf.js library
 import "../components/css/WordtoPDF.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const WordToHTML = ({ description }) => {
   const [htmlContent, setHtmlContent] = useState(""); // Store HTML content
@@ -178,8 +179,6 @@ const WordToHTML = ({ description }) => {
             </div>
           </div>
 
-          <br />
-
           {/* Meta Title & Description */}
           <h1>
             <center>
@@ -199,7 +198,11 @@ const WordToHTML = ({ description }) => {
                 description.description_full || "Default Full Description",
             }}
           />
-          <br />
+
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+          <br/>
         </div>
       </div>
     </div>

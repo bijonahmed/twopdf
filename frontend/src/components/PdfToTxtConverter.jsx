@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif";
 import "../components/css/PDFtoText.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 function PdfToTxtConverter({ description }) {
   const [file, setFile] = useState(null);
@@ -143,7 +144,7 @@ function PdfToTxtConverter({ description }) {
                   />
                 </div>
               )}
-              <br />
+           
 
               {/* Convert Button */}
               {isFileSelected && !loading && !isLoading && (
@@ -166,7 +167,7 @@ function PdfToTxtConverter({ description }) {
 
               {/* Description Section */}
               <h1>
-                <br />
+             
                 <center>
                   <div
                     className="text-justify"
@@ -186,6 +187,12 @@ function PdfToTxtConverter({ description }) {
               />
             </form>
           </div>
+
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+          
         </div>
       </div>
     </div>

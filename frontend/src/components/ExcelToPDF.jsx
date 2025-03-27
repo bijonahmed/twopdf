@@ -4,6 +4,8 @@ import html2pdf from "html2pdf.js"; // Import html2pdf.js for PDF conversion
 import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif";
 import "../components/css/exceltopdf.css";
+import PDFTools from "../components/PDFTools.jsx";
+
 
 const ExcelToPDF = ({ description }) => {
   const [excelFile, setExcelFile] = useState(null); // Store selected Excel file
@@ -283,6 +285,9 @@ const ExcelToPDF = ({ description }) => {
           />
           <br />
         </div>
+        <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
       </div>
     </div>
   );

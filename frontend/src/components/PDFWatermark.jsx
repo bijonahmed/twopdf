@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "/config/axiosConfig";
 import "../components/css/watermarkPDF.css";
 import "../components/css/WaterMarkWrapper.css";
+import PDFTools from "../components/PDFTools.jsx";
+
 const PDFUploadWithWatermark = ({ description }) => {
   const [files, setFiles] = useState([]);
   const [watermarkText, setWatermarkText] = useState([]);
@@ -186,7 +188,7 @@ const PDFUploadWithWatermark = ({ description }) => {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "1000px" }}>
+    <div className="container" style={{ maxWidth: "1000px" }}>
       <div className=" p-4">
       
           <div className="tools-top__headlines">
@@ -338,7 +340,7 @@ const PDFUploadWithWatermark = ({ description }) => {
             </div>
           )}
 
-          <br />
+       
           <h1>
             <center>
               <div
@@ -356,11 +358,18 @@ const PDFUploadWithWatermark = ({ description }) => {
                 description.description_full || "Default Full Description",
             }}
           />
+
+
         
       </div>
       <br />
-      <br />
+      <div className="container mt-lg-4">
+<PDFTools />
+</div>
+     
     </div>
+
+
   );
 };
 

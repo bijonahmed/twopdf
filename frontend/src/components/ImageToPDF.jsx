@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import loaderImage from "../assets/loadergif.gif";
 import jsPDF from "jspdf";
 import "../components/css/ImageToPDF.css";
+import PDFTools from "../components/PDFTools.jsx";
 
 const ImageToPDF = ({ description }) => {
   const [images, setImages] = useState([]); // Store multiple images
@@ -102,7 +103,7 @@ const ImageToPDF = ({ description }) => {
             <p>Uploading in {countdown} seconds...</p>
           </div>
         )}
-        <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
+        <div className="upload-area text-center mt-1" onClick={() => document.getElementById("upload").click()}>
           <p className="upload-instruction"> Convert your Images to a PDF file in seconds.</p>
 
           {/* File input for image upload */}
@@ -166,7 +167,6 @@ const ImageToPDF = ({ description }) => {
               color: "white",
               border: "none",
               cursor: "pointer",
-              marginTop: "20px",
               borderRadius: "5px", // Rounded corners for the button
               fontWeight: "bold", // Make the text bold
             }}
@@ -175,10 +175,9 @@ const ImageToPDF = ({ description }) => {
           </button>
         </center>
       </div>
-      <br />
       <h1>
         <div
-          className="text-justify"
+          className="text-justify mt-2"
           dangerouslySetInnerHTML={{
             __html: description.meta_title || "Default Meta Title",
           }}
@@ -190,7 +189,12 @@ const ImageToPDF = ({ description }) => {
           __html: description.description_full || "Default Full Description",
         }}
       />
+       <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
     </div>
+
+    
   );
 };
 

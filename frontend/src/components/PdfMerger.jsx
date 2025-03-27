@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "/config/axiosConfig";
 import loaderImage from "../assets/loadergif.gif";
 import "../components/css/mergePDF.css";
+import PDFTools from "../components/PDFTools.jsx";
 import { PDFDocument } from "pdf-lib";
 
 const SortableItem = ({ file, index, onDragStart, onDrop, onDragOver }) => {
@@ -193,11 +194,13 @@ const PdfMerger = ({ description }) => {
 
   return (
     <div className="container">
-       <div className="tools-top__headlines mt-4">
-          <h2 className="title">Drag & Drop PDFs to Sort and Merge</h2>
-        </div>
-      <div className="upload-area text-center mt-3" onClick={() => document.getElementById("upload").click()}>
-
+      <div className="tools-top__headlines mt-4">
+        <h2 className="title">Drag & Drop PDFs to Sort and Merge</h2>
+      </div>
+      <div
+        className="upload-area text-center mt-3"
+        onClick={() => document.getElementById("upload").click()}
+      >
         <p className="upload-instruction">Drag & Drop PDFs Here or</p>
         <label htmlFor="upload" className="btn btn-primary">
           Select PDFs
@@ -211,8 +214,6 @@ const PdfMerger = ({ description }) => {
           style={{ display: "none" }}
         />
       </div>
-
-  
 
       <div className="row">
         {files.map((file, index) => (
@@ -262,15 +263,18 @@ const PdfMerger = ({ description }) => {
           </center>
         </h1>
         <div
-          className="text-justify mt-3" style={{ textAlign: "justify"}}
+          className="text-justify mt-3"
+          style={{ textAlign: "justify" }}
           dangerouslySetInnerHTML={{
             __html: description.description_full || "Default Full Description",
           }}
         />
       </div>
 
+      <div className="container mt-lg-4">
+        <PDFTools />
+      </div>
       <br />
-
       <div>
         <div
           className={`modal ${showModal ? "d-block" : "d-none"}`}
