@@ -12,13 +12,22 @@ const PrivacyPolicy = () => {
     title: `About us`,
     description: `Our mission is to provide you with the most efficient and reliable PDF solutions, ensuring that you can focus on what truly matters instead of getting bogged down by PDF-related tasks. Whether you need to merge, convert, compress, or edit your PDF files, TwoPDF has got you covered with easy-to-use tools designed to simplify your life.<br/>
 Experience the difference with TwoPDF and discover a smarter way to handle your PDF documents. Spend your time well and leave the PDFs to us.`,
-    keywords: `${slug}, courses, tutorials, My Awesome Website`,
+    keywords: `PDF merget,spiltP etc more...`,
   };
+
+  const baseUrl = window.location.href;
+  const canonicalUrl = `${baseUrl}`;
 
   return (
     <>
       <Helmet>
         <title>Privacy Policy</title>
+        <title>{seoData.title}</title>
+        <meta name="description" content={seoData.description} />
+        <meta name="keywords" content={seoData.keywords} />
+        <link rel="canonical" href={canonicalUrl} />
+
+
       </Helmet>
 
       <GuestNavbar />
@@ -27,12 +36,12 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-12 col-md-10 ">
-              <h6 className="mb-4 display-8 text-center">Privacy Policy</h6>
+              <h1 className="mb-4 display-8 text-center">Privacy Policy</h1>
             </div>
           </div>
         </div>
         {/* FAQs: */}
-        <div className="container my-5">
+        <div className="container">
       <div className="row justify-content-center">
         <div className="col-12 col-md-10">
           <p>

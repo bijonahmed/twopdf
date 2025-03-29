@@ -47,11 +47,17 @@ const Signup = () => {
       }
     }
   };
+
+  const baseUrl = window.location.href;
+  const canonicalUrl = baseUrl;
+
+
   return (
     <>
       <Helmet>
         {" "}
         <title> Signup</title>
+        <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
       <GuestNavbar />

@@ -47,7 +47,8 @@ const Margepdf = () => {
   }, [slug]);
   // Get the base domain dynamically
   const baseUrl = window.location.href;
-  const canonicalUrl = `${baseUrl}`;
+  const canonicalUrl = baseUrl;
+
 
   return (
     <>

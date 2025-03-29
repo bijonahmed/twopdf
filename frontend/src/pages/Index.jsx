@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "/config/axiosConfig";
 import GuestNavbar from "../components/GuestNavbar";
 import Footer from "../components/Footer";
+import { Helmet } from "react-helmet-async";
 import "../components/css/Index.css";
 
 const Index = () => {
@@ -71,8 +72,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-   
 
       <section className="content">
         <div className="container">

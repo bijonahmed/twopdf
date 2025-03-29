@@ -47,12 +47,15 @@ Experience the difference with TwoPDF and discover a smarter way to handle your 
   const [monthlyPrice] = useState(4);
   const [yearlyPrice] = useState(48);
 
+  const baseUrl = window.location.href;
+  const canonicalUrl = `${baseUrl}`;
   return (
     <>
       <Helmet>
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
         <meta name="keywords" content={seoData.keywords} />
+        <link rel="canonical" href={canonicalUrl} />
       </Helmet>
 
       <GuestNavbar />
