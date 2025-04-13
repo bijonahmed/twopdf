@@ -251,6 +251,10 @@ const PdfMerger = ({ description }) => {
         )}
       </center>
 
+      <div className="container mt-lg-4">
+        <PDFTools />
+      </div>
+      
       <div className="container">
         <h1>
           <center>
@@ -271,9 +275,7 @@ const PdfMerger = ({ description }) => {
         />
       </div>
 
-      <div className="container mt-lg-4">
-        <PDFTools />
-      </div>
+      
       <br />
       <div>
         <div

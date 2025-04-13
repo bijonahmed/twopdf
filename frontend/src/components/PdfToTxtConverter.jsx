@@ -166,6 +166,12 @@ function PdfToTxtConverter({ description }) {
               )}
 
               {/* Description Section */}
+
+              <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+          
               <h1>
              
                 <center>
@@ -188,9 +194,7 @@ function PdfToTxtConverter({ description }) {
             </form>
           </div>
 
-          <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+         
 
           
         </div>

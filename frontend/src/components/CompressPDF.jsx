@@ -140,6 +140,10 @@ const CompressPDF = ({description}) => {
           </div>
         )}
 
+<div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+          
         {/* Full Description */}
         <div
           className="text-justify mt-3" style={{ textAlign: "justify"}}
@@ -153,9 +157,7 @@ const CompressPDF = ({description}) => {
     </div>
 
     
- <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+           
     <br/> <br/>
   </div>
 

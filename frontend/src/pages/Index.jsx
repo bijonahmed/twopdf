@@ -62,7 +62,7 @@ const Index = () => {
           <div className="container">
             <div className="row justify-content-center">
               <div className="tools-top__headlines">
-                <h1 className="title">{"All-in-one AI-powered PDF tools, 100% FREE and easy to use!"}</h1>
+                <h2 className="title">{"All-in-one AI-powered PDF tools, 100% FREE and easy to use!"}</h2>
                 <p className="subtitle">
                   Discover a complete suite of PDF tools right at your fingertips! Our services are 100% FREE and
                   incredibly easy to use. Seamlessly merge, split, compress, convert, rotate, unlock, and watermark PDFs with just a few clicks.
@@ -97,14 +97,14 @@ const Index = () => {
 
 
 
-          <h2>
+          <h1>
           <center><div
             className="text-justify"
             dangerouslySetInnerHTML={{
               __html: title || "Default Meta Title",
             }}
           /></center>
-        </h2>
+        </h1>
 
           <div
         className="text-justify mt-3 p-2"

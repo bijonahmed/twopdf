@@ -132,6 +132,7 @@ const PDFZipUpload = ({ description }) => {
               )}
             </div>
 
+
             <center>
               <div className="btn-group text-center mt-3">
                 <button
@@ -145,6 +146,10 @@ const PDFZipUpload = ({ description }) => {
               
               </div>
             </center>
+          
+            <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
           
             <h1>
               <center>
@@ -166,9 +171,7 @@ const PDFZipUpload = ({ description }) => {
           </form>
         </div>
 
-        <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+         
 
           
       </div>

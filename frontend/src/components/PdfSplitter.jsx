@@ -169,6 +169,10 @@ const PdfSplitter = ({ description }) => {
             </div>
           </div>
 
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
           {/* Description Section */}
           <div className="mt-4">
             <h5 className="text-center fw-semibold mb-3">
@@ -188,9 +192,7 @@ const PdfSplitter = ({ description }) => {
             />
           </div>
 
-          <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+        
         </div>
       </div>
 

@@ -115,6 +115,11 @@ const RotatePDF = ({ description }) => {
             </div>
           </>
         )}
+
+<div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+          
         <h1 className="text-center text-primary fw-bold mb-3">
           {description?.meta_title || "Default Meta Title"}
         </h1>
@@ -127,9 +132,7 @@ const RotatePDF = ({ description }) => {
         />
       </div>
 
-      <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+      
 
       {/* Fixed Bottom Toolbar */}
       {pdfDoc && (

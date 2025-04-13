@@ -180,6 +180,10 @@ const WordToHTML = ({ description }) => {
           </div>
 
           {/* Meta Title & Description */}
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+          <br/>
           <h1>
             <center>
               <div
@@ -199,10 +203,7 @@ const WordToHTML = ({ description }) => {
             }}
           />
 
-          <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
-          <br/>
+          
         </div>
       </div>
     </div>

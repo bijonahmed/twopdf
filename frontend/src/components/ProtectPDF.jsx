@@ -185,6 +185,11 @@ const ProtectPDF = ({ description }) => {
           </center>
         )}
 
+
+<div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
         <h1
           className="text-justify mt-2"
           dangerouslySetInnerHTML={{
@@ -198,9 +203,7 @@ const ProtectPDF = ({ description }) => {
           }}
         />
 
-          <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+         
 
 
       

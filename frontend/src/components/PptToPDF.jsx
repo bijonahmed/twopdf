@@ -188,7 +188,10 @@ const PptxToHtmlPreview = ({ description }) => {
           </div>
         ))}
       </div>
-
+      <div className="container mt-lg-4">
+        <PDFTools />
+      </div>
+      <br/>
       <h1>
         <center>
           <div
@@ -208,10 +211,7 @@ const PptxToHtmlPreview = ({ description }) => {
         }}
       />
 
-      <div className="container mt-lg-4">
-        <PDFTools />
-      </div>
-      <br/>
+     
     </div>
   );
 };

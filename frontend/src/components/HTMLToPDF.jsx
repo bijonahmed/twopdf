@@ -111,7 +111,10 @@ const HTMLToPDF = ({ description }) => {
               {isLoading ? "Converting..." : "Convert to PDF"}
             </button>
           </div>
-
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+          
           <h1>
             <br />
             <center>
@@ -133,9 +136,7 @@ const HTMLToPDF = ({ description }) => {
         
       </div>
     </div>
-    <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+         
     <br />
     {showModal && (
       <div

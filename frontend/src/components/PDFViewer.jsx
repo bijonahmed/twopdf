@@ -114,6 +114,12 @@ function PDFViewer({ description }) {
             )}
           </div>
         </div>
+
+        <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
+
+          
         <h1>
           <center>
             <div
@@ -134,9 +140,7 @@ function PDFViewer({ description }) {
       </div>
 
 
-      <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+          
 
 
       <br/><br/>

@@ -211,6 +211,9 @@ const PDFToJPG = ({ description }) => {
         )}
 
       {/* Description Card */}
+      <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
       <div >
         <div
           className="text-justify"
@@ -221,9 +224,7 @@ const PDFToJPG = ({ description }) => {
         />
       </div>
 
-      <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+          
       <br/>
     </div>
   );

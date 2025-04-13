@@ -202,7 +202,11 @@ function PdfToPPTConverter({ description }) {
             </enter>
           </div>
         )}
+<div className="container mt-lg-4">
+            <PDFTools />
+          </div>
 
+          
         <h1 style={{ marginTop: "20px" }}>
           <center>
             <div
@@ -221,9 +225,7 @@ function PdfToPPTConverter({ description }) {
           style={{ color: "black", textAlign: "justify" }}
         />
 
-<div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+          
 
 
      

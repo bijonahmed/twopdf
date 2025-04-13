@@ -266,6 +266,9 @@ const ExcelToPDF = ({ description }) => {
                   Export to HTML
                 </button>
           </div>
+          <div className="container mt-lg-4">
+            <PDFTools />
+          </div>
           <br />
           <h3 className="text-center text-dark">
             <div
@@ -285,9 +288,7 @@ const ExcelToPDF = ({ description }) => {
           />
           <br />
         </div>
-        <div className="container mt-lg-4">
-            <PDFTools />
-          </div>
+       
       </div>
     </div>
   );

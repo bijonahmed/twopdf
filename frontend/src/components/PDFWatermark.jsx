@@ -339,7 +339,10 @@ const PDFUploadWithWatermark = ({ description }) => {
               </a>
             </div>
           )}
-
+ <br />
+      <div className="container mt-lg-4">
+<PDFTools />
+</div>
        
           <h1>
             <center>
@@ -362,10 +365,7 @@ const PDFUploadWithWatermark = ({ description }) => {
 
         
       </div>
-      <br />
-      <div className="container mt-lg-4">
-<PDFTools />
-</div>
+     
      
     </div>
 
